@@ -1,0 +1,499 @@
+-- MIMIC-IV v3.1 Heart Failure SQL Tutorial
+-- Queries correspond to Slides 3-12 of the submitted presentation
+-- Q1: Most common heart failure diagnoses in MIMIC-IV with percentage of all distinct HF admissions
+
+WITH hf_codes AS (
+    SELECT
+        dx.hadm_id,
+        dx.icd_version,
+        dx.icd_code,
+        UPPER(TRIM(dd.long_title)) AS diagnosis
+    FROM `physionet-data.mimiciv_3_1_hosp.diagnoses_icd` AS dx
+    INNER JOIN `physionet-data.mimiciv_3_1_hosp.d_icd_diagnoses` AS dd
+        ON dx.icd_code = dd.icd_code
+       AND dx.icd_version = dd.icd_version
+    WHERE
+          (dx.icd_version = 9 AND dx.icd_code LIKE '428%')
+       OR (dx.icd_version = 10 AND dx.icd_code LIKE 'I50%')
+),
+
+total_hf AS (
+    SELECT COUNT(DISTINCT hadm_id) AS total_hf_admissions
+    FROM hf_codes
+)
+
+SELECT
+    icd_version,
+    icd_code,
+    diagnosis,
+    COUNT(DISTINCT hadm_id) AS hf_admissions,
+    ROUND(
+        100.0 * COUNT(DISTINCT hadm_id) /
+        MAX(total_hf_admissions),
+        1
+    ) AS pct_of_hf_admissions
+FROM hf_codes
+CROSS JOIN total_hf
+GROUP BY
+    icd_version,
+    icd_code,
+    diagnosis
+ORDER BY
+    hf_admissions DESC;
+
+-- Q2: Age and gender distribution at first heart failure hospitalization
+
+WITH hf_admissions AS (
+    SELECT DISTINCT
+        subject_id,
+        hadm_id
+    FROM `physionet-data.mimiciv_3_1_hosp.diagnoses_icd`
+    WHERE
+          (icd_version = 9  AND icd_code LIKE '428%')
+       OR (icd_version = 10 AND icd_code LIKE 'I50%')
+),
+
+hf_patient_admissions AS (
+    SELECT
+        hf.subject_id,
+        hf.hadm_id,
+        p.gender,
+        a.age,
+        a.admittime,
+        ROW_NUMBER() OVER (
+            PARTITION BY hf.subject_id
+            ORDER BY a.admittime
+        ) AS admission_number
+    FROM hf_admissions AS hf
+    INNER JOIN `physionet-data.mimiciv_3_1_derived.age` AS a
+        ON hf.hadm_id = a.hadm_id
+    INNER JOIN `physionet-data.mimiciv_3_1_hosp.patients` AS p
+        ON hf.subject_id = p.subject_id
+)
+
+SELECT
+    CASE
+        WHEN age < 50 THEN '<50'
+        WHEN age BETWEEN 50 AND 64 THEN '50-64'
+        WHEN age BETWEEN 65 AND 79 THEN '65-79'
+        ELSE '80+'
+    END AS age_group,
+    gender,
+    COUNT(*) AS number_of_patients,
+    ROUND(AVG(age), 1) AS mean_age
+FROM hf_patient_admissions
+WHERE admission_number = 1
+GROUP BY
+    age_group,
+    gender
+ORDER BY
+    CASE age_group
+        WHEN '<50' THEN 1
+        WHEN '50-64' THEN 2
+        WHEN '65-79' THEN 3
+        WHEN '80+' THEN 4
+    END,
+    gender;
+
+-- Q3: Admission type and admission location for heart failure hospitalizations
+
+WITH hf_admissions AS (
+    SELECT DISTINCT
+        subject_id,
+        hadm_id
+    FROM `physionet-data.mimiciv_3_1_hosp.diagnoses_icd`
+    WHERE
+          (icd_version = 9  AND icd_code LIKE '428%')
+       OR (icd_version = 10 AND icd_code LIKE 'I50%')
+)
+
+SELECT
+    UPPER(TRIM(a.admission_type)) AS admission_type,
+    UPPER(TRIM(a.admission_location)) AS admission_location,
+    COUNT(DISTINCT a.hadm_id) AS number_of_admissions
+FROM hf_admissions AS hf
+INNER JOIN `physionet-data.mimiciv_3_1_hosp.admissions` AS a
+    ON hf.hadm_id = a.hadm_id
+GROUP BY
+    admission_type,
+    admission_location
+ORDER BY
+    number_of_admissions DESC;
+
+-- Q4: Length of stay for heart failure hospitalizations
+
+WITH hf_admissions AS (
+    SELECT DISTINCT
+        subject_id,
+        hadm_id
+    FROM `physionet-data.mimiciv_3_1_hosp.diagnoses_icd`
+    WHERE
+          (icd_version = 9  AND icd_code LIKE '428%')
+       OR (icd_version = 10 AND icd_code LIKE 'I50%')
+),
+
+hf_los AS (
+    SELECT
+        hf.subject_id,
+        hf.hadm_id,
+        TIMESTAMP_DIFF(
+            a.dischtime,
+            a.admittime,
+            MINUTE
+        ) / 1440.0 AS length_of_stay_days
+    FROM hf_admissions AS hf
+    INNER JOIN `physionet-data.mimiciv_3_1_hosp.admissions` AS a
+        ON hf.hadm_id = a.hadm_id
+    WHERE
+        a.admittime IS NOT NULL
+        AND a.dischtime IS NOT NULL
+        AND a.dischtime >= a.admittime
+)
+
+SELECT
+    CASE
+        WHEN length_of_stay_days < 3 THEN 'Short (<3 days)'
+        WHEN length_of_stay_days <= 7 THEN 'Medium (3-7 days)'
+        ELSE 'Long (>7 days)'
+    END AS los_group,
+
+    COUNT(*) AS number_of_admissions,
+
+    ROUND(
+        100.0 * COUNT(*) / SUM(COUNT(*)) OVER (),
+        1
+    ) AS pct_of_admissions,
+
+    ROUND(AVG(length_of_stay_days), 1) AS mean_los_days,
+    ROUND(MIN(length_of_stay_days), 1) AS min_los_days,
+    ROUND(MAX(length_of_stay_days), 1) AS max_los_days
+
+FROM hf_los
+GROUP BY los_group
+ORDER BY
+    CASE los_group
+        WHEN 'Short (<3 days)' THEN 1
+        WHEN 'Medium (3-7 days)' THEN 2
+        WHEN 'Long (>7 days)' THEN 3
+    END;
+
+-- Q5: Percentage of heart failure hospitalizations requiring ICU care
+
+WITH hf_admissions AS (
+    SELECT DISTINCT
+        subject_id,
+        hadm_id
+    FROM `physionet-data.mimiciv_3_1_hosp.diagnoses_icd`
+    WHERE
+          (icd_version = 9  AND icd_code LIKE '428%')
+       OR (icd_version = 10 AND icd_code LIKE 'I50%')
+),
+
+icu_admissions AS (
+    SELECT DISTINCT
+        hadm_id
+    FROM `physionet-data.mimiciv_3_1_icu.icustays`
+)
+
+SELECT
+    CASE
+        WHEN icu.hadm_id IS NOT NULL THEN 'ICU'
+        ELSE 'No ICU'
+    END AS icu_status,
+
+    COUNT(*) AS number_of_admissions,
+
+    ROUND(
+        100.0 * COUNT(*) / SUM(COUNT(*)) OVER (),
+        1
+    ) AS pct_of_hf_admissions
+
+FROM hf_admissions AS hf
+
+LEFT JOIN icu_admissions AS icu
+    ON hf.hadm_id = icu.hadm_id
+
+GROUP BY
+    icu_status
+
+ORDER BY
+    number_of_admissions DESC;
+
+-- Q6: ICU care units and ICU length of stay for heart failure hospitalizations
+
+WITH hf_admissions AS (
+    SELECT DISTINCT
+        subject_id,
+        hadm_id
+    FROM `physionet-data.mimiciv_3_1_hosp.diagnoses_icd`
+    WHERE
+          (icd_version = 9  AND icd_code LIKE '428%')
+       OR (icd_version = 10 AND icd_code LIKE 'I50%')
+)
+
+SELECT
+    UPPER(TRIM(icu.first_careunit)) AS first_icu_unit,
+
+    COUNT(*) AS number_of_icu_stays,
+
+    COUNT(DISTINCT icu.hadm_id) AS number_of_hospital_admissions,
+
+    ROUND(AVG(icu.los), 1) AS mean_icu_los_days,
+
+    ROUND(MIN(icu.los), 1) AS min_icu_los_days,
+
+    ROUND(MAX(icu.los), 1) AS max_icu_los_days
+
+FROM hf_admissions AS hf
+
+INNER JOIN `physionet-data.mimiciv_3_1_icu.icustays` AS icu
+    ON hf.hadm_id = icu.hadm_id
+
+WHERE
+    icu.los IS NOT NULL
+    AND icu.los >= 0
+    AND icu.first_careunit IS NOT NULL
+
+GROUP BY
+    first_icu_unit
+
+ORDER BY
+    number_of_icu_stays DESC;
+
+
+-- Q7: Most common comorbidities among heart failure hospitalizations
+
+WITH hf_admissions AS (
+    SELECT DISTINCT hadm_id
+    FROM `physionet-data.mimiciv_3_1_hosp.diagnoses_icd`
+    WHERE
+          (icd_version = 9  AND icd_code LIKE '428%')
+       OR (icd_version = 10 AND icd_code LIKE 'I50%')
+),
+
+hf_charlson AS (
+    SELECT c.*
+    FROM `physionet-data.mimiciv_3_1_derived.charlson` AS c
+    INNER JOIN hf_admissions AS hf
+        ON c.hadm_id = hf.hadm_id
+),
+
+comorbidity_rows AS (
+    SELECT
+        hadm_id,
+        condition.comorbidity,
+        condition.present
+    FROM hf_charlson,
+    UNNEST([
+        STRUCT('Renal disease' AS comorbidity, renal_disease AS present),
+        STRUCT('Chronic pulmonary disease', chronic_pulmonary_disease),
+        STRUCT('Diabetes',
+               GREATEST(diabetes_without_cc, diabetes_with_cc)),
+        STRUCT('Myocardial infarction', myocardial_infarct),
+        STRUCT('Peripheral vascular disease', peripheral_vascular_disease),
+        STRUCT('Cerebrovascular disease', cerebrovascular_disease),
+        STRUCT('Dementia', dementia),
+        STRUCT('Liver disease',
+               GREATEST(mild_liver_disease, severe_liver_disease)),
+        STRUCT('Malignancy',
+               GREATEST(malignant_cancer, metastatic_solid_tumor)),
+        STRUCT('Rheumatic disease', rheumatic_disease)
+    ]) AS condition
+)
+
+SELECT
+    comorbidity,
+    SUM(present) AS number_of_admissions,
+    ROUND(100.0 * AVG(present), 1) AS pct_of_hf_admissions
+FROM comorbidity_rows
+GROUP BY comorbidity
+ORDER BY number_of_admissions DESC;
+
+-- Q8: Most commonly prescribed medications during heart failure hospitalizations
+
+WITH hf_admissions AS (
+    SELECT DISTINCT
+        hadm_id
+    FROM `physionet-data.mimiciv_3_1_hosp.diagnoses_icd`
+    WHERE
+          (icd_version = 9  AND icd_code LIKE '428%')
+       OR (icd_version = 10 AND icd_code LIKE 'I50%')
+),
+
+hf_prescriptions AS (
+    SELECT
+        p.hadm_id,
+        UPPER(TRIM(p.drug)) AS drug
+    FROM `physionet-data.mimiciv_3_1_hosp.prescriptions` AS p
+    INNER JOIN hf_admissions AS hf
+        ON p.hadm_id = hf.hadm_id
+    WHERE
+        p.drug IS NOT NULL
+        AND TRIM(p.drug) != ''
+)
+
+SELECT
+    drug,
+    COUNT(DISTINCT hadm_id) AS number_of_admissions,
+    ROUND(
+        100.0 * COUNT(DISTINCT hadm_id)
+        / (SELECT COUNT(*) FROM hf_admissions),
+        1
+    ) AS pct_of_hf_admissions
+FROM hf_prescriptions
+GROUP BY drug
+ORDER BY number_of_admissions DESC
+LIMIT 20;
+
+-- Q9: Common blood laboratory tests with abnormal results during heart failure hospitalizations
+
+WITH hf_admissions AS (
+    SELECT DISTINCT hadm_id
+    FROM `physionet-data.mimiciv_3_1_hosp.diagnoses_icd`
+    WHERE
+          (icd_version = 9  AND icd_code LIKE '428%')
+       OR (icd_version = 10 AND icd_code LIKE 'I50%')
+),
+
+lab_by_admission AS (
+    SELECT
+        l.hadm_id,
+        UPPER(TRIM(d.label)) AS lab_test,
+        UPPER(TRIM(d.fluid)) AS fluid,
+
+        MAX(
+            CASE
+                WHEN LOWER(l.flag) = 'abnormal' THEN 1
+                ELSE 0
+            END
+        ) AS had_abnormal_result
+
+    FROM `physionet-data.mimiciv_3_1_hosp.labevents` AS l
+
+    INNER JOIN hf_admissions AS hf
+        ON l.hadm_id = hf.hadm_id
+
+    INNER JOIN `physionet-data.mimiciv_3_1_hosp.d_labitems` AS d
+        ON l.itemid = d.itemid
+
+    WHERE UPPER(TRIM(d.fluid)) = 'BLOOD'
+
+    GROUP BY
+        l.hadm_id,
+        lab_test,
+        fluid
+)
+
+SELECT
+    lab_test,
+    fluid,
+
+    COUNT(*) AS admissions_tested,
+
+    SUM(had_abnormal_result) AS admissions_with_abnormal_result,
+
+    ROUND(
+        100.0 * SUM(had_abnormal_result) / COUNT(*),
+        1
+    ) AS abnormal_admission_pct
+
+FROM lab_by_admission
+
+GROUP BY
+    lab_test,
+    fluid
+
+-- Include only tests performed in at least 10,000 HF admissions
+HAVING COUNT(*) >= 10000
+
+ORDER BY
+    abnormal_admission_pct DESC,
+    admissions_tested DESC
+
+LIMIT 20;
+
+-- Q10: In-hospital mortality and 30-day readmission among heart failure hospitalizations
+
+WITH hf_admissions AS (
+    SELECT DISTINCT hadm_id
+    FROM `physionet-data.mimiciv_3_1_hosp.diagnoses_icd`
+    WHERE
+          (icd_version = 9  AND icd_code LIKE '428%')
+       OR (icd_version = 10 AND icd_code LIKE 'I50%')
+),
+
+-- Calculate each patient's next hospital admission using the complete admissions timeline
+all_admissions AS (
+    SELECT
+        subject_id,
+        hadm_id,
+        admittime,
+        dischtime,
+        hospital_expire_flag,
+
+        LEAD(admittime) OVER (
+            PARTITION BY subject_id
+            ORDER BY admittime, hadm_id
+        ) AS next_admittime
+
+    FROM `physionet-data.mimiciv_3_1_hosp.admissions`
+),
+
+-- Restrict to valid heart-failure index admissions and determine whether a surviving patient was
+-- readmitted within 30 days
+hf_outcomes AS (
+    SELECT
+        a.hadm_id,
+        a.hospital_expire_flag,
+
+        CASE
+            WHEN a.hospital_expire_flag = 0
+             AND a.next_admittime IS NOT NULL
+             AND a.next_admittime > a.dischtime
+             AND TIMESTAMP_DIFF(
+                    a.next_admittime,
+                    a.dischtime,
+                    HOUR
+                 ) <= 30 * 24
+            THEN 1
+            ELSE 0
+        END AS readmitted_30_days
+
+    FROM all_admissions AS a
+
+    INNER JOIN hf_admissions AS hf
+        ON a.hadm_id = hf.hadm_id
+
+    WHERE
+        a.admittime IS NOT NULL
+        AND a.dischtime IS NOT NULL
+        AND a.dischtime >= a.admittime
+)
+
+SELECT
+    COUNT(*) AS total_hf_admissions,
+
+    SUM(hospital_expire_flag) AS in_hospital_deaths,
+
+    ROUND(
+        100.0 * SAFE_DIVIDE(
+            SUM(hospital_expire_flag),
+            COUNT(*)
+        ),
+        1
+    ) AS in_hospital_mortality_pct,
+
+    COUNTIF(hospital_expire_flag = 0) AS survived_to_discharge,
+
+    SUM(readmitted_30_days) AS readmitted_within_30_days,
+
+    ROUND(
+        100.0 * SAFE_DIVIDE(
+            SUM(readmitted_30_days),
+            COUNTIF(hospital_expire_flag = 0)
+        ),
+        1
+    ) AS readmission_30_day_pct
+
+FROM hf_outcomes;
+
