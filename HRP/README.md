@@ -158,6 +158,23 @@ The date-based age proxy and mapped older anchor ages are approximate. The
 source does not provide historical snapshots of administrative fields or
 definitive bedside visibility times for lab results.
 
+## Revalidate a saved run
+
+Run `uv run python src/validate_cohort_run.py` to verify the latest private
+run without querying BigQuery. Use `--run-dir` for an explicit run. The command
+checks the predictor contract, saved timing bounds, missingness indicators,
+seeded splits and descriptive outputs, then writes
+`private_audit/readiness_summary.json`.
+
+The optional `--check-source` flag re-reads only the admission and patient
+timelines, with a 100 MB billing cap per query. It verifies the primary
+cohort row for row and reports a sensitivity analysis. That analysis adds
+positive cases with a later qualifying non-overlapping return by day 30,
+on or before recorded death, after a primary exclusion for an immediate,
+overlapping, transfer, planned or ambiguous first return. Indices with
+unresolved follow-up stay excluded. The sensitivity analysis is descriptive
+and leaves the primary cohort, labels and partitions intact.
+
 ## Local artifacts and Experiment 1
 
 On macOS the default output directory is

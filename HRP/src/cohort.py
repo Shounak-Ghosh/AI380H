@@ -30,6 +30,16 @@ def admission_age(anchor_age, anchor_year, admittime):
 
 def build_cohort(admissions, patients):
     """Return eligible index admissions and mutually exclusive row-level flow counts."""
+    index, flow, _ = _build_cohort(admissions, patients, include_sensitivity=False)
+    return index, flow
+
+
+def audit_cohort(admissions, patients):
+    """Rebuild the primary cohort and count positives recovered by a broader endpoint."""
+    return _build_cohort(admissions, patients, include_sensitivity=True)
+
+
+def _build_cohort(admissions, patients, *, include_sensitivity):
     a = admissions.copy().reset_index(drop=True)
     p = patients.copy()
     for name in ("admittime", "dischtime", "deathtime"):
@@ -96,7 +106,36 @@ def build_cohort(admissions, patients):
             .rename_axis("disposition").reset_index(name="admissions"))
     columns = ["subject_id", "hadm_id", "admittime", "dischtime", "prediction_time",
                "hospital_expire_flag", "return_admittime", "eligible", *BASE_FEATURES, LABEL]
-    return eligible[columns].sort_values("hadm_id").reset_index(drop=True), flow
+    sensitivity = later_unplanned_returns(timeline, overlap, reason) if include_sensitivity else None
+    return eligible[columns].sort_values("hadm_id").reset_index(drop=True), flow, sensitivity
+
+
+def later_unplanned_returns(timeline, overlap, reason):
+    """Count excluded indices with a later, unambiguous positive before death."""
+    reasons = ["same_instant_return", "overlapping_return", "competing_transfer",
+               "competing_planned", "ambiguous_return"]
+    labels = reason.reindex(timeline.index)
+    excluded = timeline.loc[labels.isin(reasons), ["subject_id", "dischtime", "dod"]].copy()
+    excluded["disposition"] = labels
+    location = timeline.admission_location
+    qualifies = (timeline.admission_type.isin(UNPLANNED) & ~overlap & location.notna()
+                 & ~location.isin(TRANSFER_IN | {"INFORMATION NOT AVAILABLE"}))
+    candidates = timeline.loc[qualifies, ["subject_id", "admittime"]].rename(
+        columns={"admittime": "later_admittime"}
+    )
+    matched = pd.merge_asof(
+        excluded.sort_values("dischtime"), candidates.sort_values("later_admittime"),
+        left_on="dischtime", right_on="later_admittime", by="subject_id",
+        direction="forward", allow_exact_matches=False,
+    )
+    # The first return underlying each exclusion is itself nonqualifying.
+    matched["later_qualifying"] = (
+        (matched.later_admittime - matched.dischtime).le(HORIZON)
+        & (matched.dod.isna() | matched.later_admittime.dt.normalize().le(matched.dod))
+    )
+    return matched.groupby("disposition").later_qualifying.agg(
+        excluded="size", later_qualifying="sum"
+    ).reindex(reasons, fill_value=0).reset_index()
 
 
 def add_history(index, timeline):

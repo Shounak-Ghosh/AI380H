@@ -8,7 +8,7 @@ import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
-from cohort import LABEL, admission_age, build_cohort, partition, validate_cohort
+from cohort import LABEL, admission_age, audit_cohort, build_cohort, partition, validate_cohort
 from features import LAB_ITEMS, assemble
 
 
@@ -107,6 +107,63 @@ class CohortTests(unittest.TestCase):
         _, flow = self.build(admission(1), dod="2150-01-15")
         self.assertEqual(flow["death_before_30d"], 1)
 
+    def test_missing_return_categories_are_ambiguous(self):
+        for overrides in [{"kind": None}, {"admission_location": None},
+                          {"admission_location": "INFORMATION NOT AVAILABLE"}]:
+            with self.subTest(overrides=overrides):
+                result, flow = self.build(
+                    admission(1), admission(2, DISCHARGE + pd.Timedelta("1d"), **overrides)
+                )
+                self.assertNotIn(1, result.index)
+                self.assertEqual(flow["ambiguous_return"], 1)
+
+    def test_death_date_boundaries(self):
+        deadline = DISCHARGE + pd.Timedelta("30d")
+        for dod, retained in [(deadline.normalize(), False),
+                              ((deadline + pd.Timedelta("1d")).normalize(), True)]:
+            with self.subTest(dod=dod):
+                result, _ = self.build(admission(1), dod=dod)
+                self.assertEqual(1 in result.index, retained)
+        result, _ = self.build(admission(1), admission(2, deadline), dod=deadline.normalize())
+        self.assertEqual(result.loc[1, LABEL], 1)
+        result, flow = self.build(admission(1), admission(2, deadline),
+                                  dod=(deadline - pd.Timedelta("1d")).normalize())
+        self.assertTrue(result.empty)
+        self.assertEqual(flow["death_before_30d"], 2)
+        _, flow = self.build(admission(1, deathtime=DISCHARGE))
+        self.assertEqual(flow["in_hospital_death_or_unknown"], 1)
+
+    def test_sensitivity_recovers_only_later_qualifying_returns(self):
+        deadline = DISCHARGE + pd.Timedelta("30d")
+        for candidate, dod, expected in [
+            (deadline, None, 1),
+            (deadline + pd.Timedelta("1s"), None, 0),
+            (deadline, (deadline - pd.Timedelta("1d")).normalize(), 0),
+        ]:
+            with self.subTest(candidate=candidate, dod=dod):
+                rows = pd.DataFrame([
+                    admission(4, candidate),
+                    admission(3, DISCHARGE + pd.Timedelta("4d"), kind=None),
+                    admission(2, DISCHARGE + pd.Timedelta("1d"), kind="ELECTIVE"),
+                    admission(1),
+                    admission(5, DISCHARGE + pd.Timedelta("2d"), subject_id=99),
+                ])
+                primary, flow = build_cohort(rows, patients(dod))
+                audited, audited_flow, sensitivity = audit_cohort(rows, patients(dod))
+                pd.testing.assert_frame_equal(primary, audited)
+                pd.testing.assert_frame_equal(flow, audited_flow)
+                self.assertEqual(sensitivity.set_index("disposition").loc[
+                    "competing_planned", "later_qualifying"
+                ], expected)
+
+    def test_negative_interval_invalidates_subject_timeline(self):
+        result, flow = self.build(
+            admission(1, end=START - pd.Timedelta("1s")), admission(2, DISCHARGE)
+        )
+        self.assertTrue(result.empty)
+        self.assertEqual(flow["invalid_admission_interval"], 1)
+        self.assertEqual(flow["incomplete_patient_timeline"], 1)
+
     def test_partitions_are_patient_disjoint_and_order_invariant(self):
         data = pd.DataFrame({"subject_id": [i // 2 for i in range(200)], "hadm_id": range(200)})
         splits = partition(data)
@@ -160,6 +217,9 @@ class LabSQLTests(unittest.TestCase):
                        "DATETIME_ADD(admittime, INTERVAL 24 HOUR)", "datetime(admittime, '+24 hours')"
                    ))
             labs = pd.read_sql_query(sql, db)
+            db.execute("DELETE FROM labevents")
+            db.executemany("INSERT INTO labevents VALUES (?,?,?,?,?,?,?,?)", reversed(rows))
+            pd.testing.assert_frame_equal(labs, pd.read_sql_query(sql, db))
         index, _ = build_cohort(pd.DataFrame([admission(1),
                                               admission(2, START + pd.Timedelta("3d"))]), patients())
         data = assemble(index, labs).set_index("hadm_id")
