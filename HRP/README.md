@@ -189,25 +189,107 @@ positive cells below 11 and apply complementary suppression to count tables.
 Review aggregates, plots and combinations of tables under the applicable
 PhysioNet DUA before sharing.
 
-In `02_readmission_models.ipynb`, point to the local run directory.
-
-```python
-import json
-from pathlib import Path
-import pandas as pd
-
-run = Path("/absolute/path/to/run-directory")
-schema = json.loads((run / "feature_schema.json").read_text())
-cohort = pd.read_parquet(run / "cohort.parquet")
-splits = pd.read_parquet(run / "splits.parquet")
-dataset = cohort.merge(splits, on=["subject_id", "hadm_id"], validate="1:1")
-predictors = [feature["name"] for feature in schema["features"]]
-train = dataset.loc[dataset["partition"].eq("train")]
-X_train = train[predictors]
-y_train = train[schema["label"]]
-```
-
 Splits use a seeded permutation of sorted unique patient IDs with 70/15/15
 patient targets and seed 380. All encounters for a patient share a partition.
-Prevalence is reported after splitting. Fit imputation, encoding, scaling or
-feature selection using training data only.
+
+# Experiment 1 modeling and SHAP
+
+From `HRP`, run `uv python install 3.12` and `uv sync --locked --python 3.12`.
+On macOS, install the OpenMP runtime with `brew install libomp` for the
+XGBoost CPU wheel. Open `src/02_readmission_models.ipynb` in VS Code with
+the HRP `.venv/bin/python` kernel. Modeling runs locally from saved Parquet
+files and uses neither a BigQuery connection nor Ollama.
+
+The notebook defaults to `MODE = "review"`. Set `MODEL_RUN` to an explicit
+private bundle or review the latest saved bundle under `OUTPUT_ROOT`.
+Set `MODE = "train"` to run Experiment 1. Set `COHORT_RUN` (or the
+`HRP_COHORT_RUN` environment variable) to a validated run path. With no
+explicit path, the notebook selects the latest `run-*` with a readiness
+manifest under `MIMIC_OUTPUT_DIR` and verifies its input checksums, outcome
+counts and original patient partitions. `MODE = "regenerate"` uses the
+saved fitted models with `RECOMPUTE_SHAP` and/or `REGENERATE_CASES` and
+writes a new bundle with the same fitted model ID. Use the original
+modeling code, locked software versions and cohort for regeneration.
+
+The command-line entry point uses the same implementation.
+
+```bash
+uv run --locked python src/run_models.py review
+uv run --locked python src/run_models.py train
+uv run --locked python src/run_models.py regenerate --recompute-shap --regenerate-cases
+uv run --locked python -m unittest discover -s tests
+```
+
+All three model commands support `--output-root`. Use `--cohort-run` to
+pin a validated cohort and `--model-run` to pin a saved bundle for review
+or regeneration. In an already synchronized environment,
+`uv run --offline --no-sync` uses the installed packages offline.
+
+## Fitting and evaluation
+
+The saved cohort schema defines the predictor list and outcome. Both
+pipelines fit median imputation and one-hot encoding on training data.
+Logistic Regression uses L2 regularization and scales numeric predictors.
+XGBoost uses CPU histogram trees and unscaled, median-filled predictors.
+Both preserve the existing missingness indicators and use uniform class
+weights. Select the best of two candidates in each family by validation
+average precision, then Brier score and candidate order.
+
+The validation analysis compares raw probabilities with out-of-fold
+sigmoid forecasts in three patient-disjoint folds. Use sigmoid
+calibration if it improves Brier score by at least 0.0001 and the fold
+and final slopes are positive. Select the F1-maximizing validation
+threshold, preferring the higher threshold in a tie. Favor XGBoost when
+its validation AP gain is at least 0.005, it wins in a majority of
+validation folds and its selected Brier score is within 0.001 of
+Logistic Regression or better. Select the model and thresholds before
+scoring the held-out test set. Report ROC-AUC, AP with test prevalence
+as a reference, threshold metrics and calibration, with 95% percentile
+intervals for ROC-AUC and AP from 300 patient-cluster bootstraps.
+[scikit-learn calibration documentation](https://scikit-learn.org/stable/modules/calibration.html)
+
+SHAP explains the raw model margin in log-odds. It uses a seeded sample
+of 64 training admissions as the reference and up to 1,000 test
+admissions for global summaries. Signed contributions for all one-hot
+columns of a categorical feature are summed, with separate contributions
+for explicit lab missingness indicators. The expected value plus those
+grouped contributions must reconstruct the model margin within an
+absolute tolerance of 0.0001. A sigmoid-adjusted risk, when selected,
+is a separate output from the additive explanation.
+[SHAP TreeExplainer documentation](https://shap.readthedocs.io/en/stable/generated/shap.TreeExplainer.html)
+
+## Private output and Experiment 2 handoff
+
+Bundles are written under `~/Library/Application Support/AI380H/MIMIC-IV/model-runs`
+by default. Override with `HRP_MODEL_OUTPUT_DIR` or `OUTPUT_ROOT` to use
+another owner-only directory outside Git and cloud sync. Each bundle
+contains the two fitted pipelines, any selected sigmoid calibrators,
+the source cohort and artifact checksums, software versions, validation
+predictions, test results, encoded feature maps, evaluation plots, SHAP
+reference and diagnostics, and the local case tables. Keep the bundle in
+the authorized local environment for Experiment 2.
+
+Experiment 2 can load the model metadata and private cases without
+retraining. From the HRP Python environment, with `src` on `sys.path`:
+
+```python
+from pathlib import Path
+import pandas as pd
+from run_models import verify_run
+
+run = Path("/absolute/path/to/private/models-run")
+manifest = verify_run(run)
+cases = pd.read_parquet(run / "explanation_cases.parquet")
+contributions = pd.read_parquet(run / "case_contributions.parquet")
+case_features = contributions.merge(cases, on="hadm_id", validate="m:1")
+```
+
+`explanation_cases.parquet` contains 24 admissions in each of the three
+test-risk tertiles, with 72 distinct patients. It records the final
+predicted risk, raw probability, original feature values, baseline,
+raw margin, reconstruction, and model ID. `case_contributions.parquet`
+contains one row per admission and original feature with its signed
+value, direction and rank. Use `feature_metadata.json` for display
+labels and units. `shap_reference.json` records the reference definition
+and `case_summary.json` records sampling rules, outcomes and limitations.
+Use `load_fitted` only with a trusted local bundle if inference is needed.
