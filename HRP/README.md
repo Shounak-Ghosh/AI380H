@@ -269,27 +269,94 @@ predictions, test results, encoded feature maps, evaluation plots, SHAP
 reference and diagnostics, and the local case tables. Keep the bundle in
 the authorized local environment for Experiment 2.
 
-Experiment 2 can load the model metadata and private cases without
-retraining. From the HRP Python environment, with `src` on `sys.path`:
+### Pinned inputs for Experiment 2
+
+Use model run `models-20261122T230904Z-511d7f06` and cohort run
+`run-20261122T212339Z-c71630d2`. The loader looks for that exact model run
+under `HRP_MODEL_OUTPUT_DIR` (or `MIMIC_OUTPUT_DIR/model-runs`) and verifies
+its full manifest digest and artifact checksums. An explicit `model_root`
+can point to another copy of the same bundle. The loader does not select
+the newest run. It reads the validated cases and references without loading
+fitted models, refreshing labels, or regenerating explanations.
+
+| Pinned file | SHA-256 |
+|---|---|
+| Model `manifest.json` | `072840d4f1b0ea5a3d3b26311de8a9d275d92751d1655201ce36c4fe46ab0756` |
+| Source `cohort.parquet` | `c622ff49a264ecfc027d014e7dc23f5cea91cf1b518fe8c8fa4ead1fbcc188da` |
+| Source `feature_schema.json` | `769177bf3ee85cf22b2e95418e24a8cb80c8d0b1771d8af401738e430edc587f` |
+
+The run used Python 3.12.11, scikit-learn 1.9.1, XGBoost 3.4.1, SHAP 0.54.1
+and pandas 2.3.3. The manifest also records the other package versions,
+the split-file checksum, the lockfile checksum and the modeling code hashes.
+
+From `03_llm_experiments.ipynb`, with `HRP/src` on `sys.path`:
 
 ```python
-from pathlib import Path
-import pandas as pd
-from run_models import verify_run
+from experiment2_inputs import load_explanation_cases
 
-run = Path("/absolute/path/to/private/models-run")
-manifest = verify_run(run)
-cases = pd.read_parquet(run / "explanation_cases.parquet")
-contributions = pd.read_parquet(run / "case_contributions.parquet")
-case_features = contributions.merge(cases, on="hadm_id", validate="m:1")
+provenance, cases = load_explanation_cases()
+case = cases[0]
+baseline = case.inputs("A")
+grounded = case.inputs("B")
+to_verify = case.inputs("C")
 ```
 
-`explanation_cases.parquet` contains 24 admissions in each of the three
-test-risk tertiles, with 72 distinct patients. It records the final
-predicted risk, raw probability, original feature values, baseline,
-raw margin, reconstruction, and model ID. `case_contributions.parquet`
-contains one row per admission and original feature with its signed
-value, direction and rank. Use `feature_metadata.json` for display
-labels and units. `shap_reference.json` records the reference definition
-and `case_summary.json` records sampling rules, outcomes and limitations.
-Use `load_fitted` only with a trusted local bundle if inference is needed.
+Use `case.case_id` for pairing runs locally. The loader uses
+`feature_metadata.json` for readable feature names and units,
+`explanation_cases.parquet` for the original values and final predicted
+risk, `case_contributions.parquet` for the signed ranks, and
+`shap_reference.json` for the reference metadata. The inputs omit observed
+outcomes and MIMIC identifiers. A missing original value is represented
+as `null`, with its separate model indicator retained where applicable.
+Keep the case payloads in the authorized local environment.
+
+The saved XGBoost run uses the raw classifier probability. Its logistic
+link maps the raw log-odds margin to the displayed risk. A candidate
+sigmoid was evaluated and left inactive. If reading the source table
+directly, `predicted_risk` is the final probability, `raw_probability` is
+the classifier probability and `raw_margin` is the pre-link log-odds.
+SHAP decomposes the raw margin as expected value plus the sum of grouped
+contributions. SHAP magnitudes are in log-odds. They cannot be read as
+percentage-point changes in risk. A positive contribution raises the raw
+margin relative to the training reference and a negative contribution
+lowers it. A clinically plausible explanation can still disagree with
+the fitted model. Attribution describes model behavior and establishes no
+causal clinical effect.
+
+| Condition | Experiment 2 input and release rule |
+|---|---|
+| A — Baseline | Supply only the observed feature values and final predicted risk. |
+| B — SHAP-grounded | Supply the same values and risk plus the expected value, output scale, and contributions ordered by absolute magnitude. Return the initial explanation. |
+| C — SHAP-verified | Supply the same input as B. Check the draft's driver claims against the saved original-feature keys, ranks and signs. Reject unsupported, reversed or causal claims. Allow one revision with the specific discrepancies, validate the revision, and use a deterministic explanation from the saved attributions if it still fails. Record the validation and fallback outcome separately from the explanation. |
+
+Use the same response shape for all three conditions. Ask for an
+`explanation` paragraph of two or three sentences, at most 90 words, and a
+`drivers` list of up to three ordered records with `feature` (the supplied
+feature key) and `direction` (`positive` or `negative`). The paragraph
+includes the estimated 30-day risk, describes the listed drivers as model
+associations and avoids treatment advice. For C, use the structured list
+for exact attribution checks and review the paragraph for unsupported
+wording. Passing the structured check alone cannot establish faithfulness
+of every sentence. Apply the same length and style to the verified fallback.
+
+### Reproducibility and review
+
+Reuse the saved 72 cases and contribution rows. The original sampler ranks
+the held-out test set by final risk, breaks probability ties by admission ID,
+and divides the ranking into tertiles. It samples 144 candidates per tertile
+with seed 382 and selects 24 distinct patients in each using seed 383.
+Selection rotates across lab availability, contribution direction patterns
+and leading features. It sets no quotas for those attributes. The reference
+is a seed-380 sample of 64 training admissions and the SHAP reconstruction
+tolerance is 0.0001 log-odds. To reproduce the selection for an audit,
+use `generate_cases()` with the pinned fitted model, source cohort, settings
+and saved test probabilities. The saved case order and references are the
+inputs for all downstream comparisons.
+
+The cases are a risk-stratified evaluation set from one hospital system.
+Case frequencies do not estimate cohort prevalence or model performance
+in a new population. Keep the model bundle and case-level artifacts local.
+The modeling notebook retains its evaluation outputs, including three
+individual-admission SHAP charts with feature labels and signed
+contributions. Review those charts in the authorized course context before
+any public redistribution. [MIMIC-IV data use agreement](https://physionet.org/content/mimiciv/view-dua/3.1/)
