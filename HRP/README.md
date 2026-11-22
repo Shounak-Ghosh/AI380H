@@ -53,3 +53,144 @@ Section 9 audits 12 patient triplets and rescores the recovered full run from `h
 
 ## Privacy
 This pilot uses independently generated fictional patients with artificial coefficients. For later MIMIC work, keep data and derived artifacts within an authorized environment and follow the applicable PhysioNet DUA.
+
+# MIMIC-IV readmission cohort
+
+## Setup and access
+
+From `HRP`, use the existing Python 3.12 environment with `uv sync --locked`.
+In VS Code, open `src/01_mimic_cohort.ipynb` and select the project’s
+`.venv/bin/python` interpreter. The cohort uses BigQuery, pandas, NumPy,
+PyArrow and Matplotlib from the locked environment.
+
+Use a credentialed PhysioNet account with the MIMIC-IV data use agreement and
+BigQuery dataset access. The ADC principal needs permission to create BigQuery
+jobs on the billing project (for example, BigQuery Job User), a billing-enabled
+project with the BigQuery API active, and dataset/table read access from
+PhysioNet. Use the existing local ADC. If setting it up on another machine,
+run `gcloud auth application-default login` using the approved account.
+If Google requires a quota project, run
+`gcloud auth application-default set-quota-project PROJECT_ID` with
+`serviceusage.services.use` on that project.
+
+The default billing project is `mimic-iii-iv-508014`. Override it with
+`MIMIC_BQ_PROJECT`, the CLI `--project` flag, or the notebook configuration.
+The input dataset is `physionet-data.mimiciv_3_1_hosp` in its reported BigQuery
+location. [PhysioNet access and release notes](https://physionet.org/content/mimiciv/3.1/)
+
+## Run or inspect
+
+The notebook defaults to schema inspection and dry runs. Set `RUN_COHORT = True`
+and run all cells to generate a new cohort. Set `EXISTING_RUN` to a saved run
+path to inspect aggregate results without calling BigQuery. The CLI uses
+the same code and SQL.
+
+```bash
+uv run python src/run_cohort.py
+uv run python src/run_cohort.py --run
+uv run python -m unittest discover -s tests
+```
+
+The four dry runs estimate about 15.28 GB combined at the observed source
+sizes. Execution enforces a 10 GiB maximum billed per query, including the
+unit audit and first-day lab extraction. To set a different budget, pass
+`--max-bytes-billed` or edit the notebook setting. The query cost audit
+records estimates, billed bytes and cache hits. Tests use fictional fixtures
+and require no Google credentials. The existing Ollama connection smoke
+script is available directly as `uv run python tests/test_local_model_connection.py`.
+
+## Cohort contract
+
+- **Index eligibility.** An adult at admission, using
+  `anchor_age + year(admittime) - anchor_year`, with a stay of at least
+  24 hours, known survival and no discharge to an acute hospital or psychiatric
+  facility. The long-term acute care discharge category remains eligible.
+  Keep repeat eligible stays. Reject missing IDs, all copies of
+  duplicate admission IDs, missing/negative intervals, and remaining encounters
+  for identifiable patients whose source timeline is compromised. Exclude both
+  sides of overlaps and ties at admission start. Treat encounters with the same
+  discharge and next admission instant as possible continuations.
+- **Outcome.** Label the first subsequent admission as a qualifying observed
+  event when it starts strictly after discharge and at or before 30 days,
+  is `DIRECT EMER.`, `EW EMER.`, or `URGENT`, and has a known non-transfer
+  source. Same-day returns with a positive gap qualify. Incoming hospital,
+  internal psychiatric, and ambulatory-surgery transfers, overlapping returns,
+  elective, same-day surgical and ambulatory observation encounters, and other
+  ambiguous first returns in the window are separate exclusions. Skilled nursing
+  facility referrals can qualify when the recorded admission type is acute.
+  A known death by the end of day 30 censors follow-up unless the qualifying
+  return occurs before or on the recorded death date. A later emergency after a
+  competing first encounter is outside this endpoint.
+- **History and baseline features.** Count valid observed encounters started
+  before the index and discharged no later than index admission. Compute elapsed
+  days from the most recent such discharge, missing for zero prior encounters.
+  Use age, recorded gender, admission type/location and insurance as baseline
+  features. Discharge information, date of death, outcome, identifiers, timestamps
+  and validation columns are outside the predictor allowlist.
+- **Labs.** Hematology WBC 51301, hemoglobin 51222, platelets 51265, and
+  chemistry sodium 50983, potassium 50971, creatinine 50912, BUN 51006,
+  glucose 50931 and bicarbonate 50882. The v3.1 item dictionary lists Blood
+  for all nine. These are CBC and routine blood chemistry definitions. In the
+  unit audit, the uncommon duplicate chemistry codes for creatinine, glucose,
+  potassium, sodium and BUN had no linked admission IDs. Whole-blood blood
+  gas or alternative methods are excluded. Official release notes document
+  that v3.1 corrected unintended item-ID changes in v3.0 to match v2.2.
+  This pipeline verifies the current dictionary and observed canonical units
+  for each run. [MIMIC-IV v3.1 release notes](https://physionet.org/content/mimiciv/3.1/#release-notes)
+- **Lab timing.** Require matching patient and hospital admission IDs,
+  admission ≤ chart time ≤ store time ≤ landmark. Use store time as a proxy
+  for result availability and select the earliest eligible chart time.
+  Resolve ties by store time, event ID and numeric value. Use verified units
+  without conversion. Exclude nonfinite, nonnumeric, negative and out-of-unit
+  values, and zeros outside cell counts. Preserve absent results and per-lab
+  missingness indicators. The first live run showed an upper tail in several
+  analytes, including bicarbonate and glucose. The private range audit records
+  central percentiles, extrema and review-threshold counts. These records have
+  no independent chart adjudication, so this cohort retains finite values in
+  the verified unit without upper clipping. [MIMIC-IV laboratory timestamp documentation](https://mimic.mit.edu/docs/iv/modules/hosp/labevents.html)
+
+Neither absence of a recorded return nor absence of a recorded death proves
+complete 30-day observation. MIMIC-IV captures one system and has a finite
+accrual window. Patient-level date shifting prevents applying a single maximum
+shifted calendar timestamp across patients. Observation exclusions and the
+24-hour stay requirement condition the population, limiting generalizability.
+The date-based age proxy and mapped older anchor ages are approximate. The
+source does not provide historical snapshots of administrative fields or
+definitive bedside visibility times for lab results.
+
+## Local artifacts and Experiment 1
+
+On macOS the default output directory is
+`~/Library/Application Support/AI380H/MIMIC-IV`. Each run gets an owner-only
+subdirectory. For another local volume, set `MIMIC_OUTPUT_DIR` or
+`--output-dir` to an owner-only directory outside Git and cloud sync.
+The restricted run holds `cohort.parquet`, `splits.parquet`,
+`feature_schema.json`, `private_audit/` and `aggregates/`. The notebook never
+displays patient rows. Clear outputs before committing and keep patient-level
+extracts, model artifacts and audit files local. Aggregate tables mask small
+positive cells below 11 and apply complementary suppression to count tables.
+Review aggregates, plots and combinations of tables under the applicable
+PhysioNet DUA before sharing.
+
+In `02_readmission_models.ipynb`, point to the local run directory.
+
+```python
+import json
+from pathlib import Path
+import pandas as pd
+
+run = Path("/absolute/path/to/run-directory")
+schema = json.loads((run / "feature_schema.json").read_text())
+cohort = pd.read_parquet(run / "cohort.parquet")
+splits = pd.read_parquet(run / "splits.parquet")
+dataset = cohort.merge(splits, on=["subject_id", "hadm_id"], validate="1:1")
+predictors = [feature["name"] for feature in schema["features"]]
+train = dataset.loc[dataset["partition"].eq("train")]
+X_train = train[predictors]
+y_train = train[schema["label"]]
+```
+
+Splits use a seeded permutation of sorted unique patient IDs with 70/15/15
+patient targets and seed 380. All encounters for a patient share a partition.
+Prevalence is reported after splitting. Fit imputation, encoding, scaling or
+feature selection using training data only.

@@ -218,3 +218,16 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Restricted MIMIC-IV data and derived HRP artifacts
+/HRP/data/
+/HRP/private/
+/HRP/models/
+/HRP/outputs/
+/HRP/artifacts/
+/HRP/.env*
+/HRP/**/application_default_credentials.json
+/HRP/**/*credentials*.json
+/HRP/**/*.parquet
+/HRP/**/*.pkl
+/HRP/**/*.joblib
