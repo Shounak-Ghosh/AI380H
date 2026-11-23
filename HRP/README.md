@@ -420,3 +420,80 @@ separately from deterministic fallbacks. The 72-case sample is deliberately
 risk-stratified within one hospital system. Attribution describes model
 behavior relative to the reference and supports no causal or clinical
 deployment conclusions.
+
+## Experiment 3 — Adversarial Faithfulness Challenge
+
+[04_adversarial_faithfulness.ipynb](src/04_adversarial_faithfulness.ipynb)
+tests whether Qwen3 tracks the current model when attributions conflict
+with prespecified intuitive expectations. Experiment 3 uses fictional
+profiles with age (years), prior admissions (count), creatinine (mg/dL),
+hemoglobin (g/dL), sodium (mmol/L), and heart rate (bpm). The synthetic
+logistic models adapt the pilot's per-unit weights. One variant flips
+creatinine (+0.80 to −0.80) and admissions (+0.44 to −0.44). Another flips
+age (+0.032 to −0.032) and heart rate (+0.014 to −0.014). The other slopes
+within each pair are shared. A common expected margin of −1.45 determines
+each model's raw intercept from the same background means.
+
+Seed 380 generates disjoint candidate pools and a shared 1,024-profile
+background. Interventional LinearExplainer references are tested against
+the linear formula, probability reconstruction and margin additivity
+at absolute tolerance 1e-8. Both targeted features must change from at
+least +0.12 to at most −0.12 raw log-odds. Matching keeps feature values
+fixed and supplies the model-specific probabilities. The probability can
+therefore indirectly cue a model change even in A.
+
+Within each reversal family, sampling cycles through eligible strata
+defined by pair-mean risk (cutoff 25%), mixed direction in either
+variant, and conflicting importance in either variant. Mixed direction
+requires at least one contribution of +0.12 or more and one of −0.12 or
+less among the top three. Conflicting importance requires creatinine or
+age, depending on the family, outside the top three with magnitude at
+most 0.16 and an absolute gap of at least 0.24 from the leading feature.
+The manifest reports eligibility, selection, model-specific attributions
+and the overlapping challenge attributes.
+
+A receives the feature values, labels, units and probability. B also
+receives SHAP. C checks the exact B draft using the Experiment 2 verifier.
+C can request one Qwen3 revision and use the deterministic fallback.
+Separate results distinguish Qwen3's accepted revisions from final
+system delivery. The analysis reports signed top-three agreement, rank,
+structured and narrative errors, explicit intuitive-direction
+substitution, and within-profile direction switches. The paired
+counterintuitive-minus-intuitive contrasts use a 10,000-replicate
+profile-cluster bootstrap (seed 380). A sensitivity analysis counts
+terminal failures as zero on bounded agreement metrics. Omitted
+features, explicit abstentions, and unverifiable claims are reported.
+The narrative verifier's grammar can miss claims or leave them
+ambiguous. An independent fictional probe set illustrates those limits.
+
+The notebook defaults to auto mode. It reviews a completed run offline
+or displays setup without requesting inference. Explicit fictional mode
+exercises scripted A/B/C responses. Explicit real mode starts or resumes
+local Qwen3 8B on the full synthetic sample. The runner validates the
+model digest, input fingerprints, shared implementations, and scenario
+manifest checksum. Set an optional cumulative call cap with
+`--max-calls` and a per-invocation limit with `--runtime-seconds`.
+A recorded failed request is a terminal observation. An interruption
+during an uncommitted Ollama response may require repeating that call.
+
+```bash
+uv run --locked python -m unittest discover -s tests
+uv run --locked python src/adversarial_runner.py setup
+uv run --locked python src/adversarial_runner.py fictional
+uv run --locked python src/adversarial_runner.py real
+uv run --locked python src/adversarial_runner.py review
+```
+
+CLI exports are owner-only, outside Git, and default to
+`~/Library/Application Support/AI380H/MIMIC-IV/llm-runs/experiment3-adversarial/`
+in the respective `qwen3-v1` and `fictional-v1` directories. Set
+`--directory` to use a different dedicated private directory. The
+bundle includes a scenario manifest, resumable checkpoint, case and
+aggregate analyses, five figures and a checksummed run index. Set
+`SAVE_BUNDLE = True` in the notebook to export from it.
+
+The optional aggregate-only screen reads the pinned XGBoost sample
+from existing private SHAP files. Its flags are exploratory and remain
+outside the matched synthetic H3 analysis. The synthetic coefficients
+encode experimental assumptions and support no clinical or causal
+conclusions. Neither pipeline requires changes to Experiment 2.

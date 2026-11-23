@@ -1,0 +1,56 @@
+from pathlib import Path
+import sys
+from tempfile import TemporaryDirectory
+import unittest
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+
+from adversarial_analysis import feature_claim, paired_intervals
+from adversarial_runner import notebook_run
+from adversarial_scenarios import explanation_cases
+from llm_verification import Answer, Driver
+from narrative_verifier import verify_narrative
+
+
+class AdversarialAnalysisTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        with TemporaryDirectory() as directory:
+            cls.experiment = notebook_run("fictional", directory=directory, replicates=100)
+
+    def test_expected_matched_contrasts_and_outcomes(self):
+        result = self.experiment["result"]
+        contrasts = [r for r in result["paired"] if r["stratum"] == "all"
+                     and r["metric"] == "signed_top_three_agreement" and r["policy"] == "valid_pairs"]
+        self.assertEqual([r["pairs"] for r in contrasts], [2, 2, 2])
+        self.assertEqual([r["mean_difference"] for r in contrasts], [0, -1, 0])
+        self.assertEqual(sum(r["outcome"] == "clinical_expectation_substitution"
+                             for r in result["feature_claims"] if r["condition"] == "B"), 2)
+        self.assertEqual(sum(r["outcome"] == "retained_intuitive_direction"
+                             for r in result["switches"] if r["condition"] == "B"), 2)
+        self.assertEqual(sum(r["outcome"] == "correct_switch"
+                             for r in result["switches"] if r["condition"] == "C"), 4)
+
+    def test_failed_output_in_sensitivity_not_complete_case(self):
+        rows = [dict(r) for r in self.experiment["result"]["case_metrics"]]
+        row = next(r for r in rows if r["condition"] == "B" and r["variant"] == "counterintuitive")
+        row.update(status="parse_error", signed_top_three_agreement=None, exact_top_three_ordering=None)
+        intervals = paired_intervals(rows, replicates=200)
+        self.assertEqual(intervals, paired_intervals(rows[::-1], replicates=200))
+        selected = [r for r in intervals if r["stratum"] == "all" and r["condition"] == "B"
+                    and r["metric"] == "signed_top_three_agreement"]
+        self.assertEqual([r["pairs"] for r in selected], [1, 2])
+        self.assertEqual([r["mean_difference"] for r in selected], [-1, -2])
+
+    def test_ambiguous_prose_is_unverifiable(self):
+        manifest = self.experiment["manifest"]
+        case = explanation_cases(manifest)[1]
+        feature = next(r for r in case.shap["contributions"] if r["direction"] == "negative"
+                       and r["feature"] in manifest["records"][1]["targeted_features"])
+        answer = Answer(f"{feature['label']}, which raises predicted risk, may be relevant.",
+                        (Driver(feature["feature"], "negative"),))
+        narrative = verify_narrative(case, answer)
+        claim = feature_claim(case, answer, narrative, feature, "positive", "ok")
+        self.assertEqual(claim["outcome"], "unverifiable")
+        self.assertTrue(claim["ambiguous_feature_prose"])
+        self.assertEqual(claim["structured_outcome"], "model_faithful")
