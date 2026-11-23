@@ -16,11 +16,13 @@ import numpy as np
 from experiment2_scoring import CONDITIONS, UNSUPPORTED, score_experiment
 from experiment2_smoke import run_smoke
 from llm_runner import CHECKPOINT_VERSION, Ollama, run_experiment
-from llm_verification import Answer, Driver, PROMPT_VERSION
+from llm_verification import Answer, Driver, PROMPT_VERSION, fingerprint
 from narrative_verifier import verify_narrative
 
 
-ANALYSIS_VERSION = "experiment2-analysis-v1"
+ANALYSIS_VERSION = "experiment2-analysis-v2"
+ORIGINAL_CHECKPOINT_SHA256 = "42038ff9ceef439a3bb8797b419869ed7638610173c36e18f4a9631f122a047a"
+ORIGINAL_REVIEW_SELECTION_SHA256 = "43b60a9846abc28dbb7475303cd8c2dd4f4c9968e8a3086b2879104c11422d38"
 BOOTSTRAP_SEED = 380
 BOOTSTRAP_REPLICATES = 10_000
 REVIEW_SEED = 383
@@ -249,6 +251,86 @@ def select_review_examples(state, seed=REVIEW_SEED):
     return {label: sorted(ids)[int(rng.integers(len(ids)))] for label, ids in sorted(candidates.items())}
 
 
+# These interpretations were checked against the original selected responses and traces.
+ORIGINAL_REVIEW_FINDINGS = {
+    "correct structured drivers": (
+        "unresolved_ambiguity",
+        "The signs and order were correct. A grouped clause did not make clear which listed features shared the stated direction.",
+    ),
+    "incorrect structured drivers": (
+        "mathematical_contradiction",
+        "A feature outside the reference top three replaced an influential feature. The remaining prose also used modifiers the parser did not resolve.",
+    ),
+    "narrative contradiction": (
+        "parser_limitation",
+        "A generic statement about model-influencing features triggered the unsupported-feature rule. The phrase did not name a false feature, and the signed JSON drivers matched.",
+    ),
+    "ambiguous prose": (
+        "parser_limitation",
+        "A list used a shared decreasing predicate. All listed features had negative reference signs, but the verifier did not distribute the predicate across the list.",
+    ),
+    "accepted revision": (
+        "parser_limitation",
+        "The revision gave each feature a directional clause. Its short pronouns had a clear predicted-risk antecedent and all three signs matched.",
+    ),
+    "deterministic fallback": (
+        "parser_limitation",
+        "The revision retained correct drivers but embedded the first direction in a relative clause. The deterministic output provided explicit directions for all three.",
+    ),
+}
+
+
+def _review_response(condition, stage, text, audit):
+    audit = audit or {}
+    narrative = audit.get("narrative") or {}
+    return {
+        "condition": condition, "stage": stage, "response_text": text,
+        "structured_attribution": audit.get("structured"),
+        "verification_status": audit.get("status"),
+        "narrative_status": narrative.get("passed"),
+        "narrative_claims": narrative.get("claims"),
+        "missing_prose_drivers": audit.get("missing_prose_drivers"),
+    }
+
+
+def manual_review_entries(state, checkpoint_sha256, selection):
+    """Attach private saved evidence. Historical interpretations require an exact source match."""
+    traces = {row["case_id"]: row["verification"] for row in state["records"].values()
+              if row.get("verification")}
+    historical = (checkpoint_sha256 == ORIGINAL_CHECKPOINT_SHA256
+                  and fingerprint(selection) == ORIGINAL_REVIEW_SELECTION_SHA256)
+    entries = []
+    for criterion, case_id in selection.items():
+        trace = traces.get(case_id, {})
+        responses = [_review_response("B", "original", trace.get("original_raw"), trace.get("original"))]
+        if criterion in ("accepted revision", "deterministic fallback"):
+            revision_call = trace.get("revision_call") or {}
+            responses.append(_review_response("C", "revision", revision_call.get("raw"), trace.get("revision")))
+        if criterion == "deterministic fallback":
+            answer = trace.get("answer") or {}
+            responses.append(_review_response("C", "fallback", answer.get("explanation"),
+                                              trace.get("fallback_validation")))
+        evidence_complete = all(
+            row["response_text"] is not None and row["structured_attribution"] is not None
+            and row["narrative_claims"] is not None and row["verification_status"] is not None
+            for row in responses
+        )
+        finding = ORIGINAL_REVIEW_FINDINGS.get(criterion) if historical and evidence_complete else None
+        review_note = None
+        if not evidence_complete:
+            review_note = "Saved response or verification trace is incomplete."
+        elif not finding:
+            review_note = "The original interpretations apply only to the fingerprinted benchmark and selection."
+        entries.append({
+            "selection_criterion": criterion, "case_id": case_id, "responses": responses,
+            "review_status": "verified_against_checkpoint" if finding else "needs_review",
+            "issue_classification": finding[0] if finding else None,
+            "manual_interpretation": finding[1] if finding else None,
+            "review_note": review_note,
+        })
+    return entries
+
+
 def analyze(run):
     """Derive aggregate tables and private scoring rows without modifying the run."""
     score, state = run["score"], run["state"]
@@ -292,6 +374,7 @@ def analyze(run):
                                                                         for c in a["narrative"]["claims"]))
                                             for a in audits),
     }
+    selection = select_review_examples(state)
     return {
         "operations": score["operations"], "structured": structured, "narrative": prose,
         "rejections": rejection_rows(traces), "grounded_audit": grounded_audit,
@@ -300,16 +383,18 @@ def analyze(run):
                          [{"outcome": "verified_complete", "count": sum(v["status"] == "verified_complete" for v in traces)}],
         "costs": inference_costs(records), "paired": paired_intervals(score["per_case"]),
         "by_condition_and_source": score["by_condition_and_source"],
-        "private_scores": score["per_case"], "review_selection": select_review_examples(state),
+        "private_scores": score["per_case"], "review_selection": selection,
+        "private_review_entries": manual_review_entries(state, run["checkpoint_sha256"], selection),
     }
 
 
-def save_analysis(directory, result, checkpoint_sha256, run_manifest, figures, *, manual_observations=None):
+def save_analysis(directory, result, checkpoint_sha256, run_manifest, figures):
     """Write a new owner-only derived bundle. The original checkpoint is never opened for writing."""
     directory = Path(directory).expanduser().resolve()
     _outside_git(directory)
     directory.parent.mkdir(mode=0o700, parents=True, exist_ok=True)
     directory.mkdir(mode=0o700)
+    review_entries = result["private_review_entries"]
     manifest = {
         "checkpoint_sha256": checkpoint_sha256, "analysis_version": ANALYSIS_VERSION,
         "analysis_code_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
@@ -317,7 +402,9 @@ def save_analysis(directory, result, checkpoint_sha256, run_manifest, figures, *
         "scorer_version": run_manifest["scorer_version"], "bootstrap_seed": BOOTSTRAP_SEED,
         "bootstrap_replicates": BOOTSTRAP_REPLICATES, "analysis_timestamp": datetime.now(timezone.utc).isoformat(),
         "manual_review": {"seed": REVIEW_SEED, "selection": "One case per criterion; overlap allowed",
-                          "observations_included": manual_observations is not None},
+                          "entries": len(review_entries),
+                          "verified_observations": sum(entry["review_status"] == "verified_against_checkpoint"
+                                                       for entry in review_entries)},
     }
     bundles = {
         "experiment2_analysis_manifest.json": manifest,
@@ -325,7 +412,7 @@ def save_analysis(directory, result, checkpoint_sha256, run_manifest, figures, *
                                       ("operations", "grounded_audit", "narrative", "costs", "by_condition_and_source")},
         "experiment2_case_scores.private.json": result["private_scores"],
         "experiment2_manual_review.private.json": {
-            "selection": result["review_selection"], "observations": manual_observations,
+            "selection": result["review_selection"], "entries": review_entries,
         },
     }
     for name, content in bundles.items():

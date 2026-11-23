@@ -9,11 +9,12 @@ from unittest.mock import Mock, patch
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 from experiment2_analysis import (
-    analyze, inference_costs, notebook_run, paired_intervals, read_checkpoint, rejection_rows, save_analysis,
+    analyze, inference_costs, manual_review_entries, notebook_run, paired_intervals, read_checkpoint,
+    rejection_rows, save_analysis,
 )
 from experiment2_smoke import fictional_cases
 from llm_runner import ModelConfig, run_experiment
-from llm_verification import case_fingerprints, deterministic_answer
+from llm_verification import case_fingerprints, deterministic_answer, fingerprint
 
 
 class AnalysisTests(unittest.TestCase):
@@ -94,8 +95,39 @@ class AnalysisTests(unittest.TestCase):
             self.assertEqual(read_checkpoint(path)[1], run["checkpoint_sha256"])
             manifest = json.loads((directory / "experiment2_analysis_manifest.json").read_text())
             self.assertEqual(manifest["checkpoint_sha256"], run["checkpoint_sha256"])
+            audit_path = directory / "experiment2_manual_review.private.json"
+            self.assertEqual(audit_path.stat().st_mode & 0o777, 0o600)
+            entry, = json.loads(audit_path.read_text())["entries"]
+            self.assertEqual(entry["review_status"], "needs_review")
+            self.assertIsNone(entry["manual_interpretation"])
+            self.assertEqual(entry["responses"][0]["condition"], "B")
             with self.assertRaises(FileExistsError):
                 save_analysis(directory, analysis, run["checkpoint_sha256"], run["state"]["manifest"], {})
+
+    def test_manual_review_evidence_preserves_distinct_stages(self):
+        case = fictional_cases()[0]
+        raw = '\n{"explanation":"A fictional claim.","drivers":[]} \n'
+        with tempfile.TemporaryDirectory() as directory:
+            run = run_experiment([case], Mock(side_effect=[raw, raw, raw]), directory)
+        record = next(row for row in run["records"].values() if row["condition"] == "C")
+        selection = {"deterministic fallback": case.case_id}
+        with patch("experiment2_analysis.ORIGINAL_CHECKPOINT_SHA256", "fixture"), \
+             patch("experiment2_analysis.ORIGINAL_REVIEW_SELECTION_SHA256", fingerprint(selection)):
+            entry, = manual_review_entries(run, "fixture", selection)
+            self.assertEqual(entry["review_status"], "verified_against_checkpoint")
+            original, revision, fallback = entry["responses"]
+            self.assertEqual((original["condition"], original["stage"], original["response_text"]),
+                             ("B", "original", raw))
+            self.assertEqual((revision["condition"], revision["stage"], revision["response_text"]),
+                             ("C", "revision", raw))
+            self.assertEqual(fallback["response_text"], record["verification"]["answer"]["explanation"])
+            self.assertEqual(fallback["structured_attribution"], record["verification"]["fallback_validation"]["structured"])
+            self.assertEqual(fallback["verification_status"], "verified_complete")
+            self.assertTrue(fallback["narrative_claims"])
+            record["verification"]["revision_call"] = None
+            incomplete, = manual_review_entries(run, "fixture", selection)
+            self.assertEqual(incomplete["review_status"], "needs_review")
+            self.assertIsNone(incomplete["manual_interpretation"])
 
     def test_review_with_missing_checkpoint_does_not_load_cases_or_discover(self):
         with tempfile.TemporaryDirectory() as root, \
