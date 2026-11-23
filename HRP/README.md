@@ -361,91 +361,62 @@ individual-admission SHAP charts with feature labels and signed
 contributions. Review those charts in the authorized course context before
 any public redistribution. [MIMIC-IV data use agreement](https://physionet.org/content/mimiciv/view-dua/3.1/)
 
-## Experiment 2A fictional validation
+## Experiment 2 — LLM Explanation Faithfulness
 
-Open [03_llm_experiments.ipynb](src/03_llm_experiments.ipynb) with the HRP
-Python kernel and run all cells, or run these commands from `HRP`.
+[03_llm_experiments.ipynb](src/03_llm_experiments.ipynb) compares baseline
+Qwen3 explanations (A), SHAP-grounded drafts (B), and the verified
+system output (C) on the pinned 72-case XGBoost sample described above.
+C checks the exact B draft, allows one correction, and uses a
+deterministic explanation if the correction fails.
+
+### Review and analysis
+
+The notebook defaults to `MODE = "review"` and makes no Ollama requests.
+It reads the completed private `MIMIC-IV/checkpoint.json` and verifies
+the pinned provenance, case fingerprints, versions and paired records.
+Set `REVIEW_CHECKPOINT` to review another completed owner-only checkpoint.
+The historical checkpoint stays at its original location.
+
+The results cover structured agreement, narrative-verifier coverage,
+interventions, and inference latency. Paired differences include fixed-seed
+95% bootstrap intervals and a sensitivity analysis that scores invalid
+outputs as failures on bounded attribution metrics. The original run used
+216 requests and produced 214 valid final outputs. Eight Qwen3 revisions
+passed. Sixty-four C outputs used deterministic fallback.
+
+Leave `ANALYSIS_EXPORT_DIRECTORY` unset for read-only review. Set it to a
+new private directory outside Git to export tables, aggregate figures,
+the source-checkpoint checksum and versioned metadata. Case-level scores
+and manual-review selection remain in the owner-only analysis bundle.
+Generated prose and patient-level inputs stay inside the authorized
+local environment.
+
+### Fictional validation and real execution
+
+Use `MODE = "fictional"` or the smoke command to validate the workflow with
+scripted responses and fabricated cases. The offline suite needs neither
+Ollama nor MIMIC-IV data.
 
 ```bash
 uv run --locked python -m unittest discover -s tests
 uv run --locked python src/experiment2_smoke.py
 ```
 
-Use `--no-sync` with the locked commands if the environment is already
-synchronized and package cache writes or network access are unavailable.
-The smoke command uses eight fictional cases and scripted inference. It
-pauses at a four-call cap, resumes, and checks that a completed resume
-makes zero additional calls. It prints the path to its private checkpoint.
-Use `--output /absolute/path/outside/git` to choose a fresh directory.
+Use `MODE = "real"` only to start or resume a benchmark. Set
+`REAL_RUN_DIRECTORY` to a dedicated absolute directory outside Git, such
+as `~/Library/Application Support/AI380H/MIMIC-IV/llm-runs/experiment2-qwen3-replication`
+after expanding `~`. The notebook requires a local model digest and uses
+the pinned inputs. The same run directory resumes a pause atomically.
+A completed checkpoint is reviewed without new inference. Real execution
+does not target the original checkpoint's directory.
 
-A and B share the patient features, predicted probability, and response
-contract. B additionally receives the saved SHAP reference and directions
-on the raw log-odds scale. The response is a JSON object with exactly an
-`explanation` string and a `drivers` array of up to three unique
-`{"feature": "...", "direction": "positive|negative"}` objects. The
-90-word limit is enforced and deviations from two or three sentences
-are recorded as warnings. An ordered subset of the reference top three,
-including an empty list, permits abstention. Absolute contributions at
-or below `1e-8` raw log-odds are negligible. The saved rank breaks exact
-magnitude ties in the structured list.
+### Interpretation limits
 
-C starts from B's exact response. The narrative verifier checks explicit
-feature directions, ranks, driver conflicts, reported probability,
-simple observations, and recognizable clinical, causal, and scale
-errors. Unparsed or qualified language is recorded as ambiguous.
-These rules measure coverage of a controlled grammar and require
-separate review for unfamiliar wording. C makes at most one correction
-attempt and rechecks it. A rejected correction or unavailable grounded
-draft yields a separately labeled deterministic fallback.
-
-To try local Qwen3 on fictional inputs, call
-`run_experiment(fictional_cases()[:1], Ollama.discover(), output_directory)`
-with the imports shown in the notebook. Discovery records the installed
-model digest when available. The generation defaults use `qwen3:8b`,
-temperature 0, seed 42, 4,096 context tokens, up to 512 output tokens,
-and a 90-second request timeout.
-
-Use the same owner-only directory to resume. Each checkpoint stores
-input fingerprints, configuration, raw and parsed responses, per-call
-latency, verification traces, and outcomes. Atomic writes and an
-exclusive directory lock preserve completed requests. The call cap
-counts attempts across invocations and can be raised for a paused run.
-The runtime budget applies per invocation, with remaining time passed
-to the adapter as a request timeout. Recorded failures are terminal
-observations. An interruption between Ollama receiving a request and
-the runner writing its response can require replaying that request.
-
-The Experiment 2A notebook exercises only the fictional workflow. The
-72-case benchmark is a later run.
-
-## Experiment 2B preflight and real benchmark
-
-A and B continue to accept partial driver lists and abstentions. In C,
-`correct_incomplete` means that the checked claims and listed drivers are
-correct, with at least one reference top feature missing from the driver
-list or its explicit direction missing from the prose. C attempts a
-revision in this case and uses a deterministic answer if the revision
-also fails completeness or correctness. All stages retain their own
-verification status, and the original B response is preserved verbatim.
-
-`experiment2_scoring.score_experiment(cases, checkpoint)` uses identical
-non-negligible reference drivers for A, B and C. Rank-position and exact
-order metrics compare feature keys. Signed agreement also requires the
-reference direction. Narrative counts operate on clauses, so a sign error
-and JSON conflict in one clause count as one contradiction. The scorer
-reports unsupported claims, ambiguous clauses, parse and inference failures,
-interventions, and request latency. Paired differences are right condition
-minus left condition and use case pairs with scorable outputs on both
-sides. Failure and exclusion counts remain visible. Source strata
-distinguish independent A/B generations, accepted B drafts, model
-revisions, and deterministic fallbacks. C's call count includes only its
-revision requests.
-
-The notebook defaults to fictional data. For the later real benchmark,
-explicitly enable `RUN_REAL_BENCHMARK` and set `REAL_OUTPUT_DIRECTORY`.
-The notebook loads the pinned cases through `load_explanation_cases()`,
-uses local Ollama with a recorded model digest, and displays aggregate
-results. Use the same directory to resume a paused run. The checkpoint
-stores prompt, verifier and scorer versions, input fingerprints, the
-pinned provenance and model configuration. Start a fresh directory for
-checkpoints from Experiment 2A or any incompatible configuration.
+A and B permit abstention. C requires the full set of non-negligible
+top-three drivers and explicit supported directions in prose. Ambiguous or
+unparsed prose triggers intervention and lowers parser coverage. It is
+unverified rather than automatically false. Report accepted revisions
+separately from deterministic fallbacks. The 72-case sample is deliberately
+risk-stratified within one hospital system. Attribution describes model
+behavior relative to the reference and supports no causal or clinical
+deployment conclusions.
