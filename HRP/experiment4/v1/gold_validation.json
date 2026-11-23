@@ -1,0 +1,21 @@
+{
+  "examples": 180,
+  "references": 12,
+  "clusters": 6,
+  "groups": {
+    "A": 60,
+    "B": 60,
+    "C": 60
+  },
+  "gold_counts": {
+    "faithful": 104,
+    "unfaithful": 68,
+    "indeterminate": 8
+  },
+  "max_residuals": {
+    "additivity": 8.881784197001252e-16,
+    "logit": 1.6653345369377348e-16,
+    "feature_formula": 0.0
+  },
+  "challenge_sha256": "64840e4744bab0fe457767056cc474856144db5c4a27198f8ad0364508abfd36"
+}

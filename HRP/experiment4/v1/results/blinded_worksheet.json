@@ -1,0 +1,2882 @@
+[
+  {
+    "review_id": "review-01",
+    "raw": "{\"drivers\":[{\"direction\":\"positive\",\"feature\":\"prior_admissions\"},{\"direction\":\"positive\",\"feature\":\"creatinine\"},{\"direction\":\"negative\",\"feature\":\"age\"}],\"text\":\"The model estimates a 41.49% readmission probability. prior_admissions increases the model's predicted risk, while creatinine increases the model's predicted risk, while age decreases the model's predicted risk.\"}",
+    "reference": {
+      "features": [
+        {
+          "name": "age",
+          "label": "Age",
+          "unit": "years",
+          "value": 66
+        },
+        {
+          "name": "prior_admissions",
+          "label": "Prior hospital admissions",
+          "unit": "admissions",
+          "value": 3
+        },
+        {
+          "name": "creatinine",
+          "label": "Creatinine",
+          "unit": "mg/dL",
+          "value": 1.625
+        },
+        {
+          "name": "hemoglobin",
+          "label": "Hemoglobin",
+          "unit": "g/dL",
+          "value": 12.5
+        },
+        {
+          "name": "sodium",
+          "label": "Sodium",
+          "unit": "mmol/L",
+          "value": 136
+        },
+        {
+          "name": "heart_rate",
+          "label": "Heart rate",
+          "unit": "bpm",
+          "value": 89
+        }
+      ],
+      "predicted_risk": 0.4148988460228549,
+      "shap": {
+        "expected_value": -1.875,
+        "output_scale": "raw_log_odds_of_readmission",
+        "contributions": [
+          {
+            "feature": "prior_admissions",
+            "label": "Prior hospital admissions",
+            "shap": 0.8125,
+            "rank": 1,
+            "direction": "positive"
+          },
+          {
+            "feature": "creatinine",
+            "label": "Creatinine",
+            "shap": 0.8125,
+            "rank": 2,
+            "direction": "positive"
+          },
+          {
+            "feature": "age",
+            "label": "Age",
+            "shap": -0.28125,
+            "rank": 3,
+            "direction": "negative"
+          },
+          {
+            "feature": "hemoglobin",
+            "label": "Hemoglobin",
+            "shap": 0.125,
+            "rank": 4,
+            "direction": "positive"
+          },
+          {
+            "feature": "sodium",
+            "label": "Sodium",
+            "shap": 0.0625,
+            "rank": 5,
+            "direction": "positive"
+          },
+          {
+            "feature": "heart_rate",
+            "label": "Heart rate",
+            "shap": 9.313225746154785e-10,
+            "rank": 6,
+            "direction": "negligible"
+          }
+        ]
+      }
+    },
+    "reviewer_1": null,
+    "reviewer_2": null,
+    "adjudication": null
+  },
+  {
+    "review_id": "review-02",
+    "raw": "{\"drivers\":[{\"direction\":\"positive\",\"feature\":\"age\"},{\"direction\":\"negative\",\"feature\":\"prior_admissions\"},{\"direction\":\"negative\",\"feature\":\"creatinine\"}],\"explanation\":\"The model estimates a 52.34% readmission probability. age, which decreases the model's predicted risk, is among the three leading drivers; prior_admissions, which increases the model's predicted risk, is among the three leading drivers; creatinine, which decreases the model's predicted risk, is among the three leading drivers.\"}",
+    "reference": {
+      "features": [
+        {
+          "name": "age",
+          "label": "Age",
+          "unit": "years",
+          "value": 70
+        },
+        {
+          "name": "prior_admissions",
+          "label": "Prior hospital admissions",
+          "unit": "admissions",
+          "value": 2
+        },
+        {
+          "name": "creatinine",
+          "label": "Creatinine",
+          "unit": "mg/dL",
+          "value": 1.875
+        },
+        {
+          "name": "hemoglobin",
+          "label": "Hemoglobin",
+          "unit": "g/dL",
+          "value": 12.5
+        },
+        {
+          "name": "sodium",
+          "label": "Sodium",
+          "unit": "mmol/L",
+          "value": 136
+        },
+        {
+          "name": "heart_rate",
+          "label": "Heart rate",
+          "unit": "bpm",
+          "value": 91
+        }
+      ],
+      "predicted_risk": 0.5234203491686439,
+      "shap": {
+        "expected_value": -1.625,
+        "output_scale": "raw_log_odds_of_readmission",
+        "contributions": [
+          {
+            "feature": "age",
+            "label": "Age",
+            "shap": 0.9375,
+            "rank": 1,
+            "direction": "positive"
+          },
+          {
+            "feature": "prior_admissions",
+            "label": "Prior hospital admissions",
+            "shap": 0.9375,
+            "rank": 2,
+            "direction": "positive"
+          },
+          {
+            "feature": "creatinine",
+            "label": "Creatinine",
+            "shap": -0.34375,
+            "rank": 3,
+            "direction": "negative"
+          },
+          {
+            "feature": "hemoglobin",
+            "label": "Hemoglobin",
+            "shap": 0.125,
+            "rank": 4,
+            "direction": "positive"
+          },
+          {
+            "feature": "sodium",
+            "label": "Sodium",
+            "shap": 0.0625,
+            "rank": 5,
+            "direction": "positive"
+          },
+          {
+            "feature": "heart_rate",
+            "label": "Heart rate",
+            "shap": 9.313225746154785e-10,
+            "rank": 6,
+            "direction": "negligible"
+          }
+        ]
+      }
+    },
+    "reviewer_1": null,
+    "reviewer_2": null,
+    "adjudication": null
+  },
+  {
+    "review_id": "review-03",
+    "raw": "{\"drivers\":[{\"direction\":\"negative\",\"feature\":\"creatinine\"},{\"direction\":\"negative\",\"feature\":\"age\"},{\"direction\":\"positive\",\"feature\":\"prior_admissions\"}],\"explanation\":\"The model estimates a 5.18% readmission probability. prior_admissions increases the model's predicted risk, while creatinine and age decrease the model's predicted risk.\"}",
+    "reference": {
+      "features": [
+        {
+          "name": "age",
+          "label": "Age",
+          "unit": "years",
+          "value": 68
+        },
+        {
+          "name": "prior_admissions",
+          "label": "Prior hospital admissions",
+          "unit": "admissions",
+          "value": 4
+        },
+        {
+          "name": "creatinine",
+          "label": "Creatinine",
+          "unit": "mg/dL",
+          "value": 1.75
+        },
+        {
+          "name": "hemoglobin",
+          "label": "Hemoglobin",
+          "unit": "g/dL",
+          "value": 12.5
+        },
+        {
+          "name": "sodium",
+          "label": "Sodium",
+          "unit": "mmol/L",
+          "value": null
+        },
+        {
+          "name": "heart_rate",
+          "label": "Heart rate",
+          "unit": "bpm",
+          "value": 90
+        }
+      ],
+      "predicted_risk": 0.05184546660399831,
+      "shap": {
+        "expected_value": -1.71875,
+        "output_scale": "raw_log_odds_of_readmission",
+        "contributions": [
+          {
+            "feature": "creatinine",
+            "label": "Creatinine",
+            "shap": -0.875,
+            "rank": 1,
+            "direction": "negative"
+          },
+          {
+            "feature": "age",
+            "label": "Age",
+            "shap": -0.5,
+            "rank": 2,
+            "direction": "negative"
+          },
+          {
+            "feature": "prior_admissions",
+            "label": "Prior hospital admissions",
+            "shap": 0.3125,
+            "rank": 3,
+            "direction": "positive"
+          },
+          {
+            "feature": "hemoglobin",
+            "label": "Hemoglobin",
+            "shap": -0.125,
+            "rank": 4,
+            "direction": "negative"
+          },
+          {
+            "feature": "heart_rate",
+            "label": "Heart rate",
+            "shap": -9.313225746154785e-10,
+            "rank": 5,
+            "direction": "negligible"
+          },
+          {
+            "feature": "sodium",
+            "label": "Sodium",
+            "shap": 0,
+            "rank": 6,
+            "direction": "negligible"
+          }
+        ]
+      }
+    },
+    "reviewer_1": null,
+    "reviewer_2": null,
+    "adjudication": null
+  },
+  {
+    "review_id": "review-04",
+    "raw": "{\"drivers\":[{\"direction\":\"negative\",\"feature\":\"prior_admissions\"},{\"direction\":\"positive\",\"feature\":\"age\"}],\"explanation\":\"The model estimates a 6.19% readmission probability. prior_admissions decreases the model's predicted risk, while creatinine decreases the model's predicted risk, while age increases the model's predicted risk.\"}",
+    "reference": {
+      "features": [
+        {
+          "name": "age",
+          "label": "Age",
+          "unit": "years",
+          "value": 72
+        },
+        {
+          "name": "prior_admissions",
+          "label": "Prior hospital admissions",
+          "unit": "admissions",
+          "value": 3
+        },
+        {
+          "name": "creatinine",
+          "label": "Creatinine",
+          "unit": "mg/dL",
+          "value": 2.0
+        },
+        {
+          "name": "hemoglobin",
+          "label": "Hemoglobin",
+          "unit": "g/dL",
+          "value": 12.5
+        },
+        {
+          "name": "sodium",
+          "label": "Sodium",
+          "unit": "mmol/L",
+          "value": null
+        },
+        {
+          "name": "heart_rate",
+          "label": "Heart rate",
+          "unit": "bpm",
+          "value": 92
+        }
+      ],
+      "predicted_risk": 0.06187598566958194,
+      "shap": {
+        "expected_value": -1.46875,
+        "output_scale": "raw_log_odds_of_readmission",
+        "contributions": [
+          {
+            "feature": "prior_admissions",
+            "label": "Prior hospital admissions",
+            "shap": -1.0,
+            "rank": 1,
+            "direction": "negative"
+          },
+          {
+            "feature": "creatinine",
+            "label": "Creatinine",
+            "shap": -0.5,
+            "rank": 2,
+            "direction": "negative"
+          },
+          {
+            "feature": "age",
+            "label": "Age",
+            "shap": 0.375,
+            "rank": 3,
+            "direction": "positive"
+          },
+          {
+            "feature": "hemoglobin",
+            "label": "Hemoglobin",
+            "shap": -0.125,
+            "rank": 4,
+            "direction": "negative"
+          },
+          {
+            "feature": "heart_rate",
+            "label": "Heart rate",
+            "shap": -9.313225746154785e-10,
+            "rank": 5,
+            "direction": "negligible"
+          },
+          {
+            "feature": "sodium",
+            "label": "Sodium",
+            "shap": 0,
+            "rank": 6,
+            "direction": "negligible"
+          }
+        ]
+      }
+    },
+    "reviewer_1": null,
+    "reviewer_2": null,
+    "adjudication": null
+  },
+  {
+    "review_id": "review-05",
+    "raw": "{\"drivers\":[{\"direction\":\"positive\",\"feature\":\"age\"},{\"direction\":\"positive\",\"feature\":\"prior_admissions\"},{\"direction\":\"negative\",\"feature\":\"creatinine\"}],\"explanation\":\"The model estimates a 29.42% readmission probability. Relative to the reference, age shifts modeled log-odds upward; Relative to the reference, prior_admissions shifts modeled log-odds upward; Relative to the reference, creatinine shifts modeled log-odds downward.\"}",
+    "reference": {
+      "features": [
+        {
+          "name": "age",
+          "label": "Age",
+          "unit": "years",
+          "value": 64
+        },
+        {
+          "name": "prior_admissions",
+          "label": "Prior hospital admissions",
+          "unit": "admissions",
+          "value": 2
+        },
+        {
+          "name": "creatinine",
+          "label": "Creatinine",
+          "unit": "mg/dL",
+          "value": 1.5
+        },
+        {
+          "name": "hemoglobin",
+          "label": "Hemoglobin",
+          "unit": "g/dL",
+          "value": 12.5
+        },
+        {
+          "name": "sodium",
+          "label": "Sodium",
+          "unit": "mmol/L",
+          "value": null
+        },
+        {
+          "name": "heart_rate",
+          "label": "Heart rate",
+          "unit": "bpm",
+          "value": 88
+        }
+      ],
+      "predicted_risk": 0.2942149723563803,
+      "shap": {
+        "expected_value": -2.0,
+        "output_scale": "raw_log_odds_of_readmission",
+        "contributions": [
+          {
+            "feature": "age",
+            "label": "Age",
+            "shap": 0.75,
+            "rank": 1,
+            "direction": "positive"
+          },
+          {
+            "feature": "prior_admissions",
+            "label": "Prior hospital admissions",
+            "shap": 0.5,
+            "rank": 2,
+            "direction": "positive"
+          },
+          {
+            "feature": "creatinine",
+            "label": "Creatinine",
+            "shap": -0.25,
+            "rank": 3,
+            "direction": "negative"
+          },
+          {
+            "feature": "hemoglobin",
+            "label": "Hemoglobin",
+            "shap": 0.125,
+            "rank": 4,
+            "direction": "positive"
+          },
+          {
+            "feature": "heart_rate",
+            "label": "Heart rate",
+            "shap": 9.313225746154785e-10,
+            "rank": 5,
+            "direction": "negligible"
+          },
+          {
+            "feature": "sodium",
+            "label": "Sodium",
+            "shap": 0,
+            "rank": 6,
+            "direction": "negligible"
+          }
+        ]
+      }
+    },
+    "reviewer_1": null,
+    "reviewer_2": null,
+    "adjudication": null
+  },
+  {
+    "review_id": "review-06",
+    "raw": "{\"drivers\":[{\"direction\":\"negative\",\"feature\":\"prior_admissions\"},{\"direction\":\"negative\",\"feature\":\"creatinine\"},{\"direction\":\"negative\",\"feature\":\"hemoglobin\"}],\"explanation\":\"The model estimates a 3.31% readmission probability. prior_admissions decreases the model's predicted risk, while creatinine decreases the model's predicted risk, while age increases the model's predicted risk.\"}",
+    "reference": {
+      "features": [
+        {
+          "name": "age",
+          "label": "Age",
+          "unit": "years",
+          "value": 66
+        },
+        {
+          "name": "prior_admissions",
+          "label": "Prior hospital admissions",
+          "unit": "admissions",
+          "value": 3
+        },
+        {
+          "name": "creatinine",
+          "label": "Creatinine",
+          "unit": "mg/dL",
+          "value": 1.625
+        },
+        {
+          "name": "hemoglobin",
+          "label": "Hemoglobin",
+          "unit": "g/dL",
+          "value": 12.5
+        },
+        {
+          "name": "sodium",
+          "label": "Sodium",
+          "unit": "mmol/L",
+          "value": 136
+        },
+        {
+          "name": "heart_rate",
+          "label": "Heart rate",
+          "unit": "bpm",
+          "value": 89
+        }
+      ],
+      "predicted_risk": 0.03308597835890988,
+      "shap": {
+        "expected_value": -1.84375,
+        "output_scale": "raw_log_odds_of_readmission",
+        "contributions": [
+          {
+            "feature": "prior_admissions",
+            "label": "Prior hospital admissions",
+            "shap": -0.8125,
+            "rank": 1,
+            "direction": "negative"
+          },
+          {
+            "feature": "creatinine",
+            "label": "Creatinine",
+            "shap": -0.8125,
+            "rank": 2,
+            "direction": "negative"
+          },
+          {
+            "feature": "age",
+            "label": "Age",
+            "shap": 0.28125,
+            "rank": 3,
+            "direction": "positive"
+          },
+          {
+            "feature": "hemoglobin",
+            "label": "Hemoglobin",
+            "shap": -0.125,
+            "rank": 4,
+            "direction": "negative"
+          },
+          {
+            "feature": "sodium",
+            "label": "Sodium",
+            "shap": -0.0625,
+            "rank": 5,
+            "direction": "negative"
+          },
+          {
+            "feature": "heart_rate",
+            "label": "Heart rate",
+            "shap": -9.313225746154785e-10,
+            "rank": 6,
+            "direction": "negligible"
+          }
+        ]
+      }
+    },
+    "reviewer_1": null,
+    "reviewer_2": null,
+    "adjudication": null
+  },
+  {
+    "review_id": "review-07",
+    "raw": "{\"drivers\":[{\"direction\":\"positive\",\"feature\":\"age\"},{\"direction\":\"positive\",\"feature\":\"prior_admissions\"},{\"direction\":\"negative\",\"feature\":\"creatinine\"}],\"explanation\":\"The model estimates a 52.34% readmission probability. age decreases the model's predicted risk, and prior_admissions increases the model's predicted risk, and creatinine decreases the model's predicted risk.\"}",
+    "reference": {
+      "features": [
+        {
+          "name": "age",
+          "label": "Age",
+          "unit": "years",
+          "value": 70
+        },
+        {
+          "name": "prior_admissions",
+          "label": "Prior hospital admissions",
+          "unit": "admissions",
+          "value": 2
+        },
+        {
+          "name": "creatinine",
+          "label": "Creatinine",
+          "unit": "mg/dL",
+          "value": 1.875
+        },
+        {
+          "name": "hemoglobin",
+          "label": "Hemoglobin",
+          "unit": "g/dL",
+          "value": 12.5
+        },
+        {
+          "name": "sodium",
+          "label": "Sodium",
+          "unit": "mmol/L",
+          "value": 136
+        },
+        {
+          "name": "heart_rate",
+          "label": "Heart rate",
+          "unit": "bpm",
+          "value": 91
+        }
+      ],
+      "predicted_risk": 0.5234203491686439,
+      "shap": {
+        "expected_value": -1.625,
+        "output_scale": "raw_log_odds_of_readmission",
+        "contributions": [
+          {
+            "feature": "age",
+            "label": "Age",
+            "shap": 0.9375,
+            "rank": 1,
+            "direction": "positive"
+          },
+          {
+            "feature": "prior_admissions",
+            "label": "Prior hospital admissions",
+            "shap": 0.9375,
+            "rank": 2,
+            "direction": "positive"
+          },
+          {
+            "feature": "creatinine",
+            "label": "Creatinine",
+            "shap": -0.34375,
+            "rank": 3,
+            "direction": "negative"
+          },
+          {
+            "feature": "hemoglobin",
+            "label": "Hemoglobin",
+            "shap": 0.125,
+            "rank": 4,
+            "direction": "positive"
+          },
+          {
+            "feature": "sodium",
+            "label": "Sodium",
+            "shap": 0.0625,
+            "rank": 5,
+            "direction": "positive"
+          },
+          {
+            "feature": "heart_rate",
+            "label": "Heart rate",
+            "shap": 9.313225746154785e-10,
+            "rank": 6,
+            "direction": "negligible"
+          }
+        ]
+      }
+    },
+    "reviewer_1": null,
+    "reviewer_2": null,
+    "adjudication": null
+  },
+  {
+    "review_id": "review-08",
+    "raw": "{\"drivers\":[{\"direction\":\"positive\",\"feature\":\"prior_admissions\"},{\"direction\":\"positive\",\"feature\":\"creatinine\"},{\"direction\":\"negative\",\"feature\":\"age\"}],\"explanation\":\"The model estimates a 41.49% readmission probability. prior_admissions increases the model's predicted risk, while creatinine increases it and age decreases that same estimate.\"}",
+    "reference": {
+      "features": [
+        {
+          "name": "age",
+          "label": "Age",
+          "unit": "years",
+          "value": 66
+        },
+        {
+          "name": "prior_admissions",
+          "label": "Prior hospital admissions",
+          "unit": "admissions",
+          "value": 3
+        },
+        {
+          "name": "creatinine",
+          "label": "Creatinine",
+          "unit": "mg/dL",
+          "value": 1.625
+        },
+        {
+          "name": "hemoglobin",
+          "label": "Hemoglobin",
+          "unit": "g/dL",
+          "value": 12.5
+        },
+        {
+          "name": "sodium",
+          "label": "Sodium",
+          "unit": "mmol/L",
+          "value": 136
+        },
+        {
+          "name": "heart_rate",
+          "label": "Heart rate",
+          "unit": "bpm",
+          "value": 89
+        }
+      ],
+      "predicted_risk": 0.4148988460228549,
+      "shap": {
+        "expected_value": -1.875,
+        "output_scale": "raw_log_odds_of_readmission",
+        "contributions": [
+          {
+            "feature": "prior_admissions",
+            "label": "Prior hospital admissions",
+            "shap": 0.8125,
+            "rank": 1,
+            "direction": "positive"
+          },
+          {
+            "feature": "creatinine",
+            "label": "Creatinine",
+            "shap": 0.8125,
+            "rank": 2,
+            "direction": "positive"
+          },
+          {
+            "feature": "age",
+            "label": "Age",
+            "shap": -0.28125,
+            "rank": 3,
+            "direction": "negative"
+          },
+          {
+            "feature": "hemoglobin",
+            "label": "Hemoglobin",
+            "shap": 0.125,
+            "rank": 4,
+            "direction": "positive"
+          },
+          {
+            "feature": "sodium",
+            "label": "Sodium",
+            "shap": 0.0625,
+            "rank": 5,
+            "direction": "positive"
+          },
+          {
+            "feature": "heart_rate",
+            "label": "Heart rate",
+            "shap": 9.313225746154785e-10,
+            "rank": 6,
+            "direction": "negligible"
+          }
+        ]
+      }
+    },
+    "reviewer_1": null,
+    "reviewer_2": null,
+    "adjudication": null
+  },
+  {
+    "review_id": "review-09",
+    "raw": "{\"drivers\":[{\"direction\":\"negative\",\"feature\":\"age\"},{\"direction\":\"negative\",\"feature\":\"prior_admissions\"},{\"direction\":\"positive\",\"feature\":\"creatinine\"}],\"explanation\":\"The model estimates a 3.51% readmission probability. age decreases the model's predicted risk, while prior_admissions decreases the model's predicted risk, while creatinine increases the model's predicted risk. That one outweighed the rest.\"}",
+    "reference": {
+      "features": [
+        {
+          "name": "age",
+          "label": "Age",
+          "unit": "years",
+          "value": 70
+        },
+        {
+          "name": "prior_admissions",
+          "label": "Prior hospital admissions",
+          "unit": "admissions",
+          "value": 2
+        },
+        {
+          "name": "creatinine",
+          "label": "Creatinine",
+          "unit": "mg/dL",
+          "value": 1.875
+        },
+        {
+          "name": "hemoglobin",
+          "label": "Hemoglobin",
+          "unit": "g/dL",
+          "value": 12.5
+        },
+        {
+          "name": "sodium",
+          "label": "Sodium",
+          "unit": "mmol/L",
+          "value": 136
+        },
+        {
+          "name": "heart_rate",
+          "label": "Heart rate",
+          "unit": "bpm",
+          "value": 91
+        }
+      ],
+      "predicted_risk": 0.03514484636921241,
+      "shap": {
+        "expected_value": -1.59375,
+        "output_scale": "raw_log_odds_of_readmission",
+        "contributions": [
+          {
+            "feature": "age",
+            "label": "Age",
+            "shap": -0.9375,
+            "rank": 1,
+            "direction": "negative"
+          },
+          {
+            "feature": "prior_admissions",
+            "label": "Prior hospital admissions",
+            "shap": -0.9375,
+            "rank": 2,
+            "direction": "negative"
+          },
+          {
+            "feature": "creatinine",
+            "label": "Creatinine",
+            "shap": 0.34375,
+            "rank": 3,
+            "direction": "positive"
+          },
+          {
+            "feature": "hemoglobin",
+            "label": "Hemoglobin",
+            "shap": -0.125,
+            "rank": 4,
+            "direction": "negative"
+          },
+          {
+            "feature": "sodium",
+            "label": "Sodium",
+            "shap": -0.0625,
+            "rank": 5,
+            "direction": "negative"
+          },
+          {
+            "feature": "heart_rate",
+            "label": "Heart rate",
+            "shap": -9.313225746154785e-10,
+            "rank": 6,
+            "direction": "negligible"
+          }
+        ]
+      }
+    },
+    "reviewer_1": null,
+    "reviewer_2": null,
+    "adjudication": null
+  },
+  {
+    "review_id": "review-10",
+    "raw": "{\"drivers\":[{\"direction\":\"negative\",\"feature\":\"prior_admissions\"},{\"direction\":\"negative\",\"feature\":\"creatinine\"},{\"direction\":\"positive\",\"feature\":\"age\"}],\"explanation\":\"The model estimates a 6.19% readmission probability. prior_admissions, which decreases the model's predicted risk, is among the three leading drivers; creatinine, which decreases the model's predicted risk, is among the three leading drivers; age, which increases the model's predicted risk, is among the three leading drivers.\"}",
+    "reference": {
+      "features": [
+        {
+          "name": "age",
+          "label": "Age",
+          "unit": "years",
+          "value": 72
+        },
+        {
+          "name": "prior_admissions",
+          "label": "Prior hospital admissions",
+          "unit": "admissions",
+          "value": 3
+        },
+        {
+          "name": "creatinine",
+          "label": "Creatinine",
+          "unit": "mg/dL",
+          "value": 2.0
+        },
+        {
+          "name": "hemoglobin",
+          "label": "Hemoglobin",
+          "unit": "g/dL",
+          "value": 12.5
+        },
+        {
+          "name": "sodium",
+          "label": "Sodium",
+          "unit": "mmol/L",
+          "value": null
+        },
+        {
+          "name": "heart_rate",
+          "label": "Heart rate",
+          "unit": "bpm",
+          "value": 92
+        }
+      ],
+      "predicted_risk": 0.06187598566958194,
+      "shap": {
+        "expected_value": -1.46875,
+        "output_scale": "raw_log_odds_of_readmission",
+        "contributions": [
+          {
+            "feature": "prior_admissions",
+            "label": "Prior hospital admissions",
+            "shap": -1.0,
+            "rank": 1,
+            "direction": "negative"
+          },
+          {
+            "feature": "creatinine",
+            "label": "Creatinine",
+            "shap": -0.5,
+            "rank": 2,
+            "direction": "negative"
+          },
+          {
+            "feature": "age",
+            "label": "Age",
+            "shap": 0.375,
+            "rank": 3,
+            "direction": "positive"
+          },
+          {
+            "feature": "hemoglobin",
+            "label": "Hemoglobin",
+            "shap": -0.125,
+            "rank": 4,
+            "direction": "negative"
+          },
+          {
+            "feature": "heart_rate",
+            "label": "Heart rate",
+            "shap": -9.313225746154785e-10,
+            "rank": 5,
+            "direction": "negligible"
+          },
+          {
+            "feature": "sodium",
+            "label": "Sodium",
+            "shap": 0,
+            "rank": 6,
+            "direction": "negligible"
+          }
+        ]
+      }
+    },
+    "reviewer_1": null,
+    "reviewer_2": null,
+    "adjudication": null
+  },
+  {
+    "review_id": "review-11",
+    "raw": "{\"drivers\":[{\"direction\":\"positive\",\"feature\":\"prior_admissions\"},{\"direction\":\"positive\",\"feature\":\"creatinine\"},{\"direction\":\"negative\",\"feature\":\"age\"}],\"explanation\":\"The model estimates a 43.78% readmission probability. Relative to the reference, prior_admissions shifts modeled log-odds upward; Relative to the reference, creatinine shifts modeled log-odds upward; Relative to the reference, age shifts modeled log-odds downward.\"}",
+    "reference": {
+      "features": [
+        {
+          "name": "age",
+          "label": "Age",
+          "unit": "years",
+          "value": 72
+        },
+        {
+          "name": "prior_admissions",
+          "label": "Prior hospital admissions",
+          "unit": "admissions",
+          "value": 3
+        },
+        {
+          "name": "creatinine",
+          "label": "Creatinine",
+          "unit": "mg/dL",
+          "value": 2.0
+        },
+        {
+          "name": "hemoglobin",
+          "label": "Hemoglobin",
+          "unit": "g/dL",
+          "value": 12.5
+        },
+        {
+          "name": "sodium",
+          "label": "Sodium",
+          "unit": "mmol/L",
+          "value": null
+        },
+        {
+          "name": "heart_rate",
+          "label": "Heart rate",
+          "unit": "bpm",
+          "value": 92
+        }
+      ],
+      "predicted_risk": 0.437823499343432,
+      "shap": {
+        "expected_value": -1.5,
+        "output_scale": "raw_log_odds_of_readmission",
+        "contributions": [
+          {
+            "feature": "prior_admissions",
+            "label": "Prior hospital admissions",
+            "shap": 1.0,
+            "rank": 1,
+            "direction": "positive"
+          },
+          {
+            "feature": "creatinine",
+            "label": "Creatinine",
+            "shap": 0.5,
+            "rank": 2,
+            "direction": "positive"
+          },
+          {
+            "feature": "age",
+            "label": "Age",
+            "shap": -0.375,
+            "rank": 3,
+            "direction": "negative"
+          },
+          {
+            "feature": "hemoglobin",
+            "label": "Hemoglobin",
+            "shap": 0.125,
+            "rank": 4,
+            "direction": "positive"
+          },
+          {
+            "feature": "heart_rate",
+            "label": "Heart rate",
+            "shap": 9.313225746154785e-10,
+            "rank": 5,
+            "direction": "negligible"
+          },
+          {
+            "feature": "sodium",
+            "label": "Sodium",
+            "shap": 0,
+            "rank": 6,
+            "direction": "negligible"
+          }
+        ]
+      }
+    },
+    "reviewer_1": null,
+    "reviewer_2": null,
+    "adjudication": null
+  },
+  {
+    "review_id": "review-12",
+    "raw": "{\"drivers\":[],\"explanation\":\"The model estimates a 6.19% readmission probability. I decline to identify the model's drivers.\"}",
+    "reference": {
+      "features": [
+        {
+          "name": "age",
+          "label": "Age",
+          "unit": "years",
+          "value": 72
+        },
+        {
+          "name": "prior_admissions",
+          "label": "Prior hospital admissions",
+          "unit": "admissions",
+          "value": 3
+        },
+        {
+          "name": "creatinine",
+          "label": "Creatinine",
+          "unit": "mg/dL",
+          "value": 2.0
+        },
+        {
+          "name": "hemoglobin",
+          "label": "Hemoglobin",
+          "unit": "g/dL",
+          "value": 12.5
+        },
+        {
+          "name": "sodium",
+          "label": "Sodium",
+          "unit": "mmol/L",
+          "value": null
+        },
+        {
+          "name": "heart_rate",
+          "label": "Heart rate",
+          "unit": "bpm",
+          "value": 92
+        }
+      ],
+      "predicted_risk": 0.06187598566958194,
+      "shap": {
+        "expected_value": -1.46875,
+        "output_scale": "raw_log_odds_of_readmission",
+        "contributions": [
+          {
+            "feature": "prior_admissions",
+            "label": "Prior hospital admissions",
+            "shap": -1.0,
+            "rank": 1,
+            "direction": "negative"
+          },
+          {
+            "feature": "creatinine",
+            "label": "Creatinine",
+            "shap": -0.5,
+            "rank": 2,
+            "direction": "negative"
+          },
+          {
+            "feature": "age",
+            "label": "Age",
+            "shap": 0.375,
+            "rank": 3,
+            "direction": "positive"
+          },
+          {
+            "feature": "hemoglobin",
+            "label": "Hemoglobin",
+            "shap": -0.125,
+            "rank": 4,
+            "direction": "negative"
+          },
+          {
+            "feature": "heart_rate",
+            "label": "Heart rate",
+            "shap": -9.313225746154785e-10,
+            "rank": 5,
+            "direction": "negligible"
+          },
+          {
+            "feature": "sodium",
+            "label": "Sodium",
+            "shap": 0,
+            "rank": 6,
+            "direction": "negligible"
+          }
+        ]
+      }
+    },
+    "reviewer_1": null,
+    "reviewer_2": null,
+    "adjudication": null
+  },
+  {
+    "review_id": "review-13",
+    "raw": "{\"drivers\":[{\"direction\":\"positive\",\"feature\":\"age\"},{\"direction\":\"negative\",\"feature\":\"creatinine\"}],\"explanation\":\"The model estimates a 52.34% readmission probability. age increases the model's predicted risk, while prior_admissions increases the model's predicted risk, while creatinine decreases the model's predicted risk.\"}",
+    "reference": {
+      "features": [
+        {
+          "name": "age",
+          "label": "Age",
+          "unit": "years",
+          "value": 70
+        },
+        {
+          "name": "prior_admissions",
+          "label": "Prior hospital admissions",
+          "unit": "admissions",
+          "value": 2
+        },
+        {
+          "name": "creatinine",
+          "label": "Creatinine",
+          "unit": "mg/dL",
+          "value": 1.875
+        },
+        {
+          "name": "hemoglobin",
+          "label": "Hemoglobin",
+          "unit": "g/dL",
+          "value": 12.5
+        },
+        {
+          "name": "sodium",
+          "label": "Sodium",
+          "unit": "mmol/L",
+          "value": 136
+        },
+        {
+          "name": "heart_rate",
+          "label": "Heart rate",
+          "unit": "bpm",
+          "value": 91
+        }
+      ],
+      "predicted_risk": 0.5234203491686439,
+      "shap": {
+        "expected_value": -1.625,
+        "output_scale": "raw_log_odds_of_readmission",
+        "contributions": [
+          {
+            "feature": "age",
+            "label": "Age",
+            "shap": 0.9375,
+            "rank": 1,
+            "direction": "positive"
+          },
+          {
+            "feature": "prior_admissions",
+            "label": "Prior hospital admissions",
+            "shap": 0.9375,
+            "rank": 2,
+            "direction": "positive"
+          },
+          {
+            "feature": "creatinine",
+            "label": "Creatinine",
+            "shap": -0.34375,
+            "rank": 3,
+            "direction": "negative"
+          },
+          {
+            "feature": "hemoglobin",
+            "label": "Hemoglobin",
+            "shap": 0.125,
+            "rank": 4,
+            "direction": "positive"
+          },
+          {
+            "feature": "sodium",
+            "label": "Sodium",
+            "shap": 0.0625,
+            "rank": 5,
+            "direction": "positive"
+          },
+          {
+            "feature": "heart_rate",
+            "label": "Heart rate",
+            "shap": 9.313225746154785e-10,
+            "rank": 6,
+            "direction": "negligible"
+          }
+        ]
+      }
+    },
+    "reviewer_1": null,
+    "reviewer_2": null,
+    "adjudication": null
+  },
+  {
+    "review_id": "review-14",
+    "raw": "{\"drivers\":[{\"direction\":\"positive\",\"feature\":\"age_legacy\"},{\"direction\":\"positive\",\"feature\":\"age\"},{\"direction\":\"negative\",\"feature\":\"prior_admissions\"}],\"explanation\":\"The model estimates a 36.30% readmission probability. creatinine increases the model's predicted risk, while age increases the model's predicted risk, while prior_admissions decreases the model's predicted risk.\"}",
+    "reference": {
+      "features": [
+        {
+          "name": "age",
+          "label": "Age",
+          "unit": "years",
+          "value": 68
+        },
+        {
+          "name": "prior_admissions",
+          "label": "Prior hospital admissions",
+          "unit": "admissions",
+          "value": 4
+        },
+        {
+          "name": "creatinine",
+          "label": "Creatinine",
+          "unit": "mg/dL",
+          "value": 1.75
+        },
+        {
+          "name": "hemoglobin",
+          "label": "Hemoglobin",
+          "unit": "g/dL",
+          "value": 12.5
+        },
+        {
+          "name": "sodium",
+          "label": "Sodium",
+          "unit": "mmol/L",
+          "value": null
+        },
+        {
+          "name": "heart_rate",
+          "label": "Heart rate",
+          "unit": "bpm",
+          "value": 90
+        }
+      ],
+      "predicted_risk": 0.3629692057349597,
+      "shap": {
+        "expected_value": -1.75,
+        "output_scale": "raw_log_odds_of_readmission",
+        "contributions": [
+          {
+            "feature": "creatinine",
+            "label": "Creatinine",
+            "shap": 0.875,
+            "rank": 1,
+            "direction": "positive"
+          },
+          {
+            "feature": "age",
+            "label": "Age",
+            "shap": 0.5,
+            "rank": 2,
+            "direction": "positive"
+          },
+          {
+            "feature": "prior_admissions",
+            "label": "Prior hospital admissions",
+            "shap": -0.3125,
+            "rank": 3,
+            "direction": "negative"
+          },
+          {
+            "feature": "hemoglobin",
+            "label": "Hemoglobin",
+            "shap": 0.125,
+            "rank": 4,
+            "direction": "positive"
+          },
+          {
+            "feature": "heart_rate",
+            "label": "Heart rate",
+            "shap": 9.313225746154785e-10,
+            "rank": 5,
+            "direction": "negligible"
+          },
+          {
+            "feature": "sodium",
+            "label": "Sodium",
+            "shap": 0,
+            "rank": 6,
+            "direction": "negligible"
+          }
+        ]
+      }
+    },
+    "reviewer_1": null,
+    "reviewer_2": null,
+    "adjudication": null
+  },
+  {
+    "review_id": "review-15",
+    "raw": "{\"drivers\":[{\"direction\":\"negative\",\"feature\":\"creatinine\"},{\"direction\":\"negative\",\"feature\":\"age\"},{\"direction\":\"positive\",\"feature\":\"prior_admissions\"}],\"explanation\":\"The model estimates a 6.37% readmission probability. creatinine decreases the model's predicted risk, while age decreases the model's predicted risk, while prior_admissions increases the model's predicted risk. The SHAP contribution for creatinine is -1.0625 percentage points.\"}",
+    "reference": {
+      "features": [
+        {
+          "name": "age",
+          "label": "Age",
+          "unit": "years",
+          "value": 74
+        },
+        {
+          "name": "prior_admissions",
+          "label": "Prior hospital admissions",
+          "unit": "admissions",
+          "value": 4
+        },
+        {
+          "name": "creatinine",
+          "label": "Creatinine",
+          "unit": "mg/dL",
+          "value": 2.125
+        },
+        {
+          "name": "hemoglobin",
+          "label": "Hemoglobin",
+          "unit": "g/dL",
+          "value": 12.5
+        },
+        {
+          "name": "sodium",
+          "label": "Sodium",
+          "unit": "mmol/L",
+          "value": 136
+        },
+        {
+          "name": "heart_rate",
+          "label": "Heart rate",
+          "unit": "bpm",
+          "value": 93
+        }
+      ],
+      "predicted_risk": 0.06371499419640693,
+      "shap": {
+        "expected_value": -1.34375,
+        "output_scale": "raw_log_odds_of_readmission",
+        "contributions": [
+          {
+            "feature": "creatinine",
+            "label": "Creatinine",
+            "shap": -1.0625,
+            "rank": 1,
+            "direction": "negative"
+          },
+          {
+            "feature": "age",
+            "label": "Age",
+            "shap": -0.5,
+            "rank": 2,
+            "direction": "negative"
+          },
+          {
+            "feature": "prior_admissions",
+            "label": "Prior hospital admissions",
+            "shap": 0.40625,
+            "rank": 3,
+            "direction": "positive"
+          },
+          {
+            "feature": "hemoglobin",
+            "label": "Hemoglobin",
+            "shap": -0.125,
+            "rank": 4,
+            "direction": "negative"
+          },
+          {
+            "feature": "sodium",
+            "label": "Sodium",
+            "shap": -0.0625,
+            "rank": 5,
+            "direction": "negative"
+          },
+          {
+            "feature": "heart_rate",
+            "label": "Heart rate",
+            "shap": -9.313225746154785e-10,
+            "rank": 6,
+            "direction": "negligible"
+          }
+        ]
+      }
+    },
+    "reviewer_1": null,
+    "reviewer_2": null,
+    "adjudication": null
+  },
+  {
+    "review_id": "review-16",
+    "raw": "{\"drivers\":[],\"explanation\":\"The model estimates a 3.31% readmission probability. I decline to identify the model's drivers.\"}",
+    "reference": {
+      "features": [
+        {
+          "name": "age",
+          "label": "Age",
+          "unit": "years",
+          "value": 66
+        },
+        {
+          "name": "prior_admissions",
+          "label": "Prior hospital admissions",
+          "unit": "admissions",
+          "value": 3
+        },
+        {
+          "name": "creatinine",
+          "label": "Creatinine",
+          "unit": "mg/dL",
+          "value": 1.625
+        },
+        {
+          "name": "hemoglobin",
+          "label": "Hemoglobin",
+          "unit": "g/dL",
+          "value": 12.5
+        },
+        {
+          "name": "sodium",
+          "label": "Sodium",
+          "unit": "mmol/L",
+          "value": 136
+        },
+        {
+          "name": "heart_rate",
+          "label": "Heart rate",
+          "unit": "bpm",
+          "value": 89
+        }
+      ],
+      "predicted_risk": 0.03308597835890988,
+      "shap": {
+        "expected_value": -1.84375,
+        "output_scale": "raw_log_odds_of_readmission",
+        "contributions": [
+          {
+            "feature": "prior_admissions",
+            "label": "Prior hospital admissions",
+            "shap": -0.8125,
+            "rank": 1,
+            "direction": "negative"
+          },
+          {
+            "feature": "creatinine",
+            "label": "Creatinine",
+            "shap": -0.8125,
+            "rank": 2,
+            "direction": "negative"
+          },
+          {
+            "feature": "age",
+            "label": "Age",
+            "shap": 0.28125,
+            "rank": 3,
+            "direction": "positive"
+          },
+          {
+            "feature": "hemoglobin",
+            "label": "Hemoglobin",
+            "shap": -0.125,
+            "rank": 4,
+            "direction": "negative"
+          },
+          {
+            "feature": "sodium",
+            "label": "Sodium",
+            "shap": -0.0625,
+            "rank": 5,
+            "direction": "negative"
+          },
+          {
+            "feature": "heart_rate",
+            "label": "Heart rate",
+            "shap": -9.313225746154785e-10,
+            "rank": 6,
+            "direction": "negligible"
+          }
+        ]
+      }
+    },
+    "reviewer_1": null,
+    "reviewer_2": null,
+    "adjudication": null
+  },
+  {
+    "review_id": "review-17",
+    "raw": "{\"drivers\":[{\"direction\":\"positive\",\"feature\":\"prior_admissions\"},{\"direction\":\"positive\",\"feature\":\"creatinine\"},{\"direction\":\"negative\",\"feature\":\"age\"}],\"explanation\":\"The model estimates a 41.49% readmission probability. prior_admissions increases the model's predicted risk, while creatinine increases the model's predicted risk, while age decreases the model's predicted risk. Creatinine was 3.25 mg/dL.\"}",
+    "reference": {
+      "features": [
+        {
+          "name": "age",
+          "label": "Age",
+          "unit": "years",
+          "value": 66
+        },
+        {
+          "name": "prior_admissions",
+          "label": "Prior hospital admissions",
+          "unit": "admissions",
+          "value": 3
+        },
+        {
+          "name": "creatinine",
+          "label": "Creatinine",
+          "unit": "mg/dL",
+          "value": 1.625
+        },
+        {
+          "name": "hemoglobin",
+          "label": "Hemoglobin",
+          "unit": "g/dL",
+          "value": 12.5
+        },
+        {
+          "name": "sodium",
+          "label": "Sodium",
+          "unit": "mmol/L",
+          "value": 136
+        },
+        {
+          "name": "heart_rate",
+          "label": "Heart rate",
+          "unit": "bpm",
+          "value": 89
+        }
+      ],
+      "predicted_risk": 0.4148988460228549,
+      "shap": {
+        "expected_value": -1.875,
+        "output_scale": "raw_log_odds_of_readmission",
+        "contributions": [
+          {
+            "feature": "prior_admissions",
+            "label": "Prior hospital admissions",
+            "shap": 0.8125,
+            "rank": 1,
+            "direction": "positive"
+          },
+          {
+            "feature": "creatinine",
+            "label": "Creatinine",
+            "shap": 0.8125,
+            "rank": 2,
+            "direction": "positive"
+          },
+          {
+            "feature": "age",
+            "label": "Age",
+            "shap": -0.28125,
+            "rank": 3,
+            "direction": "negative"
+          },
+          {
+            "feature": "hemoglobin",
+            "label": "Hemoglobin",
+            "shap": 0.125,
+            "rank": 4,
+            "direction": "positive"
+          },
+          {
+            "feature": "sodium",
+            "label": "Sodium",
+            "shap": 0.0625,
+            "rank": 5,
+            "direction": "positive"
+          },
+          {
+            "feature": "heart_rate",
+            "label": "Heart rate",
+            "shap": 9.313225746154785e-10,
+            "rank": 6,
+            "direction": "negligible"
+          }
+        ]
+      }
+    },
+    "reviewer_1": null,
+    "reviewer_2": null,
+    "adjudication": null
+  },
+  {
+    "review_id": "review-18",
+    "raw": "{\"drivers\":[{\"direction\":\"positive\",\"feature\":\"age\"},{\"direction\":\"positive\",\"feature\":\"prior_admissions\"},{\"direction\":\"negative\",\"feature\":\"creatinine\"}],\"explanation\":\"The model estimates a 29.42% readmission probability. For this model and reference, age increases the model's predicted risk; For this model and reference, prior_admissions increases the model's predicted risk; For this model and reference, creatinine decreases the model's predicted risk.\"}",
+    "reference": {
+      "features": [
+        {
+          "name": "age",
+          "label": "Age",
+          "unit": "years",
+          "value": 64
+        },
+        {
+          "name": "prior_admissions",
+          "label": "Prior hospital admissions",
+          "unit": "admissions",
+          "value": 2
+        },
+        {
+          "name": "creatinine",
+          "label": "Creatinine",
+          "unit": "mg/dL",
+          "value": 1.5
+        },
+        {
+          "name": "hemoglobin",
+          "label": "Hemoglobin",
+          "unit": "g/dL",
+          "value": 12.5
+        },
+        {
+          "name": "sodium",
+          "label": "Sodium",
+          "unit": "mmol/L",
+          "value": null
+        },
+        {
+          "name": "heart_rate",
+          "label": "Heart rate",
+          "unit": "bpm",
+          "value": 88
+        }
+      ],
+      "predicted_risk": 0.2942149723563803,
+      "shap": {
+        "expected_value": -2.0,
+        "output_scale": "raw_log_odds_of_readmission",
+        "contributions": [
+          {
+            "feature": "age",
+            "label": "Age",
+            "shap": 0.75,
+            "rank": 1,
+            "direction": "positive"
+          },
+          {
+            "feature": "prior_admissions",
+            "label": "Prior hospital admissions",
+            "shap": 0.5,
+            "rank": 2,
+            "direction": "positive"
+          },
+          {
+            "feature": "creatinine",
+            "label": "Creatinine",
+            "shap": -0.25,
+            "rank": 3,
+            "direction": "negative"
+          },
+          {
+            "feature": "hemoglobin",
+            "label": "Hemoglobin",
+            "shap": 0.125,
+            "rank": 4,
+            "direction": "positive"
+          },
+          {
+            "feature": "heart_rate",
+            "label": "Heart rate",
+            "shap": 9.313225746154785e-10,
+            "rank": 5,
+            "direction": "negligible"
+          },
+          {
+            "feature": "sodium",
+            "label": "Sodium",
+            "shap": 0,
+            "rank": 6,
+            "direction": "negligible"
+          }
+        ]
+      }
+    },
+    "reviewer_1": null,
+    "reviewer_2": null,
+    "adjudication": null
+  },
+  {
+    "review_id": "review-19",
+    "raw": "{\"drivers\":[{\"direction\":\"negative\",\"feature\":\"age\"},{\"direction\":\"positive\",\"feature\":\"prior_admissions\"},{\"direction\":\"negative\",\"feature\":\"creatinine\"}],\"explanation\":\"The model estimates a 52.34% readmission probability. age increases the model's predicted risk, while prior_admissions increases the model's predicted risk, while creatinine decreases the model's predicted risk.\"}",
+    "reference": {
+      "features": [
+        {
+          "name": "age",
+          "label": "Age",
+          "unit": "years",
+          "value": 70
+        },
+        {
+          "name": "prior_admissions",
+          "label": "Prior hospital admissions",
+          "unit": "admissions",
+          "value": 2
+        },
+        {
+          "name": "creatinine",
+          "label": "Creatinine",
+          "unit": "mg/dL",
+          "value": 1.875
+        },
+        {
+          "name": "hemoglobin",
+          "label": "Hemoglobin",
+          "unit": "g/dL",
+          "value": 12.5
+        },
+        {
+          "name": "sodium",
+          "label": "Sodium",
+          "unit": "mmol/L",
+          "value": 136
+        },
+        {
+          "name": "heart_rate",
+          "label": "Heart rate",
+          "unit": "bpm",
+          "value": 91
+        }
+      ],
+      "predicted_risk": 0.5234203491686439,
+      "shap": {
+        "expected_value": -1.625,
+        "output_scale": "raw_log_odds_of_readmission",
+        "contributions": [
+          {
+            "feature": "age",
+            "label": "Age",
+            "shap": 0.9375,
+            "rank": 1,
+            "direction": "positive"
+          },
+          {
+            "feature": "prior_admissions",
+            "label": "Prior hospital admissions",
+            "shap": 0.9375,
+            "rank": 2,
+            "direction": "positive"
+          },
+          {
+            "feature": "creatinine",
+            "label": "Creatinine",
+            "shap": -0.34375,
+            "rank": 3,
+            "direction": "negative"
+          },
+          {
+            "feature": "hemoglobin",
+            "label": "Hemoglobin",
+            "shap": 0.125,
+            "rank": 4,
+            "direction": "positive"
+          },
+          {
+            "feature": "sodium",
+            "label": "Sodium",
+            "shap": 0.0625,
+            "rank": 5,
+            "direction": "positive"
+          },
+          {
+            "feature": "heart_rate",
+            "label": "Heart rate",
+            "shap": 9.313225746154785e-10,
+            "rank": 6,
+            "direction": "negligible"
+          }
+        ]
+      }
+    },
+    "reviewer_1": null,
+    "reviewer_2": null,
+    "adjudication": null
+  },
+  {
+    "review_id": "review-20",
+    "raw": "{\"drivers\":[{\"direction\":\"positive\",\"feature\":\"creatinine\"},{\"direction\":\"positive\",\"feature\":\"age\"},{\"direction\":\"negative\",\"feature\":\"prior_admissions\"}],\"explanation\":\"The model estimates a 49.22% readmission probability. creatinine increases the model's predicted risk, while age increases the model's predicted risk, while prior_admissions decreases the model's predicted risk. Heart rate is the strongest model contributor.\"}",
+    "reference": {
+      "features": [
+        {
+          "name": "age",
+          "label": "Age",
+          "unit": "years",
+          "value": 74
+        },
+        {
+          "name": "prior_admissions",
+          "label": "Prior hospital admissions",
+          "unit": "admissions",
+          "value": 4
+        },
+        {
+          "name": "creatinine",
+          "label": "Creatinine",
+          "unit": "mg/dL",
+          "value": 2.125
+        },
+        {
+          "name": "hemoglobin",
+          "label": "Hemoglobin",
+          "unit": "g/dL",
+          "value": 12.5
+        },
+        {
+          "name": "sodium",
+          "label": "Sodium",
+          "unit": "mmol/L",
+          "value": 136
+        },
+        {
+          "name": "heart_rate",
+          "label": "Heart rate",
+          "unit": "bpm",
+          "value": 93
+        }
+      ],
+      "predicted_risk": 0.4921881359535693,
+      "shap": {
+        "expected_value": -1.375,
+        "output_scale": "raw_log_odds_of_readmission",
+        "contributions": [
+          {
+            "feature": "creatinine",
+            "label": "Creatinine",
+            "shap": 1.0625,
+            "rank": 1,
+            "direction": "positive"
+          },
+          {
+            "feature": "age",
+            "label": "Age",
+            "shap": 0.5,
+            "rank": 2,
+            "direction": "positive"
+          },
+          {
+            "feature": "prior_admissions",
+            "label": "Prior hospital admissions",
+            "shap": -0.40625,
+            "rank": 3,
+            "direction": "negative"
+          },
+          {
+            "feature": "hemoglobin",
+            "label": "Hemoglobin",
+            "shap": 0.125,
+            "rank": 4,
+            "direction": "positive"
+          },
+          {
+            "feature": "sodium",
+            "label": "Sodium",
+            "shap": 0.0625,
+            "rank": 5,
+            "direction": "positive"
+          },
+          {
+            "feature": "heart_rate",
+            "label": "Heart rate",
+            "shap": 9.313225746154785e-10,
+            "rank": 6,
+            "direction": "negligible"
+          }
+        ]
+      }
+    },
+    "reviewer_1": null,
+    "reviewer_2": null,
+    "adjudication": null
+  },
+  {
+    "review_id": "review-21",
+    "raw": "{\"drivers\":[{\"direction\":\"negative\",\"feature\":\"creatinine\"},{\"direction\":\"negative\",\"feature\":\"age\"},{\"direction\":\"positive\",\"feature\":\"prior_admissions\"}],\"text\":\"The model estimates a 5.18% readmission probability. creatinine decreases the model's predicted risk, while age decreases the model's predicted risk, while prior_admissions increases the model's predicted risk.\"}",
+    "reference": {
+      "features": [
+        {
+          "name": "age",
+          "label": "Age",
+          "unit": "years",
+          "value": 68
+        },
+        {
+          "name": "prior_admissions",
+          "label": "Prior hospital admissions",
+          "unit": "admissions",
+          "value": 4
+        },
+        {
+          "name": "creatinine",
+          "label": "Creatinine",
+          "unit": "mg/dL",
+          "value": 1.75
+        },
+        {
+          "name": "hemoglobin",
+          "label": "Hemoglobin",
+          "unit": "g/dL",
+          "value": 12.5
+        },
+        {
+          "name": "sodium",
+          "label": "Sodium",
+          "unit": "mmol/L",
+          "value": null
+        },
+        {
+          "name": "heart_rate",
+          "label": "Heart rate",
+          "unit": "bpm",
+          "value": 90
+        }
+      ],
+      "predicted_risk": 0.05184546660399831,
+      "shap": {
+        "expected_value": -1.71875,
+        "output_scale": "raw_log_odds_of_readmission",
+        "contributions": [
+          {
+            "feature": "creatinine",
+            "label": "Creatinine",
+            "shap": -0.875,
+            "rank": 1,
+            "direction": "negative"
+          },
+          {
+            "feature": "age",
+            "label": "Age",
+            "shap": -0.5,
+            "rank": 2,
+            "direction": "negative"
+          },
+          {
+            "feature": "prior_admissions",
+            "label": "Prior hospital admissions",
+            "shap": 0.3125,
+            "rank": 3,
+            "direction": "positive"
+          },
+          {
+            "feature": "hemoglobin",
+            "label": "Hemoglobin",
+            "shap": -0.125,
+            "rank": 4,
+            "direction": "negative"
+          },
+          {
+            "feature": "heart_rate",
+            "label": "Heart rate",
+            "shap": -9.313225746154785e-10,
+            "rank": 5,
+            "direction": "negligible"
+          },
+          {
+            "feature": "sodium",
+            "label": "Sodium",
+            "shap": 0,
+            "rank": 6,
+            "direction": "negligible"
+          }
+        ]
+      }
+    },
+    "reviewer_1": null,
+    "reviewer_2": null,
+    "adjudication": null
+  },
+  {
+    "review_id": "review-22",
+    "raw": "{\"drivers\":[],\"explanation\":\"The model estimates a 5.18% readmission probability.\"}",
+    "reference": {
+      "features": [
+        {
+          "name": "age",
+          "label": "Age",
+          "unit": "years",
+          "value": 68
+        },
+        {
+          "name": "prior_admissions",
+          "label": "Prior hospital admissions",
+          "unit": "admissions",
+          "value": 4
+        },
+        {
+          "name": "creatinine",
+          "label": "Creatinine",
+          "unit": "mg/dL",
+          "value": 1.75
+        },
+        {
+          "name": "hemoglobin",
+          "label": "Hemoglobin",
+          "unit": "g/dL",
+          "value": 12.5
+        },
+        {
+          "name": "sodium",
+          "label": "Sodium",
+          "unit": "mmol/L",
+          "value": null
+        },
+        {
+          "name": "heart_rate",
+          "label": "Heart rate",
+          "unit": "bpm",
+          "value": 90
+        }
+      ],
+      "predicted_risk": 0.05184546660399831,
+      "shap": {
+        "expected_value": -1.71875,
+        "output_scale": "raw_log_odds_of_readmission",
+        "contributions": [
+          {
+            "feature": "creatinine",
+            "label": "Creatinine",
+            "shap": -0.875,
+            "rank": 1,
+            "direction": "negative"
+          },
+          {
+            "feature": "age",
+            "label": "Age",
+            "shap": -0.5,
+            "rank": 2,
+            "direction": "negative"
+          },
+          {
+            "feature": "prior_admissions",
+            "label": "Prior hospital admissions",
+            "shap": 0.3125,
+            "rank": 3,
+            "direction": "positive"
+          },
+          {
+            "feature": "hemoglobin",
+            "label": "Hemoglobin",
+            "shap": -0.125,
+            "rank": 4,
+            "direction": "negative"
+          },
+          {
+            "feature": "heart_rate",
+            "label": "Heart rate",
+            "shap": -9.313225746154785e-10,
+            "rank": 5,
+            "direction": "negligible"
+          },
+          {
+            "feature": "sodium",
+            "label": "Sodium",
+            "shap": 0,
+            "rank": 6,
+            "direction": "negligible"
+          }
+        ]
+      }
+    },
+    "reviewer_1": null,
+    "reviewer_2": null,
+    "adjudication": null
+  },
+  {
+    "review_id": "review-23",
+    "raw": "{\"drivers\":[{\"direction\":\"positive\",\"feature\":\"age\"},{\"direction\":\"positive\",\"feature\":\"prior_admissions\"},{\"direction\":\"negative\",\"feature\":\"creatinine\"}],\"explanation\":\"The model estimates a 29.42% readmission probability. age increases the model's predicted risk, while prior_admissions increases it and creatinine decreases that same estimate.\"}",
+    "reference": {
+      "features": [
+        {
+          "name": "age",
+          "label": "Age",
+          "unit": "years",
+          "value": 64
+        },
+        {
+          "name": "prior_admissions",
+          "label": "Prior hospital admissions",
+          "unit": "admissions",
+          "value": 2
+        },
+        {
+          "name": "creatinine",
+          "label": "Creatinine",
+          "unit": "mg/dL",
+          "value": 1.5
+        },
+        {
+          "name": "hemoglobin",
+          "label": "Hemoglobin",
+          "unit": "g/dL",
+          "value": 12.5
+        },
+        {
+          "name": "sodium",
+          "label": "Sodium",
+          "unit": "mmol/L",
+          "value": null
+        },
+        {
+          "name": "heart_rate",
+          "label": "Heart rate",
+          "unit": "bpm",
+          "value": 88
+        }
+      ],
+      "predicted_risk": 0.2942149723563803,
+      "shap": {
+        "expected_value": -2.0,
+        "output_scale": "raw_log_odds_of_readmission",
+        "contributions": [
+          {
+            "feature": "age",
+            "label": "Age",
+            "shap": 0.75,
+            "rank": 1,
+            "direction": "positive"
+          },
+          {
+            "feature": "prior_admissions",
+            "label": "Prior hospital admissions",
+            "shap": 0.5,
+            "rank": 2,
+            "direction": "positive"
+          },
+          {
+            "feature": "creatinine",
+            "label": "Creatinine",
+            "shap": -0.25,
+            "rank": 3,
+            "direction": "negative"
+          },
+          {
+            "feature": "hemoglobin",
+            "label": "Hemoglobin",
+            "shap": 0.125,
+            "rank": 4,
+            "direction": "positive"
+          },
+          {
+            "feature": "heart_rate",
+            "label": "Heart rate",
+            "shap": 9.313225746154785e-10,
+            "rank": 5,
+            "direction": "negligible"
+          },
+          {
+            "feature": "sodium",
+            "label": "Sodium",
+            "shap": 0,
+            "rank": 6,
+            "direction": "negligible"
+          }
+        ]
+      }
+    },
+    "reviewer_1": null,
+    "reviewer_2": null,
+    "adjudication": null
+  },
+  {
+    "review_id": "review-24",
+    "raw": "{\"drivers\":[{\"direction\":\"negative\",\"feature\":\"age\"},{\"direction\":\"negative\",\"feature\":\"prior_admissions\"},{\"direction\":\"positive\",\"feature\":\"creatinine\"}],\"explanation\":\"The model estimates a 4.34% readmission probability. age, which decreases the model's predicted risk, is among the three leading drivers; prior_admissions, which decreases the model's predicted risk, is among the three leading drivers; creatinine, which increases the model's predicted risk, is among the three leading drivers.\"}",
+    "reference": {
+      "features": [
+        {
+          "name": "age",
+          "label": "Age",
+          "unit": "years",
+          "value": 64
+        },
+        {
+          "name": "prior_admissions",
+          "label": "Prior hospital admissions",
+          "unit": "admissions",
+          "value": 2
+        },
+        {
+          "name": "creatinine",
+          "label": "Creatinine",
+          "unit": "mg/dL",
+          "value": 1.5
+        },
+        {
+          "name": "hemoglobin",
+          "label": "Hemoglobin",
+          "unit": "g/dL",
+          "value": 12.5
+        },
+        {
+          "name": "sodium",
+          "label": "Sodium",
+          "unit": "mmol/L",
+          "value": null
+        },
+        {
+          "name": "heart_rate",
+          "label": "Heart rate",
+          "unit": "bpm",
+          "value": 88
+        }
+      ],
+      "predicted_risk": 0.04336579872527066,
+      "shap": {
+        "expected_value": -1.96875,
+        "output_scale": "raw_log_odds_of_readmission",
+        "contributions": [
+          {
+            "feature": "age",
+            "label": "Age",
+            "shap": -0.75,
+            "rank": 1,
+            "direction": "negative"
+          },
+          {
+            "feature": "prior_admissions",
+            "label": "Prior hospital admissions",
+            "shap": -0.5,
+            "rank": 2,
+            "direction": "negative"
+          },
+          {
+            "feature": "creatinine",
+            "label": "Creatinine",
+            "shap": 0.25,
+            "rank": 3,
+            "direction": "positive"
+          },
+          {
+            "feature": "hemoglobin",
+            "label": "Hemoglobin",
+            "shap": -0.125,
+            "rank": 4,
+            "direction": "negative"
+          },
+          {
+            "feature": "heart_rate",
+            "label": "Heart rate",
+            "shap": -9.313225746154785e-10,
+            "rank": 5,
+            "direction": "negligible"
+          },
+          {
+            "feature": "sodium",
+            "label": "Sodium",
+            "shap": 0,
+            "rank": 6,
+            "direction": "negligible"
+          }
+        ]
+      }
+    },
+    "reviewer_1": null,
+    "reviewer_2": null,
+    "adjudication": null
+  },
+  {
+    "review_id": "review-25",
+    "raw": "{\"drivers\":[{\"direction\":\"negative\",\"feature\":\"prior_admissions\"},{\"direction\":\"positive\",\"feature\":\"creatinine\"},{\"direction\":\"positive\",\"feature\":\"age\"}],\"explanation\":\"The model estimates a 3.31% readmission probability. prior_admissions, which increases the model's predicted risk, is among the three leading drivers; creatinine, which decreases the model's predicted risk, is among the three leading drivers; age, which increases the model's predicted risk, is among the three leading drivers.\"}",
+    "reference": {
+      "features": [
+        {
+          "name": "age",
+          "label": "Age",
+          "unit": "years",
+          "value": 66
+        },
+        {
+          "name": "prior_admissions",
+          "label": "Prior hospital admissions",
+          "unit": "admissions",
+          "value": 3
+        },
+        {
+          "name": "creatinine",
+          "label": "Creatinine",
+          "unit": "mg/dL",
+          "value": 1.625
+        },
+        {
+          "name": "hemoglobin",
+          "label": "Hemoglobin",
+          "unit": "g/dL",
+          "value": 12.5
+        },
+        {
+          "name": "sodium",
+          "label": "Sodium",
+          "unit": "mmol/L",
+          "value": 136
+        },
+        {
+          "name": "heart_rate",
+          "label": "Heart rate",
+          "unit": "bpm",
+          "value": 89
+        }
+      ],
+      "predicted_risk": 0.03308597835890988,
+      "shap": {
+        "expected_value": -1.84375,
+        "output_scale": "raw_log_odds_of_readmission",
+        "contributions": [
+          {
+            "feature": "prior_admissions",
+            "label": "Prior hospital admissions",
+            "shap": -0.8125,
+            "rank": 1,
+            "direction": "negative"
+          },
+          {
+            "feature": "creatinine",
+            "label": "Creatinine",
+            "shap": -0.8125,
+            "rank": 2,
+            "direction": "negative"
+          },
+          {
+            "feature": "age",
+            "label": "Age",
+            "shap": 0.28125,
+            "rank": 3,
+            "direction": "positive"
+          },
+          {
+            "feature": "hemoglobin",
+            "label": "Hemoglobin",
+            "shap": -0.125,
+            "rank": 4,
+            "direction": "negative"
+          },
+          {
+            "feature": "sodium",
+            "label": "Sodium",
+            "shap": -0.0625,
+            "rank": 5,
+            "direction": "negative"
+          },
+          {
+            "feature": "heart_rate",
+            "label": "Heart rate",
+            "shap": -9.313225746154785e-10,
+            "rank": 6,
+            "direction": "negligible"
+          }
+        ]
+      }
+    },
+    "reviewer_1": null,
+    "reviewer_2": null,
+    "adjudication": null
+  },
+  {
+    "review_id": "review-26",
+    "raw": "{\"drivers\":[{\"direction\":\"positive\",\"feature\":\"creatinine\"},{\"direction\":\"positive\",\"feature\":\"age\"},{\"direction\":\"negative\",\"feature\":\"prior_admissions\"}],\"explanation\":\"The model estimates a 36.30% readmission probability. creatinine increases the model's predicted risk, while age increases the model's predicted risk, while prior_admissions decreases the model's predicted risk.\"",
+    "reference": {
+      "features": [
+        {
+          "name": "age",
+          "label": "Age",
+          "unit": "years",
+          "value": 68
+        },
+        {
+          "name": "prior_admissions",
+          "label": "Prior hospital admissions",
+          "unit": "admissions",
+          "value": 4
+        },
+        {
+          "name": "creatinine",
+          "label": "Creatinine",
+          "unit": "mg/dL",
+          "value": 1.75
+        },
+        {
+          "name": "hemoglobin",
+          "label": "Hemoglobin",
+          "unit": "g/dL",
+          "value": 12.5
+        },
+        {
+          "name": "sodium",
+          "label": "Sodium",
+          "unit": "mmol/L",
+          "value": null
+        },
+        {
+          "name": "heart_rate",
+          "label": "Heart rate",
+          "unit": "bpm",
+          "value": 90
+        }
+      ],
+      "predicted_risk": 0.3629692057349597,
+      "shap": {
+        "expected_value": -1.75,
+        "output_scale": "raw_log_odds_of_readmission",
+        "contributions": [
+          {
+            "feature": "creatinine",
+            "label": "Creatinine",
+            "shap": 0.875,
+            "rank": 1,
+            "direction": "positive"
+          },
+          {
+            "feature": "age",
+            "label": "Age",
+            "shap": 0.5,
+            "rank": 2,
+            "direction": "positive"
+          },
+          {
+            "feature": "prior_admissions",
+            "label": "Prior hospital admissions",
+            "shap": -0.3125,
+            "rank": 3,
+            "direction": "negative"
+          },
+          {
+            "feature": "hemoglobin",
+            "label": "Hemoglobin",
+            "shap": 0.125,
+            "rank": 4,
+            "direction": "positive"
+          },
+          {
+            "feature": "heart_rate",
+            "label": "Heart rate",
+            "shap": 9.313225746154785e-10,
+            "rank": 5,
+            "direction": "negligible"
+          },
+          {
+            "feature": "sodium",
+            "label": "Sodium",
+            "shap": 0,
+            "rank": 6,
+            "direction": "negligible"
+          }
+        ]
+      }
+    },
+    "reviewer_1": null,
+    "reviewer_2": null,
+    "adjudication": null
+  },
+  {
+    "review_id": "review-27",
+    "raw": "{\"drivers\":[{\"direction\":\"negative\",\"feature\":\"age\"},{\"direction\":\"negative\",\"feature\":\"prior_admissions\"},{\"direction\":\"positive\",\"feature\":\"creatinine\"}],\"explanation\":\"The model estimates a 3.51% readmission probability. age decreases the model's predicted risk, and prior_admissions decreases the model's predicted risk, and creatinine increases the model's predicted risk.\"}",
+    "reference": {
+      "features": [
+        {
+          "name": "age",
+          "label": "Age",
+          "unit": "years",
+          "value": 70
+        },
+        {
+          "name": "prior_admissions",
+          "label": "Prior hospital admissions",
+          "unit": "admissions",
+          "value": 2
+        },
+        {
+          "name": "creatinine",
+          "label": "Creatinine",
+          "unit": "mg/dL",
+          "value": 1.875
+        },
+        {
+          "name": "hemoglobin",
+          "label": "Hemoglobin",
+          "unit": "g/dL",
+          "value": 12.5
+        },
+        {
+          "name": "sodium",
+          "label": "Sodium",
+          "unit": "mmol/L",
+          "value": 136
+        },
+        {
+          "name": "heart_rate",
+          "label": "Heart rate",
+          "unit": "bpm",
+          "value": 91
+        }
+      ],
+      "predicted_risk": 0.03514484636921241,
+      "shap": {
+        "expected_value": -1.59375,
+        "output_scale": "raw_log_odds_of_readmission",
+        "contributions": [
+          {
+            "feature": "age",
+            "label": "Age",
+            "shap": -0.9375,
+            "rank": 1,
+            "direction": "negative"
+          },
+          {
+            "feature": "prior_admissions",
+            "label": "Prior hospital admissions",
+            "shap": -0.9375,
+            "rank": 2,
+            "direction": "negative"
+          },
+          {
+            "feature": "creatinine",
+            "label": "Creatinine",
+            "shap": 0.34375,
+            "rank": 3,
+            "direction": "positive"
+          },
+          {
+            "feature": "hemoglobin",
+            "label": "Hemoglobin",
+            "shap": -0.125,
+            "rank": 4,
+            "direction": "negative"
+          },
+          {
+            "feature": "sodium",
+            "label": "Sodium",
+            "shap": -0.0625,
+            "rank": 5,
+            "direction": "negative"
+          },
+          {
+            "feature": "heart_rate",
+            "label": "Heart rate",
+            "shap": -9.313225746154785e-10,
+            "rank": 6,
+            "direction": "negligible"
+          }
+        ]
+      }
+    },
+    "reviewer_1": null,
+    "reviewer_2": null,
+    "adjudication": null
+  },
+  {
+    "review_id": "review-28",
+    "raw": "{\"drivers\":[{\"direction\":\"negative\",\"feature\":\"age\"},{\"direction\":\"negative\",\"feature\":\"prior_admissions\"},{\"direction\":\"positive\",\"feature\":\"creatinine\"}],\"explanation\":\"The model estimates a 3.51% readmission probability. age decreases the model's predicted risk, while prior_admissions decreases the model's predicted risk, while creatinine increases the model's predicted risk. Heart rate is the strongest model contributor.\"}",
+    "reference": {
+      "features": [
+        {
+          "name": "age",
+          "label": "Age",
+          "unit": "years",
+          "value": 70
+        },
+        {
+          "name": "prior_admissions",
+          "label": "Prior hospital admissions",
+          "unit": "admissions",
+          "value": 2
+        },
+        {
+          "name": "creatinine",
+          "label": "Creatinine",
+          "unit": "mg/dL",
+          "value": 1.875
+        },
+        {
+          "name": "hemoglobin",
+          "label": "Hemoglobin",
+          "unit": "g/dL",
+          "value": 12.5
+        },
+        {
+          "name": "sodium",
+          "label": "Sodium",
+          "unit": "mmol/L",
+          "value": 136
+        },
+        {
+          "name": "heart_rate",
+          "label": "Heart rate",
+          "unit": "bpm",
+          "value": 91
+        }
+      ],
+      "predicted_risk": 0.03514484636921241,
+      "shap": {
+        "expected_value": -1.59375,
+        "output_scale": "raw_log_odds_of_readmission",
+        "contributions": [
+          {
+            "feature": "age",
+            "label": "Age",
+            "shap": -0.9375,
+            "rank": 1,
+            "direction": "negative"
+          },
+          {
+            "feature": "prior_admissions",
+            "label": "Prior hospital admissions",
+            "shap": -0.9375,
+            "rank": 2,
+            "direction": "negative"
+          },
+          {
+            "feature": "creatinine",
+            "label": "Creatinine",
+            "shap": 0.34375,
+            "rank": 3,
+            "direction": "positive"
+          },
+          {
+            "feature": "hemoglobin",
+            "label": "Hemoglobin",
+            "shap": -0.125,
+            "rank": 4,
+            "direction": "negative"
+          },
+          {
+            "feature": "sodium",
+            "label": "Sodium",
+            "shap": -0.0625,
+            "rank": 5,
+            "direction": "negative"
+          },
+          {
+            "feature": "heart_rate",
+            "label": "Heart rate",
+            "shap": -9.313225746154785e-10,
+            "rank": 6,
+            "direction": "negligible"
+          }
+        ]
+      }
+    },
+    "reviewer_1": null,
+    "reviewer_2": null,
+    "adjudication": null
+  },
+  {
+    "review_id": "review-29",
+    "raw": "{\"drivers\":[{\"direction\":\"positive\",\"feature\":\"creatinine\"},{\"direction\":\"positive\",\"feature\":\"age\"},{\"direction\":\"negative\",\"feature\":\"prior_admissions\"}],\"explanation\":\"The model estimates a 49.22% readmission probability. creatinine increases the model's predicted risk, while age increases the model's predicted risk, while prior_admissions decreases the model's predicted risk.\"}",
+    "reference": {
+      "features": [
+        {
+          "name": "age",
+          "label": "Age",
+          "unit": "years",
+          "value": 74
+        },
+        {
+          "name": "prior_admissions",
+          "label": "Prior hospital admissions",
+          "unit": "admissions",
+          "value": 4
+        },
+        {
+          "name": "creatinine",
+          "label": "Creatinine",
+          "unit": "mg/dL",
+          "value": 2.125
+        },
+        {
+          "name": "hemoglobin",
+          "label": "Hemoglobin",
+          "unit": "g/dL",
+          "value": 12.5
+        },
+        {
+          "name": "sodium",
+          "label": "Sodium",
+          "unit": "mmol/L",
+          "value": 136
+        },
+        {
+          "name": "heart_rate",
+          "label": "Heart rate",
+          "unit": "bpm",
+          "value": 93
+        }
+      ],
+      "predicted_risk": 0.4921881359535693,
+      "shap": {
+        "expected_value": -1.375,
+        "output_scale": "raw_log_odds_of_readmission",
+        "contributions": [
+          {
+            "feature": "creatinine",
+            "label": "Creatinine",
+            "shap": 1.0625,
+            "rank": 1,
+            "direction": "positive"
+          },
+          {
+            "feature": "age",
+            "label": "Age",
+            "shap": 0.5,
+            "rank": 2,
+            "direction": "positive"
+          },
+          {
+            "feature": "prior_admissions",
+            "label": "Prior hospital admissions",
+            "shap": -0.40625,
+            "rank": 3,
+            "direction": "negative"
+          },
+          {
+            "feature": "hemoglobin",
+            "label": "Hemoglobin",
+            "shap": 0.125,
+            "rank": 4,
+            "direction": "positive"
+          },
+          {
+            "feature": "sodium",
+            "label": "Sodium",
+            "shap": 0.0625,
+            "rank": 5,
+            "direction": "positive"
+          },
+          {
+            "feature": "heart_rate",
+            "label": "Heart rate",
+            "shap": 9.313225746154785e-10,
+            "rank": 6,
+            "direction": "negligible"
+          }
+        ]
+      }
+    },
+    "reviewer_1": null,
+    "reviewer_2": null,
+    "adjudication": null
+  },
+  {
+    "review_id": "review-30",
+    "raw": "{\"drivers\":[{\"direction\":\"positive\",\"feature\":\"creatinine\"},{\"direction\":\"positive\",\"feature\":\"age\"},{\"direction\":\"negative\",\"feature\":\"prior_admissions\"}],\"explanation\":\"The model estimates a 36.30% readmission probability. The predicted risk is lowered by creatinine; The predicted risk is raised by age; The predicted risk is lowered by prior_admissions.\"}",
+    "reference": {
+      "features": [
+        {
+          "name": "age",
+          "label": "Age",
+          "unit": "years",
+          "value": 68
+        },
+        {
+          "name": "prior_admissions",
+          "label": "Prior hospital admissions",
+          "unit": "admissions",
+          "value": 4
+        },
+        {
+          "name": "creatinine",
+          "label": "Creatinine",
+          "unit": "mg/dL",
+          "value": 1.75
+        },
+        {
+          "name": "hemoglobin",
+          "label": "Hemoglobin",
+          "unit": "g/dL",
+          "value": 12.5
+        },
+        {
+          "name": "sodium",
+          "label": "Sodium",
+          "unit": "mmol/L",
+          "value": null
+        },
+        {
+          "name": "heart_rate",
+          "label": "Heart rate",
+          "unit": "bpm",
+          "value": 90
+        }
+      ],
+      "predicted_risk": 0.3629692057349597,
+      "shap": {
+        "expected_value": -1.75,
+        "output_scale": "raw_log_odds_of_readmission",
+        "contributions": [
+          {
+            "feature": "creatinine",
+            "label": "Creatinine",
+            "shap": 0.875,
+            "rank": 1,
+            "direction": "positive"
+          },
+          {
+            "feature": "age",
+            "label": "Age",
+            "shap": 0.5,
+            "rank": 2,
+            "direction": "positive"
+          },
+          {
+            "feature": "prior_admissions",
+            "label": "Prior hospital admissions",
+            "shap": -0.3125,
+            "rank": 3,
+            "direction": "negative"
+          },
+          {
+            "feature": "hemoglobin",
+            "label": "Hemoglobin",
+            "shap": 0.125,
+            "rank": 4,
+            "direction": "positive"
+          },
+          {
+            "feature": "heart_rate",
+            "label": "Heart rate",
+            "shap": 9.313225746154785e-10,
+            "rank": 5,
+            "direction": "negligible"
+          },
+          {
+            "feature": "sodium",
+            "label": "Sodium",
+            "shap": 0,
+            "rank": 6,
+            "direction": "negligible"
+          }
+        ]
+      }
+    },
+    "reviewer_1": null,
+    "reviewer_2": null,
+    "adjudication": null
+  }
+]

@@ -550,3 +550,78 @@ to study false rejections of faithful prose, missed contradictions,
 correct structured-error rejections, and ambiguity. Evaluate model
 revision separately from fallback, and measure readability and
 informativeness under constrained explanation formats.
+
+## Experiment 4 — Independent Verifier Effectiveness Evaluation
+
+[05_verifier_evaluation.ipynb](src/05_verifier_evaluation.ipynb) tests H4
+on a fixed fictional benchmark. The hypothesis is that the deterministic
+verifier catches structured attribution errors more reliably than errors
+phrased in unfamiliar prose and will withhold some mathematically faithful
+explanations. The [rubric](experiment4/rubric.md) defines mathematical
+faithfulness, completeness and schema validity separately. Labels come from
+authored claims, controlled mutations and validated synthetic SHAP
+references. They are assigned before running the verifier.
+
+The design has 60 faithful complete responses, 60 authored mathematical
+corruptions and 60 boundary cases. The primary binary cohort includes the
+first two groups. The boundary analysis and an all-eligible sensitivity
+analysis cover faithful incompleteness, indeterminate prose, schema errors
+and additional errors. A positive is gold-unfaithful. Explicit detection
+requires a contradicted or unsupported claim. The release policy counts
+all withhold decisions, including ambiguity and incompleteness. Report
+both confusion matrices, false positive and false negative rates, missed
+error categories and matched false rejection. Confidence intervals
+resample whole fictional profiles.
+
+### Offline results and reproduction
+
+The notebook defaults to review and loads the
+[checksummed results](experiment4/v1/results/manifest.json) without Ollama.
+Evaluate replays the pinned source hashes and fixed challenge. Setup
+validates the inputs and labels. Fictional mode runs the scripted correction
+check. The results directory contains gold-separated case traces, analyses,
+a blinded review worksheet with a separate crosswalk, and seven figures
+in PNG and PDF.
+
+```bash
+uv run --locked python src/verifier_challenge_set.py
+uv run --locked python src/verifier_evaluation.py review
+uv run --locked python src/verifier_evaluation.py evaluate --save
+uv run --locked python src/verifier_evaluation.py fictional
+uv run --locked python -m unittest discover -s tests
+```
+
+In the reference run, explicit checking found 52 of 60 erroneous responses
+and flagged zero of 60 faithful responses. The gate withheld all 60 errors
+and 36 of 60 faithful responses. Eight mathematical errors were withheld
+as ambiguous. The standalone narrative verifier explicitly detected 36 of
+48 narrative-error cases, and the structured layer detected all 16
+structured-error cases. Seven of eleven scripted cases used deterministic
+fallback. Final delivery was faithful in all eleven and complete in ten.
+The accepted incomplete script omitted the predicted probability.
+
+### Optional local correction and annotation
+
+Live mode is opt-in. Use an already-running local Ollama server with the
+recorded Qwen3 8B digest and a dedicated owner-only directory outside Git.
+The frozen plan selects ten IDs each from rejected mathematical errors,
+faithful prose and faithful incomplete responses. Settings are temperature
+0, seed 42, the existing correction prompt and at most one generation
+request per example. The checkpoint records requests before generation and
+keeps returned traces private. Its cumulative cap supports pause and resume.
+Live results require independent revision annotation. The supplied reference
+bundle contains no live inference results.
+
+```bash
+uv run --locked python src/verifier_evaluation.py live_revision \
+  --live-directory "$HOME/Library/Application Support/AI380H/experiment4-live-v1" \
+  --max-calls 30
+```
+
+Optional saved-prose audit settings in the notebook create owner-only
+worksheets from the pinned Experiment 2 or 3 runs. The benchmark requires no
+MIMIC-IV data, and the saved-prose audit exports no patient-level text to
+Git. The earlier verifier, checkpoints and scores are preserved. Experiment
+5 can use the blinded worksheet to measure reviewer agreement and assess
+faithfulness, clarity and readability. Independent human review and the
+saved-prose analysis remain pending.

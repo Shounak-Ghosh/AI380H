@@ -1,0 +1,3187 @@
+{
+  "rows": [
+    {
+      "scenario": "original_accepted",
+      "case_id": "exp4-reference-01",
+      "original_gold": "faithful",
+      "original_correctly_rejected": false,
+      "original_falsely_rejected": false,
+      "revision_gold": null,
+      "revision_complete": null,
+      "requests": 0,
+      "new_error_introduced": false,
+      "final_mathematically_faithful": true,
+      "final_complete": true,
+      "trace": {
+        "original_raw": "{\"drivers\":[{\"direction\":\"positive\",\"feature\":\"age\"},{\"direction\":\"positive\",\"feature\":\"prior_admissions\"},{\"direction\":\"negative\",\"feature\":\"creatinine\"}],\"explanation\":\"The model estimates a 29.42% readmission probability. age increases the model's predicted risk, while prior_admissions increases the model's predicted risk, while creatinine decreases the model's predicted risk.\"}",
+        "original": {
+          "parse": {
+            "raw": "{\"drivers\":[{\"direction\":\"positive\",\"feature\":\"age\"},{\"direction\":\"positive\",\"feature\":\"prior_admissions\"},{\"direction\":\"negative\",\"feature\":\"creatinine\"}],\"explanation\":\"The model estimates a 29.42% readmission probability. age increases the model's predicted risk, while prior_admissions increases the model's predicted risk, while creatinine decreases the model's predicted risk.\"}",
+            "answer": {
+              "explanation": "The model estimates a 29.42% readmission probability. age increases the model's predicted risk, while prior_admissions increases the model's predicted risk, while creatinine decreases the model's predicted risk.",
+              "drivers": [
+                {
+                  "feature": "age",
+                  "direction": "positive"
+                },
+                {
+                  "feature": "prior_admissions",
+                  "direction": "positive"
+                },
+                {
+                  "feature": "creatinine",
+                  "direction": "negative"
+                }
+              ]
+            },
+            "error": null,
+            "warnings": []
+          },
+          "structured": {
+            "expected": [
+              {
+                "feature": "age",
+                "direction": "positive"
+              },
+              {
+                "feature": "prior_admissions",
+                "direction": "positive"
+              },
+              {
+                "feature": "creatinine",
+                "direction": "negative"
+              }
+            ],
+            "observed": [
+              {
+                "feature": "age",
+                "direction": "positive"
+              },
+              {
+                "feature": "prior_admissions",
+                "direction": "positive"
+              },
+              {
+                "feature": "creatinine",
+                "direction": "negative"
+              }
+            ],
+            "issues": [],
+            "passed": true,
+            "complete": true,
+            "missing": []
+          },
+          "narrative": {
+            "claims": [
+              {
+                "text": "The model estimates a 29.42% readmission probability",
+                "status": "non_attribution",
+                "code": "prediction",
+                "detail": "Supplied predicted probability: 29.42%.",
+                "feature": null,
+                "clause_index": 0
+              },
+              {
+                "text": "age increases the model's predicted risk",
+                "status": "supported",
+                "code": "direction",
+                "detail": "age has a positive contribution.",
+                "feature": "age",
+                "clause_index": 1
+              },
+              {
+                "text": "prior_admissions increases the model's predicted risk",
+                "status": "supported",
+                "code": "direction",
+                "detail": "prior_admissions has a positive contribution.",
+                "feature": "prior_admissions",
+                "clause_index": 2
+              },
+              {
+                "text": "creatinine decreases the model's predicted risk",
+                "status": "supported",
+                "code": "direction",
+                "detail": "creatinine has a negative contribution.",
+                "feature": "creatinine",
+                "clause_index": 3
+              }
+            ],
+            "passed": true
+          },
+          "correct": true,
+          "complete": true,
+          "status": "verified_complete",
+          "missing_prose_drivers": []
+        },
+        "revision_call": null,
+        "revision": null,
+        "draft_accepted": true,
+        "revision_requested": false,
+        "revision_accepted": false,
+        "revision_rejected": false,
+        "fallback_used": false,
+        "fallback_reason": null,
+        "source": "grounded_draft",
+        "status": "verified_complete",
+        "answer": {
+          "explanation": "The model estimates a 29.42% readmission probability. age increases the model's predicted risk, while prior_admissions increases the model's predicted risk, while creatinine decreases the model's predicted risk.",
+          "drivers": [
+            {
+              "feature": "age",
+              "direction": "positive"
+            },
+            {
+              "feature": "prior_admissions",
+              "direction": "positive"
+            },
+            {
+              "feature": "creatinine",
+              "direction": "negative"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "scenario": "fully_corrected",
+      "case_id": "exp4-reference-02",
+      "original_gold": "unfaithful",
+      "original_correctly_rejected": true,
+      "original_falsely_rejected": false,
+      "revision_gold": "faithful",
+      "revision_complete": true,
+      "requests": 1,
+      "new_error_introduced": false,
+      "final_mathematically_faithful": true,
+      "final_complete": true,
+      "trace": {
+        "original_raw": "{\"drivers\":[{\"direction\":\"positive\",\"feature\":\"age\"},{\"direction\":\"negative\",\"feature\":\"prior_admissions\"},{\"direction\":\"positive\",\"feature\":\"creatinine\"}],\"explanation\":\"The model estimates a 4.34% readmission probability. age decreases the model's predicted risk, while prior_admissions decreases the model's predicted risk, while creatinine increases the model's predicted risk.\"}",
+        "original": {
+          "parse": {
+            "raw": "{\"drivers\":[{\"direction\":\"positive\",\"feature\":\"age\"},{\"direction\":\"negative\",\"feature\":\"prior_admissions\"},{\"direction\":\"positive\",\"feature\":\"creatinine\"}],\"explanation\":\"The model estimates a 4.34% readmission probability. age decreases the model's predicted risk, while prior_admissions decreases the model's predicted risk, while creatinine increases the model's predicted risk.\"}",
+            "answer": {
+              "explanation": "The model estimates a 4.34% readmission probability. age decreases the model's predicted risk, while prior_admissions decreases the model's predicted risk, while creatinine increases the model's predicted risk.",
+              "drivers": [
+                {
+                  "feature": "age",
+                  "direction": "positive"
+                },
+                {
+                  "feature": "prior_admissions",
+                  "direction": "negative"
+                },
+                {
+                  "feature": "creatinine",
+                  "direction": "positive"
+                }
+              ]
+            },
+            "error": null,
+            "warnings": []
+          },
+          "structured": {
+            "expected": [
+              {
+                "feature": "age",
+                "direction": "negative"
+              },
+              {
+                "feature": "prior_admissions",
+                "direction": "negative"
+              },
+              {
+                "feature": "creatinine",
+                "direction": "positive"
+              }
+            ],
+            "observed": [
+              {
+                "feature": "age",
+                "direction": "positive"
+              },
+              {
+                "feature": "prior_admissions",
+                "direction": "negative"
+              },
+              {
+                "feature": "creatinine",
+                "direction": "positive"
+              }
+            ],
+            "issues": [
+              {
+                "code": "direction",
+                "detail": "age has a negative contribution."
+              }
+            ],
+            "passed": false,
+            "complete": true,
+            "missing": []
+          },
+          "narrative": {
+            "claims": [
+              {
+                "text": "The model estimates a 4.34% readmission probability",
+                "status": "non_attribution",
+                "code": "prediction",
+                "detail": "Supplied predicted probability: 4.34%.",
+                "feature": null,
+                "clause_index": 0
+              },
+              {
+                "text": "age decreases the model's predicted risk",
+                "status": "contradicted",
+                "code": "driver_conflict",
+                "detail": "Prose disagrees with the JSON direction for age.",
+                "feature": "age",
+                "clause_index": 1
+              },
+              {
+                "text": "prior_admissions decreases the model's predicted risk",
+                "status": "supported",
+                "code": "direction",
+                "detail": "prior_admissions has a negative contribution.",
+                "feature": "prior_admissions",
+                "clause_index": 2
+              },
+              {
+                "text": "creatinine increases the model's predicted risk",
+                "status": "supported",
+                "code": "direction",
+                "detail": "creatinine has a positive contribution.",
+                "feature": "creatinine",
+                "clause_index": 3
+              }
+            ],
+            "passed": false
+          },
+          "correct": false,
+          "complete": false,
+          "status": "verification_failed",
+          "missing_prose_drivers": [
+            "age"
+          ]
+        },
+        "revision_call": {
+          "raw": "{\"drivers\":[{\"direction\":\"negative\",\"feature\":\"age\"},{\"direction\":\"negative\",\"feature\":\"prior_admissions\"},{\"direction\":\"positive\",\"feature\":\"creatinine\"}],\"explanation\":\"The model estimates a 4.34% readmission probability. age decreases the model's predicted risk, while prior_admissions decreases the model's predicted risk, while creatinine increases the model's predicted risk.\"}",
+          "error": null,
+          "latency_seconds": 2.095900708809495e-05,
+          "timeout_seconds": 90,
+          "prompt_sha256": "df4a031359f7a0efe51d11f42cf363d8c2c076b0f6085517aad695d66075221d"
+        },
+        "revision": {
+          "parse": {
+            "raw": "{\"drivers\":[{\"direction\":\"negative\",\"feature\":\"age\"},{\"direction\":\"negative\",\"feature\":\"prior_admissions\"},{\"direction\":\"positive\",\"feature\":\"creatinine\"}],\"explanation\":\"The model estimates a 4.34% readmission probability. age decreases the model's predicted risk, while prior_admissions decreases the model's predicted risk, while creatinine increases the model's predicted risk.\"}",
+            "answer": {
+              "explanation": "The model estimates a 4.34% readmission probability. age decreases the model's predicted risk, while prior_admissions decreases the model's predicted risk, while creatinine increases the model's predicted risk.",
+              "drivers": [
+                {
+                  "feature": "age",
+                  "direction": "negative"
+                },
+                {
+                  "feature": "prior_admissions",
+                  "direction": "negative"
+                },
+                {
+                  "feature": "creatinine",
+                  "direction": "positive"
+                }
+              ]
+            },
+            "error": null,
+            "warnings": []
+          },
+          "structured": {
+            "expected": [
+              {
+                "feature": "age",
+                "direction": "negative"
+              },
+              {
+                "feature": "prior_admissions",
+                "direction": "negative"
+              },
+              {
+                "feature": "creatinine",
+                "direction": "positive"
+              }
+            ],
+            "observed": [
+              {
+                "feature": "age",
+                "direction": "negative"
+              },
+              {
+                "feature": "prior_admissions",
+                "direction": "negative"
+              },
+              {
+                "feature": "creatinine",
+                "direction": "positive"
+              }
+            ],
+            "issues": [],
+            "passed": true,
+            "complete": true,
+            "missing": []
+          },
+          "narrative": {
+            "claims": [
+              {
+                "text": "The model estimates a 4.34% readmission probability",
+                "status": "non_attribution",
+                "code": "prediction",
+                "detail": "Supplied predicted probability: 4.34%.",
+                "feature": null,
+                "clause_index": 0
+              },
+              {
+                "text": "age decreases the model's predicted risk",
+                "status": "supported",
+                "code": "direction",
+                "detail": "age has a negative contribution.",
+                "feature": "age",
+                "clause_index": 1
+              },
+              {
+                "text": "prior_admissions decreases the model's predicted risk",
+                "status": "supported",
+                "code": "direction",
+                "detail": "prior_admissions has a negative contribution.",
+                "feature": "prior_admissions",
+                "clause_index": 2
+              },
+              {
+                "text": "creatinine increases the model's predicted risk",
+                "status": "supported",
+                "code": "direction",
+                "detail": "creatinine has a positive contribution.",
+                "feature": "creatinine",
+                "clause_index": 3
+              }
+            ],
+            "passed": true
+          },
+          "correct": true,
+          "complete": true,
+          "status": "verified_complete",
+          "missing_prose_drivers": []
+        },
+        "draft_accepted": false,
+        "revision_requested": true,
+        "revision_accepted": true,
+        "revision_rejected": false,
+        "fallback_used": false,
+        "fallback_reason": null,
+        "source": "model_revision",
+        "status": "verified_complete",
+        "answer": {
+          "explanation": "The model estimates a 4.34% readmission probability. age decreases the model's predicted risk, while prior_admissions decreases the model's predicted risk, while creatinine increases the model's predicted risk.",
+          "drivers": [
+            {
+              "feature": "age",
+              "direction": "negative"
+            },
+            {
+              "feature": "prior_admissions",
+              "direction": "negative"
+            },
+            {
+              "feature": "creatinine",
+              "direction": "positive"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "scenario": "partially_corrected",
+      "case_id": "exp4-reference-03",
+      "original_gold": "unfaithful",
+      "original_correctly_rejected": true,
+      "original_falsely_rejected": false,
+      "revision_gold": "unfaithful",
+      "revision_complete": true,
+      "requests": 1,
+      "new_error_introduced": false,
+      "final_mathematically_faithful": true,
+      "final_complete": true,
+      "trace": {
+        "original_raw": "{\"drivers\":[{\"direction\":\"negative\",\"feature\":\"prior_admissions\"},{\"direction\":\"positive\",\"feature\":\"creatinine\"},{\"direction\":\"negative\",\"feature\":\"age\"}],\"explanation\":\"The model estimates a 48.79% readmission probability. prior_admissions increases the model's predicted risk, while creatinine increases the model's predicted risk, while age decreases the model's predicted risk.\"}",
+        "original": {
+          "parse": {
+            "raw": "{\"drivers\":[{\"direction\":\"negative\",\"feature\":\"prior_admissions\"},{\"direction\":\"positive\",\"feature\":\"creatinine\"},{\"direction\":\"negative\",\"feature\":\"age\"}],\"explanation\":\"The model estimates a 48.79% readmission probability. prior_admissions increases the model's predicted risk, while creatinine increases the model's predicted risk, while age decreases the model's predicted risk.\"}",
+            "answer": {
+              "explanation": "The model estimates a 48.79% readmission probability. prior_admissions increases the model's predicted risk, while creatinine increases the model's predicted risk, while age decreases the model's predicted risk.",
+              "drivers": [
+                {
+                  "feature": "prior_admissions",
+                  "direction": "negative"
+                },
+                {
+                  "feature": "creatinine",
+                  "direction": "positive"
+                },
+                {
+                  "feature": "age",
+                  "direction": "negative"
+                }
+              ]
+            },
+            "error": null,
+            "warnings": []
+          },
+          "structured": {
+            "expected": [
+              {
+                "feature": "prior_admissions",
+                "direction": "positive"
+              },
+              {
+                "feature": "creatinine",
+                "direction": "positive"
+              },
+              {
+                "feature": "age",
+                "direction": "negative"
+              }
+            ],
+            "observed": [
+              {
+                "feature": "prior_admissions",
+                "direction": "negative"
+              },
+              {
+                "feature": "creatinine",
+                "direction": "positive"
+              },
+              {
+                "feature": "age",
+                "direction": "negative"
+              }
+            ],
+            "issues": [
+              {
+                "code": "direction",
+                "detail": "prior_admissions has a positive contribution."
+              }
+            ],
+            "passed": false,
+            "complete": true,
+            "missing": []
+          },
+          "narrative": {
+            "claims": [
+              {
+                "text": "The model estimates a 48.79% readmission probability",
+                "status": "contradicted",
+                "code": "prediction",
+                "detail": "Supplied predicted probability: 41.49%.",
+                "feature": null,
+                "clause_index": 0
+              },
+              {
+                "text": "prior_admissions increases the model's predicted risk",
+                "status": "contradicted",
+                "code": "driver_conflict",
+                "detail": "Prose disagrees with the JSON direction for prior_admissions.",
+                "feature": "prior_admissions",
+                "clause_index": 1
+              },
+              {
+                "text": "creatinine increases the model's predicted risk",
+                "status": "supported",
+                "code": "direction",
+                "detail": "creatinine has a positive contribution.",
+                "feature": "creatinine",
+                "clause_index": 2
+              },
+              {
+                "text": "age decreases the model's predicted risk",
+                "status": "supported",
+                "code": "direction",
+                "detail": "age has a negative contribution.",
+                "feature": "age",
+                "clause_index": 3
+              }
+            ],
+            "passed": false
+          },
+          "correct": false,
+          "complete": false,
+          "status": "verification_failed",
+          "missing_prose_drivers": [
+            "prior_admissions"
+          ]
+        },
+        "revision_call": {
+          "raw": "{\"drivers\":[{\"direction\":\"negative\",\"feature\":\"prior_admissions\"},{\"direction\":\"positive\",\"feature\":\"creatinine\"},{\"direction\":\"negative\",\"feature\":\"age\"}],\"explanation\":\"The model estimates a 41.49% readmission probability. prior_admissions increases the model's predicted risk, while creatinine increases the model's predicted risk, while age decreases the model's predicted risk.\"}",
+          "error": null,
+          "latency_seconds": 1.53339933604002e-05,
+          "timeout_seconds": 90,
+          "prompt_sha256": "195d0fd8ce8296bf15e16d84f8043c5da886ba9d2f0e30568bbcc4784d896e7a"
+        },
+        "revision": {
+          "parse": {
+            "raw": "{\"drivers\":[{\"direction\":\"negative\",\"feature\":\"prior_admissions\"},{\"direction\":\"positive\",\"feature\":\"creatinine\"},{\"direction\":\"negative\",\"feature\":\"age\"}],\"explanation\":\"The model estimates a 41.49% readmission probability. prior_admissions increases the model's predicted risk, while creatinine increases the model's predicted risk, while age decreases the model's predicted risk.\"}",
+            "answer": {
+              "explanation": "The model estimates a 41.49% readmission probability. prior_admissions increases the model's predicted risk, while creatinine increases the model's predicted risk, while age decreases the model's predicted risk.",
+              "drivers": [
+                {
+                  "feature": "prior_admissions",
+                  "direction": "negative"
+                },
+                {
+                  "feature": "creatinine",
+                  "direction": "positive"
+                },
+                {
+                  "feature": "age",
+                  "direction": "negative"
+                }
+              ]
+            },
+            "error": null,
+            "warnings": []
+          },
+          "structured": {
+            "expected": [
+              {
+                "feature": "prior_admissions",
+                "direction": "positive"
+              },
+              {
+                "feature": "creatinine",
+                "direction": "positive"
+              },
+              {
+                "feature": "age",
+                "direction": "negative"
+              }
+            ],
+            "observed": [
+              {
+                "feature": "prior_admissions",
+                "direction": "negative"
+              },
+              {
+                "feature": "creatinine",
+                "direction": "positive"
+              },
+              {
+                "feature": "age",
+                "direction": "negative"
+              }
+            ],
+            "issues": [
+              {
+                "code": "direction",
+                "detail": "prior_admissions has a positive contribution."
+              }
+            ],
+            "passed": false,
+            "complete": true,
+            "missing": []
+          },
+          "narrative": {
+            "claims": [
+              {
+                "text": "The model estimates a 41.49% readmission probability",
+                "status": "non_attribution",
+                "code": "prediction",
+                "detail": "Supplied predicted probability: 41.49%.",
+                "feature": null,
+                "clause_index": 0
+              },
+              {
+                "text": "prior_admissions increases the model's predicted risk",
+                "status": "contradicted",
+                "code": "driver_conflict",
+                "detail": "Prose disagrees with the JSON direction for prior_admissions.",
+                "feature": "prior_admissions",
+                "clause_index": 1
+              },
+              {
+                "text": "creatinine increases the model's predicted risk",
+                "status": "supported",
+                "code": "direction",
+                "detail": "creatinine has a positive contribution.",
+                "feature": "creatinine",
+                "clause_index": 2
+              },
+              {
+                "text": "age decreases the model's predicted risk",
+                "status": "supported",
+                "code": "direction",
+                "detail": "age has a negative contribution.",
+                "feature": "age",
+                "clause_index": 3
+              }
+            ],
+            "passed": false
+          },
+          "correct": false,
+          "complete": false,
+          "status": "verification_failed",
+          "missing_prose_drivers": [
+            "prior_admissions"
+          ]
+        },
+        "draft_accepted": false,
+        "revision_requested": true,
+        "revision_accepted": false,
+        "revision_rejected": true,
+        "fallback_used": true,
+        "fallback_reason": [
+          {
+            "code": "direction",
+            "detail": "prior_admissions has a positive contribution."
+          },
+          {
+            "code": "driver_conflict",
+            "detail": "Prose disagrees with the JSON direction for prior_admissions. Text: prior_admissions increases the model's predicted risk"
+          },
+          {
+            "code": "missing_prose_drivers",
+            "detail": "State the direction in prose for: prior_admissions."
+          }
+        ],
+        "source": "deterministic_fallback",
+        "status": "verified_complete",
+        "answer": {
+          "explanation": "The model estimates a 41.49% readmission probability. prior_admissions increases the model's predicted risk relative to the model reference, while creatinine increases the model's predicted risk relative to the model reference, while age decreases the model's predicted risk relative to the model reference.",
+          "drivers": [
+            {
+              "feature": "prior_admissions",
+              "direction": "positive"
+            },
+            {
+              "feature": "creatinine",
+              "direction": "positive"
+            },
+            {
+              "feature": "age",
+              "direction": "negative"
+            }
+          ]
+        },
+        "fallback_validation": {
+          "structured": {
+            "expected": [
+              {
+                "feature": "prior_admissions",
+                "direction": "positive"
+              },
+              {
+                "feature": "creatinine",
+                "direction": "positive"
+              },
+              {
+                "feature": "age",
+                "direction": "negative"
+              }
+            ],
+            "observed": [
+              {
+                "feature": "prior_admissions",
+                "direction": "positive"
+              },
+              {
+                "feature": "creatinine",
+                "direction": "positive"
+              },
+              {
+                "feature": "age",
+                "direction": "negative"
+              }
+            ],
+            "issues": [],
+            "passed": true,
+            "complete": true,
+            "missing": []
+          },
+          "narrative": {
+            "claims": [
+              {
+                "text": "The model estimates a 41.49% readmission probability",
+                "status": "non_attribution",
+                "code": "prediction",
+                "detail": "Supplied predicted probability: 41.49%.",
+                "feature": null,
+                "clause_index": 0
+              },
+              {
+                "text": "prior_admissions increases the model's predicted risk relative to the model reference",
+                "status": "supported",
+                "code": "direction",
+                "detail": "prior_admissions has a positive contribution.",
+                "feature": "prior_admissions",
+                "clause_index": 1
+              },
+              {
+                "text": "creatinine increases the model's predicted risk relative to the model reference",
+                "status": "supported",
+                "code": "direction",
+                "detail": "creatinine has a positive contribution.",
+                "feature": "creatinine",
+                "clause_index": 2
+              },
+              {
+                "text": "age decreases the model's predicted risk relative to the model reference",
+                "status": "supported",
+                "code": "direction",
+                "detail": "age has a negative contribution.",
+                "feature": "age",
+                "clause_index": 3
+              }
+            ],
+            "passed": true
+          },
+          "correct": true,
+          "complete": true,
+          "status": "verified_complete",
+          "missing_prose_drivers": []
+        }
+      }
+    },
+    {
+      "scenario": "unchanged",
+      "case_id": "exp4-reference-04",
+      "original_gold": "unfaithful",
+      "original_correctly_rejected": true,
+      "original_falsely_rejected": false,
+      "revision_gold": "unfaithful",
+      "revision_complete": true,
+      "requests": 1,
+      "new_error_introduced": false,
+      "final_mathematically_faithful": true,
+      "final_complete": true,
+      "trace": {
+        "original_raw": "{\"drivers\":[{\"direction\":\"positive\",\"feature\":\"prior_admissions\"},{\"direction\":\"negative\",\"feature\":\"creatinine\"},{\"direction\":\"positive\",\"feature\":\"age\"}],\"explanation\":\"The model estimates a 3.31% readmission probability. prior_admissions decreases the model's predicted risk, while creatinine decreases the model's predicted risk, while age increases the model's predicted risk.\"}",
+        "original": {
+          "parse": {
+            "raw": "{\"drivers\":[{\"direction\":\"positive\",\"feature\":\"prior_admissions\"},{\"direction\":\"negative\",\"feature\":\"creatinine\"},{\"direction\":\"positive\",\"feature\":\"age\"}],\"explanation\":\"The model estimates a 3.31% readmission probability. prior_admissions decreases the model's predicted risk, while creatinine decreases the model's predicted risk, while age increases the model's predicted risk.\"}",
+            "answer": {
+              "explanation": "The model estimates a 3.31% readmission probability. prior_admissions decreases the model's predicted risk, while creatinine decreases the model's predicted risk, while age increases the model's predicted risk.",
+              "drivers": [
+                {
+                  "feature": "prior_admissions",
+                  "direction": "positive"
+                },
+                {
+                  "feature": "creatinine",
+                  "direction": "negative"
+                },
+                {
+                  "feature": "age",
+                  "direction": "positive"
+                }
+              ]
+            },
+            "error": null,
+            "warnings": []
+          },
+          "structured": {
+            "expected": [
+              {
+                "feature": "prior_admissions",
+                "direction": "negative"
+              },
+              {
+                "feature": "creatinine",
+                "direction": "negative"
+              },
+              {
+                "feature": "age",
+                "direction": "positive"
+              }
+            ],
+            "observed": [
+              {
+                "feature": "prior_admissions",
+                "direction": "positive"
+              },
+              {
+                "feature": "creatinine",
+                "direction": "negative"
+              },
+              {
+                "feature": "age",
+                "direction": "positive"
+              }
+            ],
+            "issues": [
+              {
+                "code": "direction",
+                "detail": "prior_admissions has a negative contribution."
+              }
+            ],
+            "passed": false,
+            "complete": true,
+            "missing": []
+          },
+          "narrative": {
+            "claims": [
+              {
+                "text": "The model estimates a 3.31% readmission probability",
+                "status": "non_attribution",
+                "code": "prediction",
+                "detail": "Supplied predicted probability: 3.31%.",
+                "feature": null,
+                "clause_index": 0
+              },
+              {
+                "text": "prior_admissions decreases the model's predicted risk",
+                "status": "contradicted",
+                "code": "driver_conflict",
+                "detail": "Prose disagrees with the JSON direction for prior_admissions.",
+                "feature": "prior_admissions",
+                "clause_index": 1
+              },
+              {
+                "text": "creatinine decreases the model's predicted risk",
+                "status": "supported",
+                "code": "direction",
+                "detail": "creatinine has a negative contribution.",
+                "feature": "creatinine",
+                "clause_index": 2
+              },
+              {
+                "text": "age increases the model's predicted risk",
+                "status": "supported",
+                "code": "direction",
+                "detail": "age has a positive contribution.",
+                "feature": "age",
+                "clause_index": 3
+              }
+            ],
+            "passed": false
+          },
+          "correct": false,
+          "complete": false,
+          "status": "verification_failed",
+          "missing_prose_drivers": [
+            "prior_admissions"
+          ]
+        },
+        "revision_call": {
+          "raw": "{\"drivers\":[{\"direction\":\"positive\",\"feature\":\"prior_admissions\"},{\"direction\":\"negative\",\"feature\":\"creatinine\"},{\"direction\":\"positive\",\"feature\":\"age\"}],\"explanation\":\"The model estimates a 3.31% readmission probability. prior_admissions decreases the model's predicted risk, while creatinine decreases the model's predicted risk, while age increases the model's predicted risk.\"}",
+          "error": null,
+          "latency_seconds": 1.391599653288722e-05,
+          "timeout_seconds": 90,
+          "prompt_sha256": "9f4e16fe56c0824b411848637789c667cf672601e4e5feb3c399cb0b2eb9f295"
+        },
+        "revision": {
+          "parse": {
+            "raw": "{\"drivers\":[{\"direction\":\"positive\",\"feature\":\"prior_admissions\"},{\"direction\":\"negative\",\"feature\":\"creatinine\"},{\"direction\":\"positive\",\"feature\":\"age\"}],\"explanation\":\"The model estimates a 3.31% readmission probability. prior_admissions decreases the model's predicted risk, while creatinine decreases the model's predicted risk, while age increases the model's predicted risk.\"}",
+            "answer": {
+              "explanation": "The model estimates a 3.31% readmission probability. prior_admissions decreases the model's predicted risk, while creatinine decreases the model's predicted risk, while age increases the model's predicted risk.",
+              "drivers": [
+                {
+                  "feature": "prior_admissions",
+                  "direction": "positive"
+                },
+                {
+                  "feature": "creatinine",
+                  "direction": "negative"
+                },
+                {
+                  "feature": "age",
+                  "direction": "positive"
+                }
+              ]
+            },
+            "error": null,
+            "warnings": []
+          },
+          "structured": {
+            "expected": [
+              {
+                "feature": "prior_admissions",
+                "direction": "negative"
+              },
+              {
+                "feature": "creatinine",
+                "direction": "negative"
+              },
+              {
+                "feature": "age",
+                "direction": "positive"
+              }
+            ],
+            "observed": [
+              {
+                "feature": "prior_admissions",
+                "direction": "positive"
+              },
+              {
+                "feature": "creatinine",
+                "direction": "negative"
+              },
+              {
+                "feature": "age",
+                "direction": "positive"
+              }
+            ],
+            "issues": [
+              {
+                "code": "direction",
+                "detail": "prior_admissions has a negative contribution."
+              }
+            ],
+            "passed": false,
+            "complete": true,
+            "missing": []
+          },
+          "narrative": {
+            "claims": [
+              {
+                "text": "The model estimates a 3.31% readmission probability",
+                "status": "non_attribution",
+                "code": "prediction",
+                "detail": "Supplied predicted probability: 3.31%.",
+                "feature": null,
+                "clause_index": 0
+              },
+              {
+                "text": "prior_admissions decreases the model's predicted risk",
+                "status": "contradicted",
+                "code": "driver_conflict",
+                "detail": "Prose disagrees with the JSON direction for prior_admissions.",
+                "feature": "prior_admissions",
+                "clause_index": 1
+              },
+              {
+                "text": "creatinine decreases the model's predicted risk",
+                "status": "supported",
+                "code": "direction",
+                "detail": "creatinine has a negative contribution.",
+                "feature": "creatinine",
+                "clause_index": 2
+              },
+              {
+                "text": "age increases the model's predicted risk",
+                "status": "supported",
+                "code": "direction",
+                "detail": "age has a positive contribution.",
+                "feature": "age",
+                "clause_index": 3
+              }
+            ],
+            "passed": false
+          },
+          "correct": false,
+          "complete": false,
+          "status": "verification_failed",
+          "missing_prose_drivers": [
+            "prior_admissions"
+          ]
+        },
+        "draft_accepted": false,
+        "revision_requested": true,
+        "revision_accepted": false,
+        "revision_rejected": true,
+        "fallback_used": true,
+        "fallback_reason": [
+          {
+            "code": "direction",
+            "detail": "prior_admissions has a negative contribution."
+          },
+          {
+            "code": "driver_conflict",
+            "detail": "Prose disagrees with the JSON direction for prior_admissions. Text: prior_admissions decreases the model's predicted risk"
+          },
+          {
+            "code": "missing_prose_drivers",
+            "detail": "State the direction in prose for: prior_admissions."
+          }
+        ],
+        "source": "deterministic_fallback",
+        "status": "verified_complete",
+        "answer": {
+          "explanation": "The model estimates a 3.31% readmission probability. prior_admissions decreases the model's predicted risk relative to the model reference, while creatinine decreases the model's predicted risk relative to the model reference, while age increases the model's predicted risk relative to the model reference.",
+          "drivers": [
+            {
+              "feature": "prior_admissions",
+              "direction": "negative"
+            },
+            {
+              "feature": "creatinine",
+              "direction": "negative"
+            },
+            {
+              "feature": "age",
+              "direction": "positive"
+            }
+          ]
+        },
+        "fallback_validation": {
+          "structured": {
+            "expected": [
+              {
+                "feature": "prior_admissions",
+                "direction": "negative"
+              },
+              {
+                "feature": "creatinine",
+                "direction": "negative"
+              },
+              {
+                "feature": "age",
+                "direction": "positive"
+              }
+            ],
+            "observed": [
+              {
+                "feature": "prior_admissions",
+                "direction": "negative"
+              },
+              {
+                "feature": "creatinine",
+                "direction": "negative"
+              },
+              {
+                "feature": "age",
+                "direction": "positive"
+              }
+            ],
+            "issues": [],
+            "passed": true,
+            "complete": true,
+            "missing": []
+          },
+          "narrative": {
+            "claims": [
+              {
+                "text": "The model estimates a 3.31% readmission probability",
+                "status": "non_attribution",
+                "code": "prediction",
+                "detail": "Supplied predicted probability: 3.31%.",
+                "feature": null,
+                "clause_index": 0
+              },
+              {
+                "text": "prior_admissions decreases the model's predicted risk relative to the model reference",
+                "status": "supported",
+                "code": "direction",
+                "detail": "prior_admissions has a negative contribution.",
+                "feature": "prior_admissions",
+                "clause_index": 1
+              },
+              {
+                "text": "creatinine decreases the model's predicted risk relative to the model reference",
+                "status": "supported",
+                "code": "direction",
+                "detail": "creatinine has a negative contribution.",
+                "feature": "creatinine",
+                "clause_index": 2
+              },
+              {
+                "text": "age increases the model's predicted risk relative to the model reference",
+                "status": "supported",
+                "code": "direction",
+                "detail": "age has a positive contribution.",
+                "feature": "age",
+                "clause_index": 3
+              }
+            ],
+            "passed": true
+          },
+          "correct": true,
+          "complete": true,
+          "status": "verified_complete",
+          "missing_prose_drivers": []
+        }
+      }
+    },
+    {
+      "scenario": "new_error",
+      "case_id": "exp4-reference-05",
+      "original_gold": "unfaithful",
+      "original_correctly_rejected": true,
+      "original_falsely_rejected": false,
+      "revision_gold": "unfaithful",
+      "revision_complete": true,
+      "requests": 1,
+      "new_error_introduced": true,
+      "final_mathematically_faithful": true,
+      "final_complete": true,
+      "trace": {
+        "original_raw": "{\"drivers\":[{\"direction\":\"negative\",\"feature\":\"creatinine\"},{\"direction\":\"positive\",\"feature\":\"age\"},{\"direction\":\"negative\",\"feature\":\"prior_admissions\"}],\"explanation\":\"The model estimates a 36.30% readmission probability. creatinine increases the model's predicted risk, while age increases the model's predicted risk, while prior_admissions decreases the model's predicted risk.\"}",
+        "original": {
+          "parse": {
+            "raw": "{\"drivers\":[{\"direction\":\"negative\",\"feature\":\"creatinine\"},{\"direction\":\"positive\",\"feature\":\"age\"},{\"direction\":\"negative\",\"feature\":\"prior_admissions\"}],\"explanation\":\"The model estimates a 36.30% readmission probability. creatinine increases the model's predicted risk, while age increases the model's predicted risk, while prior_admissions decreases the model's predicted risk.\"}",
+            "answer": {
+              "explanation": "The model estimates a 36.30% readmission probability. creatinine increases the model's predicted risk, while age increases the model's predicted risk, while prior_admissions decreases the model's predicted risk.",
+              "drivers": [
+                {
+                  "feature": "creatinine",
+                  "direction": "negative"
+                },
+                {
+                  "feature": "age",
+                  "direction": "positive"
+                },
+                {
+                  "feature": "prior_admissions",
+                  "direction": "negative"
+                }
+              ]
+            },
+            "error": null,
+            "warnings": []
+          },
+          "structured": {
+            "expected": [
+              {
+                "feature": "creatinine",
+                "direction": "positive"
+              },
+              {
+                "feature": "age",
+                "direction": "positive"
+              },
+              {
+                "feature": "prior_admissions",
+                "direction": "negative"
+              }
+            ],
+            "observed": [
+              {
+                "feature": "creatinine",
+                "direction": "negative"
+              },
+              {
+                "feature": "age",
+                "direction": "positive"
+              },
+              {
+                "feature": "prior_admissions",
+                "direction": "negative"
+              }
+            ],
+            "issues": [
+              {
+                "code": "direction",
+                "detail": "creatinine has a positive contribution."
+              }
+            ],
+            "passed": false,
+            "complete": true,
+            "missing": []
+          },
+          "narrative": {
+            "claims": [
+              {
+                "text": "The model estimates a 36.30% readmission probability",
+                "status": "non_attribution",
+                "code": "prediction",
+                "detail": "Supplied predicted probability: 36.30%.",
+                "feature": null,
+                "clause_index": 0
+              },
+              {
+                "text": "creatinine increases the model's predicted risk",
+                "status": "contradicted",
+                "code": "driver_conflict",
+                "detail": "Prose disagrees with the JSON direction for creatinine.",
+                "feature": "creatinine",
+                "clause_index": 1
+              },
+              {
+                "text": "age increases the model's predicted risk",
+                "status": "supported",
+                "code": "direction",
+                "detail": "age has a positive contribution.",
+                "feature": "age",
+                "clause_index": 2
+              },
+              {
+                "text": "prior_admissions decreases the model's predicted risk",
+                "status": "supported",
+                "code": "direction",
+                "detail": "prior_admissions has a negative contribution.",
+                "feature": "prior_admissions",
+                "clause_index": 3
+              }
+            ],
+            "passed": false
+          },
+          "correct": false,
+          "complete": false,
+          "status": "verification_failed",
+          "missing_prose_drivers": [
+            "creatinine"
+          ]
+        },
+        "revision_call": {
+          "raw": "{\"drivers\":[{\"direction\":\"positive\",\"feature\":\"creatinine\"},{\"direction\":\"positive\",\"feature\":\"age\"},{\"direction\":\"negative\",\"feature\":\"prior_admissions\"}],\"explanation\":\"The model estimates a 43.60% readmission probability. creatinine increases the model's predicted risk, while age increases the model's predicted risk, while prior_admissions decreases the model's predicted risk.\"}",
+          "error": null,
+          "latency_seconds": 1.3374985428526998e-05,
+          "timeout_seconds": 90,
+          "prompt_sha256": "ef8ec233dcc8acc218f3ce8c8a24dff969a51caa3aa27982238d1dd9b87a6eb1"
+        },
+        "revision": {
+          "parse": {
+            "raw": "{\"drivers\":[{\"direction\":\"positive\",\"feature\":\"creatinine\"},{\"direction\":\"positive\",\"feature\":\"age\"},{\"direction\":\"negative\",\"feature\":\"prior_admissions\"}],\"explanation\":\"The model estimates a 43.60% readmission probability. creatinine increases the model's predicted risk, while age increases the model's predicted risk, while prior_admissions decreases the model's predicted risk.\"}",
+            "answer": {
+              "explanation": "The model estimates a 43.60% readmission probability. creatinine increases the model's predicted risk, while age increases the model's predicted risk, while prior_admissions decreases the model's predicted risk.",
+              "drivers": [
+                {
+                  "feature": "creatinine",
+                  "direction": "positive"
+                },
+                {
+                  "feature": "age",
+                  "direction": "positive"
+                },
+                {
+                  "feature": "prior_admissions",
+                  "direction": "negative"
+                }
+              ]
+            },
+            "error": null,
+            "warnings": []
+          },
+          "structured": {
+            "expected": [
+              {
+                "feature": "creatinine",
+                "direction": "positive"
+              },
+              {
+                "feature": "age",
+                "direction": "positive"
+              },
+              {
+                "feature": "prior_admissions",
+                "direction": "negative"
+              }
+            ],
+            "observed": [
+              {
+                "feature": "creatinine",
+                "direction": "positive"
+              },
+              {
+                "feature": "age",
+                "direction": "positive"
+              },
+              {
+                "feature": "prior_admissions",
+                "direction": "negative"
+              }
+            ],
+            "issues": [],
+            "passed": true,
+            "complete": true,
+            "missing": []
+          },
+          "narrative": {
+            "claims": [
+              {
+                "text": "The model estimates a 43.60% readmission probability",
+                "status": "contradicted",
+                "code": "prediction",
+                "detail": "Supplied predicted probability: 36.30%.",
+                "feature": null,
+                "clause_index": 0
+              },
+              {
+                "text": "creatinine increases the model's predicted risk",
+                "status": "supported",
+                "code": "direction",
+                "detail": "creatinine has a positive contribution.",
+                "feature": "creatinine",
+                "clause_index": 1
+              },
+              {
+                "text": "age increases the model's predicted risk",
+                "status": "supported",
+                "code": "direction",
+                "detail": "age has a positive contribution.",
+                "feature": "age",
+                "clause_index": 2
+              },
+              {
+                "text": "prior_admissions decreases the model's predicted risk",
+                "status": "supported",
+                "code": "direction",
+                "detail": "prior_admissions has a negative contribution.",
+                "feature": "prior_admissions",
+                "clause_index": 3
+              }
+            ],
+            "passed": false
+          },
+          "correct": false,
+          "complete": true,
+          "status": "verification_failed",
+          "missing_prose_drivers": []
+        },
+        "draft_accepted": false,
+        "revision_requested": true,
+        "revision_accepted": false,
+        "revision_rejected": true,
+        "fallback_used": true,
+        "fallback_reason": [
+          {
+            "code": "prediction",
+            "detail": "Supplied predicted probability: 36.30%. Text: The model estimates a 43.60% readmission probability"
+          }
+        ],
+        "source": "deterministic_fallback",
+        "status": "verified_complete",
+        "answer": {
+          "explanation": "The model estimates a 36.30% readmission probability. creatinine increases the model's predicted risk relative to the model reference, while age increases the model's predicted risk relative to the model reference, while prior_admissions decreases the model's predicted risk relative to the model reference.",
+          "drivers": [
+            {
+              "feature": "creatinine",
+              "direction": "positive"
+            },
+            {
+              "feature": "age",
+              "direction": "positive"
+            },
+            {
+              "feature": "prior_admissions",
+              "direction": "negative"
+            }
+          ]
+        },
+        "fallback_validation": {
+          "structured": {
+            "expected": [
+              {
+                "feature": "creatinine",
+                "direction": "positive"
+              },
+              {
+                "feature": "age",
+                "direction": "positive"
+              },
+              {
+                "feature": "prior_admissions",
+                "direction": "negative"
+              }
+            ],
+            "observed": [
+              {
+                "feature": "creatinine",
+                "direction": "positive"
+              },
+              {
+                "feature": "age",
+                "direction": "positive"
+              },
+              {
+                "feature": "prior_admissions",
+                "direction": "negative"
+              }
+            ],
+            "issues": [],
+            "passed": true,
+            "complete": true,
+            "missing": []
+          },
+          "narrative": {
+            "claims": [
+              {
+                "text": "The model estimates a 36.30% readmission probability",
+                "status": "non_attribution",
+                "code": "prediction",
+                "detail": "Supplied predicted probability: 36.30%.",
+                "feature": null,
+                "clause_index": 0
+              },
+              {
+                "text": "creatinine increases the model's predicted risk relative to the model reference",
+                "status": "supported",
+                "code": "direction",
+                "detail": "creatinine has a positive contribution.",
+                "feature": "creatinine",
+                "clause_index": 1
+              },
+              {
+                "text": "age increases the model's predicted risk relative to the model reference",
+                "status": "supported",
+                "code": "direction",
+                "detail": "age has a positive contribution.",
+                "feature": "age",
+                "clause_index": 2
+              },
+              {
+                "text": "prior_admissions decreases the model's predicted risk relative to the model reference",
+                "status": "supported",
+                "code": "direction",
+                "detail": "prior_admissions has a negative contribution.",
+                "feature": "prior_admissions",
+                "clause_index": 3
+              }
+            ],
+            "passed": true
+          },
+          "correct": true,
+          "complete": true,
+          "status": "verified_complete",
+          "missing_prose_drivers": []
+        }
+      }
+    },
+    {
+      "scenario": "invalid_json",
+      "case_id": "exp4-reference-06",
+      "original_gold": "unfaithful",
+      "original_correctly_rejected": true,
+      "original_falsely_rejected": false,
+      "revision_gold": "indeterminate",
+      "revision_complete": false,
+      "requests": 1,
+      "new_error_introduced": false,
+      "final_mathematically_faithful": true,
+      "final_complete": true,
+      "trace": {
+        "original_raw": "{\"drivers\":[{\"direction\":\"positive\",\"feature\":\"creatinine\"},{\"direction\":\"negative\",\"feature\":\"age\"},{\"direction\":\"positive\",\"feature\":\"prior_admissions\"}],\"explanation\":\"The model estimates a 5.18% readmission probability. creatinine decreases the model's predicted risk, while age decreases the model's predicted risk, while prior_admissions increases the model's predicted risk.\"}",
+        "original": {
+          "parse": {
+            "raw": "{\"drivers\":[{\"direction\":\"positive\",\"feature\":\"creatinine\"},{\"direction\":\"negative\",\"feature\":\"age\"},{\"direction\":\"positive\",\"feature\":\"prior_admissions\"}],\"explanation\":\"The model estimates a 5.18% readmission probability. creatinine decreases the model's predicted risk, while age decreases the model's predicted risk, while prior_admissions increases the model's predicted risk.\"}",
+            "answer": {
+              "explanation": "The model estimates a 5.18% readmission probability. creatinine decreases the model's predicted risk, while age decreases the model's predicted risk, while prior_admissions increases the model's predicted risk.",
+              "drivers": [
+                {
+                  "feature": "creatinine",
+                  "direction": "positive"
+                },
+                {
+                  "feature": "age",
+                  "direction": "negative"
+                },
+                {
+                  "feature": "prior_admissions",
+                  "direction": "positive"
+                }
+              ]
+            },
+            "error": null,
+            "warnings": []
+          },
+          "structured": {
+            "expected": [
+              {
+                "feature": "creatinine",
+                "direction": "negative"
+              },
+              {
+                "feature": "age",
+                "direction": "negative"
+              },
+              {
+                "feature": "prior_admissions",
+                "direction": "positive"
+              }
+            ],
+            "observed": [
+              {
+                "feature": "creatinine",
+                "direction": "positive"
+              },
+              {
+                "feature": "age",
+                "direction": "negative"
+              },
+              {
+                "feature": "prior_admissions",
+                "direction": "positive"
+              }
+            ],
+            "issues": [
+              {
+                "code": "direction",
+                "detail": "creatinine has a negative contribution."
+              }
+            ],
+            "passed": false,
+            "complete": true,
+            "missing": []
+          },
+          "narrative": {
+            "claims": [
+              {
+                "text": "The model estimates a 5.18% readmission probability",
+                "status": "non_attribution",
+                "code": "prediction",
+                "detail": "Supplied predicted probability: 5.18%.",
+                "feature": null,
+                "clause_index": 0
+              },
+              {
+                "text": "creatinine decreases the model's predicted risk",
+                "status": "contradicted",
+                "code": "driver_conflict",
+                "detail": "Prose disagrees with the JSON direction for creatinine.",
+                "feature": "creatinine",
+                "clause_index": 1
+              },
+              {
+                "text": "age decreases the model's predicted risk",
+                "status": "supported",
+                "code": "direction",
+                "detail": "age has a negative contribution.",
+                "feature": "age",
+                "clause_index": 2
+              },
+              {
+                "text": "prior_admissions increases the model's predicted risk",
+                "status": "supported",
+                "code": "direction",
+                "detail": "prior_admissions has a positive contribution.",
+                "feature": "prior_admissions",
+                "clause_index": 3
+              }
+            ],
+            "passed": false
+          },
+          "correct": false,
+          "complete": false,
+          "status": "verification_failed",
+          "missing_prose_drivers": [
+            "creatinine"
+          ]
+        },
+        "revision_call": {
+          "raw": "{",
+          "error": null,
+          "latency_seconds": 1.316601992584765e-05,
+          "timeout_seconds": 90,
+          "prompt_sha256": "1c5ece3d600ac228f5b8087cc071cf4d3c97d2ff0e3f43913769407a8c0728cf"
+        },
+        "revision": {
+          "parse": {
+            "raw": "{",
+            "answer": null,
+            "error": {
+              "code": "invalid_json",
+              "detail": "Expecting property name enclosed in double quotes: line 1 column 2 (char 1)"
+            },
+            "warnings": []
+          },
+          "structured": null,
+          "narrative": null,
+          "correct": null,
+          "complete": null,
+          "status": "parse_error"
+        },
+        "draft_accepted": false,
+        "revision_requested": true,
+        "revision_accepted": false,
+        "revision_rejected": true,
+        "fallback_used": true,
+        "fallback_reason": [
+          {
+            "code": "invalid_json",
+            "detail": "Expecting property name enclosed in double quotes: line 1 column 2 (char 1)"
+          }
+        ],
+        "source": "deterministic_fallback",
+        "status": "verified_complete",
+        "answer": {
+          "explanation": "The model estimates a 5.18% readmission probability. creatinine decreases the model's predicted risk relative to the model reference, while age decreases the model's predicted risk relative to the model reference, while prior_admissions increases the model's predicted risk relative to the model reference.",
+          "drivers": [
+            {
+              "feature": "creatinine",
+              "direction": "negative"
+            },
+            {
+              "feature": "age",
+              "direction": "negative"
+            },
+            {
+              "feature": "prior_admissions",
+              "direction": "positive"
+            }
+          ]
+        },
+        "fallback_validation": {
+          "structured": {
+            "expected": [
+              {
+                "feature": "creatinine",
+                "direction": "negative"
+              },
+              {
+                "feature": "age",
+                "direction": "negative"
+              },
+              {
+                "feature": "prior_admissions",
+                "direction": "positive"
+              }
+            ],
+            "observed": [
+              {
+                "feature": "creatinine",
+                "direction": "negative"
+              },
+              {
+                "feature": "age",
+                "direction": "negative"
+              },
+              {
+                "feature": "prior_admissions",
+                "direction": "positive"
+              }
+            ],
+            "issues": [],
+            "passed": true,
+            "complete": true,
+            "missing": []
+          },
+          "narrative": {
+            "claims": [
+              {
+                "text": "The model estimates a 5.18% readmission probability",
+                "status": "non_attribution",
+                "code": "prediction",
+                "detail": "Supplied predicted probability: 5.18%.",
+                "feature": null,
+                "clause_index": 0
+              },
+              {
+                "text": "creatinine decreases the model's predicted risk relative to the model reference",
+                "status": "supported",
+                "code": "direction",
+                "detail": "creatinine has a negative contribution.",
+                "feature": "creatinine",
+                "clause_index": 1
+              },
+              {
+                "text": "age decreases the model's predicted risk relative to the model reference",
+                "status": "supported",
+                "code": "direction",
+                "detail": "age has a negative contribution.",
+                "feature": "age",
+                "clause_index": 2
+              },
+              {
+                "text": "prior_admissions increases the model's predicted risk relative to the model reference",
+                "status": "supported",
+                "code": "direction",
+                "detail": "prior_admissions has a positive contribution.",
+                "feature": "prior_admissions",
+                "clause_index": 3
+              }
+            ],
+            "passed": true
+          },
+          "correct": true,
+          "complete": true,
+          "status": "verified_complete",
+          "missing_prose_drivers": []
+        }
+      }
+    },
+    {
+      "scenario": "timeout",
+      "case_id": "exp4-reference-07",
+      "original_gold": "unfaithful",
+      "original_correctly_rejected": true,
+      "original_falsely_rejected": false,
+      "revision_gold": null,
+      "revision_complete": null,
+      "requests": 1,
+      "new_error_introduced": false,
+      "final_mathematically_faithful": true,
+      "final_complete": true,
+      "trace": {
+        "original_raw": "{\"drivers\":[{\"direction\":\"negative\",\"feature\":\"age\"},{\"direction\":\"positive\",\"feature\":\"prior_admissions\"},{\"direction\":\"negative\",\"feature\":\"creatinine\"}],\"explanation\":\"The model estimates a 52.34% readmission probability. age increases the model's predicted risk, while prior_admissions increases the model's predicted risk, while creatinine decreases the model's predicted risk.\"}",
+        "original": {
+          "parse": {
+            "raw": "{\"drivers\":[{\"direction\":\"negative\",\"feature\":\"age\"},{\"direction\":\"positive\",\"feature\":\"prior_admissions\"},{\"direction\":\"negative\",\"feature\":\"creatinine\"}],\"explanation\":\"The model estimates a 52.34% readmission probability. age increases the model's predicted risk, while prior_admissions increases the model's predicted risk, while creatinine decreases the model's predicted risk.\"}",
+            "answer": {
+              "explanation": "The model estimates a 52.34% readmission probability. age increases the model's predicted risk, while prior_admissions increases the model's predicted risk, while creatinine decreases the model's predicted risk.",
+              "drivers": [
+                {
+                  "feature": "age",
+                  "direction": "negative"
+                },
+                {
+                  "feature": "prior_admissions",
+                  "direction": "positive"
+                },
+                {
+                  "feature": "creatinine",
+                  "direction": "negative"
+                }
+              ]
+            },
+            "error": null,
+            "warnings": []
+          },
+          "structured": {
+            "expected": [
+              {
+                "feature": "age",
+                "direction": "positive"
+              },
+              {
+                "feature": "prior_admissions",
+                "direction": "positive"
+              },
+              {
+                "feature": "creatinine",
+                "direction": "negative"
+              }
+            ],
+            "observed": [
+              {
+                "feature": "age",
+                "direction": "negative"
+              },
+              {
+                "feature": "prior_admissions",
+                "direction": "positive"
+              },
+              {
+                "feature": "creatinine",
+                "direction": "negative"
+              }
+            ],
+            "issues": [
+              {
+                "code": "direction",
+                "detail": "age has a positive contribution."
+              }
+            ],
+            "passed": false,
+            "complete": true,
+            "missing": []
+          },
+          "narrative": {
+            "claims": [
+              {
+                "text": "The model estimates a 52.34% readmission probability",
+                "status": "non_attribution",
+                "code": "prediction",
+                "detail": "Supplied predicted probability: 52.34%.",
+                "feature": null,
+                "clause_index": 0
+              },
+              {
+                "text": "age increases the model's predicted risk",
+                "status": "contradicted",
+                "code": "driver_conflict",
+                "detail": "Prose disagrees with the JSON direction for age.",
+                "feature": "age",
+                "clause_index": 1
+              },
+              {
+                "text": "prior_admissions increases the model's predicted risk",
+                "status": "supported",
+                "code": "direction",
+                "detail": "prior_admissions has a positive contribution.",
+                "feature": "prior_admissions",
+                "clause_index": 2
+              },
+              {
+                "text": "creatinine decreases the model's predicted risk",
+                "status": "supported",
+                "code": "direction",
+                "detail": "creatinine has a negative contribution.",
+                "feature": "creatinine",
+                "clause_index": 3
+              }
+            ],
+            "passed": false
+          },
+          "correct": false,
+          "complete": false,
+          "status": "verification_failed",
+          "missing_prose_drivers": [
+            "age"
+          ]
+        },
+        "revision_call": {
+          "raw": null,
+          "error": {
+            "code": "timeout",
+            "detail": "Scripted correction timeout."
+          },
+          "latency_seconds": 1.633301144465804e-05,
+          "timeout_seconds": 90,
+          "prompt_sha256": "ff22e43c8e9ca003b82a06a949e532cfcd12e07c6e3ae9916525347251d60d96"
+        },
+        "revision": {
+          "parse": null,
+          "structured": null,
+          "narrative": null,
+          "correct": null,
+          "complete": null,
+          "status": "inference_error"
+        },
+        "draft_accepted": false,
+        "revision_requested": true,
+        "revision_accepted": false,
+        "revision_rejected": true,
+        "fallback_used": true,
+        "fallback_reason": [
+          {
+            "code": "timeout",
+            "detail": "Scripted correction timeout."
+          }
+        ],
+        "source": "deterministic_fallback",
+        "status": "verified_complete",
+        "answer": {
+          "explanation": "The model estimates a 52.34% readmission probability. age increases the model's predicted risk relative to the model reference, while prior_admissions increases the model's predicted risk relative to the model reference, while creatinine decreases the model's predicted risk relative to the model reference.",
+          "drivers": [
+            {
+              "feature": "age",
+              "direction": "positive"
+            },
+            {
+              "feature": "prior_admissions",
+              "direction": "positive"
+            },
+            {
+              "feature": "creatinine",
+              "direction": "negative"
+            }
+          ]
+        },
+        "fallback_validation": {
+          "structured": {
+            "expected": [
+              {
+                "feature": "age",
+                "direction": "positive"
+              },
+              {
+                "feature": "prior_admissions",
+                "direction": "positive"
+              },
+              {
+                "feature": "creatinine",
+                "direction": "negative"
+              }
+            ],
+            "observed": [
+              {
+                "feature": "age",
+                "direction": "positive"
+              },
+              {
+                "feature": "prior_admissions",
+                "direction": "positive"
+              },
+              {
+                "feature": "creatinine",
+                "direction": "negative"
+              }
+            ],
+            "issues": [],
+            "passed": true,
+            "complete": true,
+            "missing": []
+          },
+          "narrative": {
+            "claims": [
+              {
+                "text": "The model estimates a 52.34% readmission probability",
+                "status": "non_attribution",
+                "code": "prediction",
+                "detail": "Supplied predicted probability: 52.34%.",
+                "feature": null,
+                "clause_index": 0
+              },
+              {
+                "text": "age increases the model's predicted risk relative to the model reference",
+                "status": "supported",
+                "code": "direction",
+                "detail": "age has a positive contribution.",
+                "feature": "age",
+                "clause_index": 1
+              },
+              {
+                "text": "prior_admissions increases the model's predicted risk relative to the model reference",
+                "status": "supported",
+                "code": "direction",
+                "detail": "prior_admissions has a positive contribution.",
+                "feature": "prior_admissions",
+                "clause_index": 2
+              },
+              {
+                "text": "creatinine decreases the model's predicted risk relative to the model reference",
+                "status": "supported",
+                "code": "direction",
+                "detail": "creatinine has a negative contribution.",
+                "feature": "creatinine",
+                "clause_index": 3
+              }
+            ],
+            "passed": true
+          },
+          "correct": true,
+          "complete": true,
+          "status": "verified_complete",
+          "missing_prose_drivers": []
+        }
+      }
+    },
+    {
+      "scenario": "faithful_ambiguous_revision",
+      "case_id": "exp4-reference-08",
+      "original_gold": "unfaithful",
+      "original_correctly_rejected": true,
+      "original_falsely_rejected": false,
+      "revision_gold": "faithful",
+      "revision_complete": true,
+      "requests": 1,
+      "new_error_introduced": false,
+      "final_mathematically_faithful": true,
+      "final_complete": true,
+      "trace": {
+        "original_raw": "{\"drivers\":[{\"direction\":\"positive\",\"feature\":\"age\"},{\"direction\":\"negative\",\"feature\":\"prior_admissions\"},{\"direction\":\"positive\",\"feature\":\"creatinine\"}],\"explanation\":\"The model estimates a 3.51% readmission probability. age decreases the model's predicted risk, while prior_admissions decreases the model's predicted risk, while creatinine increases the model's predicted risk.\"}",
+        "original": {
+          "parse": {
+            "raw": "{\"drivers\":[{\"direction\":\"positive\",\"feature\":\"age\"},{\"direction\":\"negative\",\"feature\":\"prior_admissions\"},{\"direction\":\"positive\",\"feature\":\"creatinine\"}],\"explanation\":\"The model estimates a 3.51% readmission probability. age decreases the model's predicted risk, while prior_admissions decreases the model's predicted risk, while creatinine increases the model's predicted risk.\"}",
+            "answer": {
+              "explanation": "The model estimates a 3.51% readmission probability. age decreases the model's predicted risk, while prior_admissions decreases the model's predicted risk, while creatinine increases the model's predicted risk.",
+              "drivers": [
+                {
+                  "feature": "age",
+                  "direction": "positive"
+                },
+                {
+                  "feature": "prior_admissions",
+                  "direction": "negative"
+                },
+                {
+                  "feature": "creatinine",
+                  "direction": "positive"
+                }
+              ]
+            },
+            "error": null,
+            "warnings": []
+          },
+          "structured": {
+            "expected": [
+              {
+                "feature": "age",
+                "direction": "negative"
+              },
+              {
+                "feature": "prior_admissions",
+                "direction": "negative"
+              },
+              {
+                "feature": "creatinine",
+                "direction": "positive"
+              }
+            ],
+            "observed": [
+              {
+                "feature": "age",
+                "direction": "positive"
+              },
+              {
+                "feature": "prior_admissions",
+                "direction": "negative"
+              },
+              {
+                "feature": "creatinine",
+                "direction": "positive"
+              }
+            ],
+            "issues": [
+              {
+                "code": "direction",
+                "detail": "age has a negative contribution."
+              }
+            ],
+            "passed": false,
+            "complete": true,
+            "missing": []
+          },
+          "narrative": {
+            "claims": [
+              {
+                "text": "The model estimates a 3.51% readmission probability",
+                "status": "non_attribution",
+                "code": "prediction",
+                "detail": "Supplied predicted probability: 3.51%.",
+                "feature": null,
+                "clause_index": 0
+              },
+              {
+                "text": "age decreases the model's predicted risk",
+                "status": "contradicted",
+                "code": "driver_conflict",
+                "detail": "Prose disagrees with the JSON direction for age.",
+                "feature": "age",
+                "clause_index": 1
+              },
+              {
+                "text": "prior_admissions decreases the model's predicted risk",
+                "status": "supported",
+                "code": "direction",
+                "detail": "prior_admissions has a negative contribution.",
+                "feature": "prior_admissions",
+                "clause_index": 2
+              },
+              {
+                "text": "creatinine increases the model's predicted risk",
+                "status": "supported",
+                "code": "direction",
+                "detail": "creatinine has a positive contribution.",
+                "feature": "creatinine",
+                "clause_index": 3
+              }
+            ],
+            "passed": false
+          },
+          "correct": false,
+          "complete": false,
+          "status": "verification_failed",
+          "missing_prose_drivers": [
+            "age"
+          ]
+        },
+        "revision_call": {
+          "raw": "{\"drivers\":[{\"direction\":\"negative\",\"feature\":\"age\"},{\"direction\":\"negative\",\"feature\":\"prior_admissions\"},{\"direction\":\"positive\",\"feature\":\"creatinine\"}],\"explanation\":\"The model estimates a 3.51% readmission probability. age, which decreases the model's predicted risk, is among the three leading drivers; prior_admissions, which decreases the model's predicted risk, is among the three leading drivers; creatinine, which increases the model's predicted risk, is among the three leading drivers.\"}",
+          "error": null,
+          "latency_seconds": 1.2833013897761703e-05,
+          "timeout_seconds": 90,
+          "prompt_sha256": "a9de532f061003d9769ba43bfe8b79fcfd24a5bb737301079961f7cfda061911"
+        },
+        "revision": {
+          "parse": {
+            "raw": "{\"drivers\":[{\"direction\":\"negative\",\"feature\":\"age\"},{\"direction\":\"negative\",\"feature\":\"prior_admissions\"},{\"direction\":\"positive\",\"feature\":\"creatinine\"}],\"explanation\":\"The model estimates a 3.51% readmission probability. age, which decreases the model's predicted risk, is among the three leading drivers; prior_admissions, which decreases the model's predicted risk, is among the three leading drivers; creatinine, which increases the model's predicted risk, is among the three leading drivers.\"}",
+            "answer": {
+              "explanation": "The model estimates a 3.51% readmission probability. age, which decreases the model's predicted risk, is among the three leading drivers; prior_admissions, which decreases the model's predicted risk, is among the three leading drivers; creatinine, which increases the model's predicted risk, is among the three leading drivers.",
+              "drivers": [
+                {
+                  "feature": "age",
+                  "direction": "negative"
+                },
+                {
+                  "feature": "prior_admissions",
+                  "direction": "negative"
+                },
+                {
+                  "feature": "creatinine",
+                  "direction": "positive"
+                }
+              ]
+            },
+            "error": null,
+            "warnings": []
+          },
+          "structured": {
+            "expected": [
+              {
+                "feature": "age",
+                "direction": "negative"
+              },
+              {
+                "feature": "prior_admissions",
+                "direction": "negative"
+              },
+              {
+                "feature": "creatinine",
+                "direction": "positive"
+              }
+            ],
+            "observed": [
+              {
+                "feature": "age",
+                "direction": "negative"
+              },
+              {
+                "feature": "prior_admissions",
+                "direction": "negative"
+              },
+              {
+                "feature": "creatinine",
+                "direction": "positive"
+              }
+            ],
+            "issues": [],
+            "passed": true,
+            "complete": true,
+            "missing": []
+          },
+          "narrative": {
+            "claims": [
+              {
+                "text": "The model estimates a 3.51% readmission probability",
+                "status": "non_attribution",
+                "code": "prediction",
+                "detail": "Supplied predicted probability: 3.51%.",
+                "feature": null,
+                "clause_index": 0
+              },
+              {
+                "text": "age, which decreases the model's predicted risk, is among the three leading drivers",
+                "status": "ambiguous",
+                "code": "unparsed",
+                "detail": "The verifier cannot determine the faithfulness of this clause.",
+                "feature": null,
+                "clause_index": 1
+              },
+              {
+                "text": "prior_admissions, which decreases the model's predicted risk, is among the three leading drivers",
+                "status": "ambiguous",
+                "code": "unparsed",
+                "detail": "The verifier cannot determine the faithfulness of this clause.",
+                "feature": null,
+                "clause_index": 2
+              },
+              {
+                "text": "creatinine, which increases the model's predicted risk, is among the three leading drivers",
+                "status": "ambiguous",
+                "code": "unparsed",
+                "detail": "The verifier cannot determine the faithfulness of this clause.",
+                "feature": null,
+                "clause_index": 3
+              }
+            ],
+            "passed": false
+          },
+          "correct": false,
+          "complete": false,
+          "status": "verification_failed",
+          "missing_prose_drivers": [
+            "age",
+            "prior_admissions",
+            "creatinine"
+          ]
+        },
+        "draft_accepted": false,
+        "revision_requested": true,
+        "revision_accepted": false,
+        "revision_rejected": true,
+        "fallback_used": true,
+        "fallback_reason": [
+          {
+            "code": "unparsed",
+            "detail": "The verifier cannot determine the faithfulness of this clause. Text: age, which decreases the model's predicted risk, is among the three leading drivers"
+          },
+          {
+            "code": "unparsed",
+            "detail": "The verifier cannot determine the faithfulness of this clause. Text: prior_admissions, which decreases the model's predicted risk, is among the three leading drivers"
+          },
+          {
+            "code": "unparsed",
+            "detail": "The verifier cannot determine the faithfulness of this clause. Text: creatinine, which increases the model's predicted risk, is among the three leading drivers"
+          },
+          {
+            "code": "missing_prose_drivers",
+            "detail": "State the direction in prose for: age, prior_admissions, creatinine."
+          }
+        ],
+        "source": "deterministic_fallback",
+        "status": "verified_complete",
+        "answer": {
+          "explanation": "The model estimates a 3.51% readmission probability. age decreases the model's predicted risk relative to the model reference, while prior_admissions decreases the model's predicted risk relative to the model reference, while creatinine increases the model's predicted risk relative to the model reference.",
+          "drivers": [
+            {
+              "feature": "age",
+              "direction": "negative"
+            },
+            {
+              "feature": "prior_admissions",
+              "direction": "negative"
+            },
+            {
+              "feature": "creatinine",
+              "direction": "positive"
+            }
+          ]
+        },
+        "fallback_validation": {
+          "structured": {
+            "expected": [
+              {
+                "feature": "age",
+                "direction": "negative"
+              },
+              {
+                "feature": "prior_admissions",
+                "direction": "negative"
+              },
+              {
+                "feature": "creatinine",
+                "direction": "positive"
+              }
+            ],
+            "observed": [
+              {
+                "feature": "age",
+                "direction": "negative"
+              },
+              {
+                "feature": "prior_admissions",
+                "direction": "negative"
+              },
+              {
+                "feature": "creatinine",
+                "direction": "positive"
+              }
+            ],
+            "issues": [],
+            "passed": true,
+            "complete": true,
+            "missing": []
+          },
+          "narrative": {
+            "claims": [
+              {
+                "text": "The model estimates a 3.51% readmission probability",
+                "status": "non_attribution",
+                "code": "prediction",
+                "detail": "Supplied predicted probability: 3.51%.",
+                "feature": null,
+                "clause_index": 0
+              },
+              {
+                "text": "age decreases the model's predicted risk relative to the model reference",
+                "status": "supported",
+                "code": "direction",
+                "detail": "age has a negative contribution.",
+                "feature": "age",
+                "clause_index": 1
+              },
+              {
+                "text": "prior_admissions decreases the model's predicted risk relative to the model reference",
+                "status": "supported",
+                "code": "direction",
+                "detail": "prior_admissions has a negative contribution.",
+                "feature": "prior_admissions",
+                "clause_index": 2
+              },
+              {
+                "text": "creatinine increases the model's predicted risk relative to the model reference",
+                "status": "supported",
+                "code": "direction",
+                "detail": "creatinine has a positive contribution.",
+                "feature": "creatinine",
+                "clause_index": 3
+              }
+            ],
+            "passed": true
+          },
+          "correct": true,
+          "complete": true,
+          "status": "verified_complete",
+          "missing_prose_drivers": []
+        }
+      }
+    },
+    {
+      "scenario": "correct_drivers_wrong_prose",
+      "case_id": "exp4-reference-09",
+      "original_gold": "unfaithful",
+      "original_correctly_rejected": true,
+      "original_falsely_rejected": false,
+      "revision_gold": "unfaithful",
+      "revision_complete": true,
+      "requests": 1,
+      "new_error_introduced": false,
+      "final_mathematically_faithful": true,
+      "final_complete": true,
+      "trace": {
+        "original_raw": "{\"drivers\":[{\"direction\":\"negative\",\"feature\":\"prior_admissions\"},{\"direction\":\"positive\",\"feature\":\"creatinine\"},{\"direction\":\"negative\",\"feature\":\"age\"}],\"explanation\":\"The model estimates a 43.78% readmission probability. prior_admissions increases the model's predicted risk, while creatinine increases the model's predicted risk, while age decreases the model's predicted risk.\"}",
+        "original": {
+          "parse": {
+            "raw": "{\"drivers\":[{\"direction\":\"negative\",\"feature\":\"prior_admissions\"},{\"direction\":\"positive\",\"feature\":\"creatinine\"},{\"direction\":\"negative\",\"feature\":\"age\"}],\"explanation\":\"The model estimates a 43.78% readmission probability. prior_admissions increases the model's predicted risk, while creatinine increases the model's predicted risk, while age decreases the model's predicted risk.\"}",
+            "answer": {
+              "explanation": "The model estimates a 43.78% readmission probability. prior_admissions increases the model's predicted risk, while creatinine increases the model's predicted risk, while age decreases the model's predicted risk.",
+              "drivers": [
+                {
+                  "feature": "prior_admissions",
+                  "direction": "negative"
+                },
+                {
+                  "feature": "creatinine",
+                  "direction": "positive"
+                },
+                {
+                  "feature": "age",
+                  "direction": "negative"
+                }
+              ]
+            },
+            "error": null,
+            "warnings": []
+          },
+          "structured": {
+            "expected": [
+              {
+                "feature": "prior_admissions",
+                "direction": "positive"
+              },
+              {
+                "feature": "creatinine",
+                "direction": "positive"
+              },
+              {
+                "feature": "age",
+                "direction": "negative"
+              }
+            ],
+            "observed": [
+              {
+                "feature": "prior_admissions",
+                "direction": "negative"
+              },
+              {
+                "feature": "creatinine",
+                "direction": "positive"
+              },
+              {
+                "feature": "age",
+                "direction": "negative"
+              }
+            ],
+            "issues": [
+              {
+                "code": "direction",
+                "detail": "prior_admissions has a positive contribution."
+              }
+            ],
+            "passed": false,
+            "complete": true,
+            "missing": []
+          },
+          "narrative": {
+            "claims": [
+              {
+                "text": "The model estimates a 43.78% readmission probability",
+                "status": "non_attribution",
+                "code": "prediction",
+                "detail": "Supplied predicted probability: 43.78%.",
+                "feature": null,
+                "clause_index": 0
+              },
+              {
+                "text": "prior_admissions increases the model's predicted risk",
+                "status": "contradicted",
+                "code": "driver_conflict",
+                "detail": "Prose disagrees with the JSON direction for prior_admissions.",
+                "feature": "prior_admissions",
+                "clause_index": 1
+              },
+              {
+                "text": "creatinine increases the model's predicted risk",
+                "status": "supported",
+                "code": "direction",
+                "detail": "creatinine has a positive contribution.",
+                "feature": "creatinine",
+                "clause_index": 2
+              },
+              {
+                "text": "age decreases the model's predicted risk",
+                "status": "supported",
+                "code": "direction",
+                "detail": "age has a negative contribution.",
+                "feature": "age",
+                "clause_index": 3
+              }
+            ],
+            "passed": false
+          },
+          "correct": false,
+          "complete": false,
+          "status": "verification_failed",
+          "missing_prose_drivers": [
+            "prior_admissions"
+          ]
+        },
+        "revision_call": {
+          "raw": "{\"drivers\":[{\"direction\":\"positive\",\"feature\":\"prior_admissions\"},{\"direction\":\"positive\",\"feature\":\"creatinine\"},{\"direction\":\"negative\",\"feature\":\"age\"}],\"explanation\":\"The model estimates a 43.78% readmission probability. prior_admissions decreases the model's predicted risk, while creatinine increases the model's predicted risk, while age decreases the model's predicted risk.\"}",
+          "error": null,
+          "latency_seconds": 1.391698606312275e-05,
+          "timeout_seconds": 90,
+          "prompt_sha256": "e0da43fe5ff80f667bb15725e50d28910796e4afb55c0fae870439f0c2cf2fb4"
+        },
+        "revision": {
+          "parse": {
+            "raw": "{\"drivers\":[{\"direction\":\"positive\",\"feature\":\"prior_admissions\"},{\"direction\":\"positive\",\"feature\":\"creatinine\"},{\"direction\":\"negative\",\"feature\":\"age\"}],\"explanation\":\"The model estimates a 43.78% readmission probability. prior_admissions decreases the model's predicted risk, while creatinine increases the model's predicted risk, while age decreases the model's predicted risk.\"}",
+            "answer": {
+              "explanation": "The model estimates a 43.78% readmission probability. prior_admissions decreases the model's predicted risk, while creatinine increases the model's predicted risk, while age decreases the model's predicted risk.",
+              "drivers": [
+                {
+                  "feature": "prior_admissions",
+                  "direction": "positive"
+                },
+                {
+                  "feature": "creatinine",
+                  "direction": "positive"
+                },
+                {
+                  "feature": "age",
+                  "direction": "negative"
+                }
+              ]
+            },
+            "error": null,
+            "warnings": []
+          },
+          "structured": {
+            "expected": [
+              {
+                "feature": "prior_admissions",
+                "direction": "positive"
+              },
+              {
+                "feature": "creatinine",
+                "direction": "positive"
+              },
+              {
+                "feature": "age",
+                "direction": "negative"
+              }
+            ],
+            "observed": [
+              {
+                "feature": "prior_admissions",
+                "direction": "positive"
+              },
+              {
+                "feature": "creatinine",
+                "direction": "positive"
+              },
+              {
+                "feature": "age",
+                "direction": "negative"
+              }
+            ],
+            "issues": [],
+            "passed": true,
+            "complete": true,
+            "missing": []
+          },
+          "narrative": {
+            "claims": [
+              {
+                "text": "The model estimates a 43.78% readmission probability",
+                "status": "non_attribution",
+                "code": "prediction",
+                "detail": "Supplied predicted probability: 43.78%.",
+                "feature": null,
+                "clause_index": 0
+              },
+              {
+                "text": "prior_admissions decreases the model's predicted risk",
+                "status": "contradicted",
+                "code": "direction",
+                "detail": "prior_admissions has a positive contribution.",
+                "feature": "prior_admissions",
+                "clause_index": 1
+              },
+              {
+                "text": "prior_admissions decreases the model's predicted risk",
+                "status": "contradicted",
+                "code": "driver_conflict",
+                "detail": "Prose disagrees with the JSON direction for prior_admissions.",
+                "feature": "prior_admissions",
+                "clause_index": 1
+              },
+              {
+                "text": "creatinine increases the model's predicted risk",
+                "status": "supported",
+                "code": "direction",
+                "detail": "creatinine has a positive contribution.",
+                "feature": "creatinine",
+                "clause_index": 2
+              },
+              {
+                "text": "age decreases the model's predicted risk",
+                "status": "supported",
+                "code": "direction",
+                "detail": "age has a negative contribution.",
+                "feature": "age",
+                "clause_index": 3
+              }
+            ],
+            "passed": false
+          },
+          "correct": false,
+          "complete": false,
+          "status": "verification_failed",
+          "missing_prose_drivers": [
+            "prior_admissions"
+          ]
+        },
+        "draft_accepted": false,
+        "revision_requested": true,
+        "revision_accepted": false,
+        "revision_rejected": true,
+        "fallback_used": true,
+        "fallback_reason": [
+          {
+            "code": "direction",
+            "detail": "prior_admissions has a positive contribution. Text: prior_admissions decreases the model's predicted risk"
+          },
+          {
+            "code": "driver_conflict",
+            "detail": "Prose disagrees with the JSON direction for prior_admissions. Text: prior_admissions decreases the model's predicted risk"
+          },
+          {
+            "code": "missing_prose_drivers",
+            "detail": "State the direction in prose for: prior_admissions."
+          }
+        ],
+        "source": "deterministic_fallback",
+        "status": "verified_complete",
+        "answer": {
+          "explanation": "The model estimates a 43.78% readmission probability. prior_admissions increases the model's predicted risk relative to the model reference, while creatinine increases the model's predicted risk relative to the model reference, while age decreases the model's predicted risk relative to the model reference.",
+          "drivers": [
+            {
+              "feature": "prior_admissions",
+              "direction": "positive"
+            },
+            {
+              "feature": "creatinine",
+              "direction": "positive"
+            },
+            {
+              "feature": "age",
+              "direction": "negative"
+            }
+          ]
+        },
+        "fallback_validation": {
+          "structured": {
+            "expected": [
+              {
+                "feature": "prior_admissions",
+                "direction": "positive"
+              },
+              {
+                "feature": "creatinine",
+                "direction": "positive"
+              },
+              {
+                "feature": "age",
+                "direction": "negative"
+              }
+            ],
+            "observed": [
+              {
+                "feature": "prior_admissions",
+                "direction": "positive"
+              },
+              {
+                "feature": "creatinine",
+                "direction": "positive"
+              },
+              {
+                "feature": "age",
+                "direction": "negative"
+              }
+            ],
+            "issues": [],
+            "passed": true,
+            "complete": true,
+            "missing": []
+          },
+          "narrative": {
+            "claims": [
+              {
+                "text": "The model estimates a 43.78% readmission probability",
+                "status": "non_attribution",
+                "code": "prediction",
+                "detail": "Supplied predicted probability: 43.78%.",
+                "feature": null,
+                "clause_index": 0
+              },
+              {
+                "text": "prior_admissions increases the model's predicted risk relative to the model reference",
+                "status": "supported",
+                "code": "direction",
+                "detail": "prior_admissions has a positive contribution.",
+                "feature": "prior_admissions",
+                "clause_index": 1
+              },
+              {
+                "text": "creatinine increases the model's predicted risk relative to the model reference",
+                "status": "supported",
+                "code": "direction",
+                "detail": "creatinine has a positive contribution.",
+                "feature": "creatinine",
+                "clause_index": 2
+              },
+              {
+                "text": "age decreases the model's predicted risk relative to the model reference",
+                "status": "supported",
+                "code": "direction",
+                "detail": "age has a negative contribution.",
+                "feature": "age",
+                "clause_index": 3
+              }
+            ],
+            "passed": true
+          },
+          "correct": true,
+          "complete": true,
+          "status": "verified_complete",
+          "missing_prose_drivers": []
+        }
+      }
+    },
+    {
+      "scenario": "faithful_false_rejection_repaired",
+      "case_id": "exp4-reference-10",
+      "original_gold": "faithful",
+      "original_correctly_rejected": false,
+      "original_falsely_rejected": true,
+      "revision_gold": "faithful",
+      "revision_complete": true,
+      "requests": 1,
+      "new_error_introduced": false,
+      "final_mathematically_faithful": true,
+      "final_complete": true,
+      "trace": {
+        "original_raw": "{\"drivers\":[{\"direction\":\"negative\",\"feature\":\"prior_admissions\"},{\"direction\":\"negative\",\"feature\":\"creatinine\"},{\"direction\":\"positive\",\"feature\":\"age\"}],\"explanation\":\"The model estimates a 6.19% readmission probability. prior_admissions, which decreases the model's predicted risk, is among the three leading drivers; creatinine, which decreases the model's predicted risk, is among the three leading drivers; age, which increases the model's predicted risk, is among the three leading drivers.\"}",
+        "original": {
+          "parse": {
+            "raw": "{\"drivers\":[{\"direction\":\"negative\",\"feature\":\"prior_admissions\"},{\"direction\":\"negative\",\"feature\":\"creatinine\"},{\"direction\":\"positive\",\"feature\":\"age\"}],\"explanation\":\"The model estimates a 6.19% readmission probability. prior_admissions, which decreases the model's predicted risk, is among the three leading drivers; creatinine, which decreases the model's predicted risk, is among the three leading drivers; age, which increases the model's predicted risk, is among the three leading drivers.\"}",
+            "answer": {
+              "explanation": "The model estimates a 6.19% readmission probability. prior_admissions, which decreases the model's predicted risk, is among the three leading drivers; creatinine, which decreases the model's predicted risk, is among the three leading drivers; age, which increases the model's predicted risk, is among the three leading drivers.",
+              "drivers": [
+                {
+                  "feature": "prior_admissions",
+                  "direction": "negative"
+                },
+                {
+                  "feature": "creatinine",
+                  "direction": "negative"
+                },
+                {
+                  "feature": "age",
+                  "direction": "positive"
+                }
+              ]
+            },
+            "error": null,
+            "warnings": []
+          },
+          "structured": {
+            "expected": [
+              {
+                "feature": "prior_admissions",
+                "direction": "negative"
+              },
+              {
+                "feature": "creatinine",
+                "direction": "negative"
+              },
+              {
+                "feature": "age",
+                "direction": "positive"
+              }
+            ],
+            "observed": [
+              {
+                "feature": "prior_admissions",
+                "direction": "negative"
+              },
+              {
+                "feature": "creatinine",
+                "direction": "negative"
+              },
+              {
+                "feature": "age",
+                "direction": "positive"
+              }
+            ],
+            "issues": [],
+            "passed": true,
+            "complete": true,
+            "missing": []
+          },
+          "narrative": {
+            "claims": [
+              {
+                "text": "The model estimates a 6.19% readmission probability",
+                "status": "non_attribution",
+                "code": "prediction",
+                "detail": "Supplied predicted probability: 6.19%.",
+                "feature": null,
+                "clause_index": 0
+              },
+              {
+                "text": "prior_admissions, which decreases the model's predicted risk, is among the three leading drivers",
+                "status": "ambiguous",
+                "code": "unparsed",
+                "detail": "The verifier cannot determine the faithfulness of this clause.",
+                "feature": null,
+                "clause_index": 1
+              },
+              {
+                "text": "creatinine, which decreases the model's predicted risk, is among the three leading drivers",
+                "status": "ambiguous",
+                "code": "unparsed",
+                "detail": "The verifier cannot determine the faithfulness of this clause.",
+                "feature": null,
+                "clause_index": 2
+              },
+              {
+                "text": "age, which increases the model's predicted risk, is among the three leading drivers",
+                "status": "ambiguous",
+                "code": "unparsed",
+                "detail": "The verifier cannot determine the faithfulness of this clause.",
+                "feature": null,
+                "clause_index": 3
+              }
+            ],
+            "passed": false
+          },
+          "correct": false,
+          "complete": false,
+          "status": "verification_failed",
+          "missing_prose_drivers": [
+            "prior_admissions",
+            "creatinine",
+            "age"
+          ]
+        },
+        "revision_call": {
+          "raw": "{\"drivers\":[{\"direction\":\"negative\",\"feature\":\"prior_admissions\"},{\"direction\":\"negative\",\"feature\":\"creatinine\"},{\"direction\":\"positive\",\"feature\":\"age\"}],\"explanation\":\"The model estimates a 6.19% readmission probability. prior_admissions decreases the model's predicted risk, while creatinine decreases the model's predicted risk, while age increases the model's predicted risk.\"}",
+          "error": null,
+          "latency_seconds": 2.1209008991718292e-05,
+          "timeout_seconds": 90,
+          "prompt_sha256": "7e4b562273ec82d10c7ffa387386290fb93a4848b965fc8ec2556e4dbeeb6045"
+        },
+        "revision": {
+          "parse": {
+            "raw": "{\"drivers\":[{\"direction\":\"negative\",\"feature\":\"prior_admissions\"},{\"direction\":\"negative\",\"feature\":\"creatinine\"},{\"direction\":\"positive\",\"feature\":\"age\"}],\"explanation\":\"The model estimates a 6.19% readmission probability. prior_admissions decreases the model's predicted risk, while creatinine decreases the model's predicted risk, while age increases the model's predicted risk.\"}",
+            "answer": {
+              "explanation": "The model estimates a 6.19% readmission probability. prior_admissions decreases the model's predicted risk, while creatinine decreases the model's predicted risk, while age increases the model's predicted risk.",
+              "drivers": [
+                {
+                  "feature": "prior_admissions",
+                  "direction": "negative"
+                },
+                {
+                  "feature": "creatinine",
+                  "direction": "negative"
+                },
+                {
+                  "feature": "age",
+                  "direction": "positive"
+                }
+              ]
+            },
+            "error": null,
+            "warnings": []
+          },
+          "structured": {
+            "expected": [
+              {
+                "feature": "prior_admissions",
+                "direction": "negative"
+              },
+              {
+                "feature": "creatinine",
+                "direction": "negative"
+              },
+              {
+                "feature": "age",
+                "direction": "positive"
+              }
+            ],
+            "observed": [
+              {
+                "feature": "prior_admissions",
+                "direction": "negative"
+              },
+              {
+                "feature": "creatinine",
+                "direction": "negative"
+              },
+              {
+                "feature": "age",
+                "direction": "positive"
+              }
+            ],
+            "issues": [],
+            "passed": true,
+            "complete": true,
+            "missing": []
+          },
+          "narrative": {
+            "claims": [
+              {
+                "text": "The model estimates a 6.19% readmission probability",
+                "status": "non_attribution",
+                "code": "prediction",
+                "detail": "Supplied predicted probability: 6.19%.",
+                "feature": null,
+                "clause_index": 0
+              },
+              {
+                "text": "prior_admissions decreases the model's predicted risk",
+                "status": "supported",
+                "code": "direction",
+                "detail": "prior_admissions has a negative contribution.",
+                "feature": "prior_admissions",
+                "clause_index": 1
+              },
+              {
+                "text": "creatinine decreases the model's predicted risk",
+                "status": "supported",
+                "code": "direction",
+                "detail": "creatinine has a negative contribution.",
+                "feature": "creatinine",
+                "clause_index": 2
+              },
+              {
+                "text": "age increases the model's predicted risk",
+                "status": "supported",
+                "code": "direction",
+                "detail": "age has a positive contribution.",
+                "feature": "age",
+                "clause_index": 3
+              }
+            ],
+            "passed": true
+          },
+          "correct": true,
+          "complete": true,
+          "status": "verified_complete",
+          "missing_prose_drivers": []
+        },
+        "draft_accepted": false,
+        "revision_requested": true,
+        "revision_accepted": true,
+        "revision_rejected": false,
+        "fallback_used": false,
+        "fallback_reason": null,
+        "source": "model_revision",
+        "status": "verified_complete",
+        "answer": {
+          "explanation": "The model estimates a 6.19% readmission probability. prior_admissions decreases the model's predicted risk, while creatinine decreases the model's predicted risk, while age increases the model's predicted risk.",
+          "drivers": [
+            {
+              "feature": "prior_admissions",
+              "direction": "negative"
+            },
+            {
+              "feature": "creatinine",
+              "direction": "negative"
+            },
+            {
+              "feature": "age",
+              "direction": "positive"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "scenario": "accepted_omits_probability",
+      "case_id": "exp4-reference-11",
+      "original_gold": "unfaithful",
+      "original_correctly_rejected": true,
+      "original_falsely_rejected": false,
+      "revision_gold": "faithful",
+      "revision_complete": false,
+      "requests": 1,
+      "new_error_introduced": false,
+      "final_mathematically_faithful": true,
+      "final_complete": false,
+      "trace": {
+        "original_raw": "{\"drivers\":[{\"direction\":\"negative\",\"feature\":\"creatinine\"},{\"direction\":\"positive\",\"feature\":\"age\"},{\"direction\":\"negative\",\"feature\":\"prior_admissions\"}],\"explanation\":\"The model estimates a 49.22% readmission probability. creatinine increases the model's predicted risk, while age increases the model's predicted risk, while prior_admissions decreases the model's predicted risk.\"}",
+        "original": {
+          "parse": {
+            "raw": "{\"drivers\":[{\"direction\":\"negative\",\"feature\":\"creatinine\"},{\"direction\":\"positive\",\"feature\":\"age\"},{\"direction\":\"negative\",\"feature\":\"prior_admissions\"}],\"explanation\":\"The model estimates a 49.22% readmission probability. creatinine increases the model's predicted risk, while age increases the model's predicted risk, while prior_admissions decreases the model's predicted risk.\"}",
+            "answer": {
+              "explanation": "The model estimates a 49.22% readmission probability. creatinine increases the model's predicted risk, while age increases the model's predicted risk, while prior_admissions decreases the model's predicted risk.",
+              "drivers": [
+                {
+                  "feature": "creatinine",
+                  "direction": "negative"
+                },
+                {
+                  "feature": "age",
+                  "direction": "positive"
+                },
+                {
+                  "feature": "prior_admissions",
+                  "direction": "negative"
+                }
+              ]
+            },
+            "error": null,
+            "warnings": []
+          },
+          "structured": {
+            "expected": [
+              {
+                "feature": "creatinine",
+                "direction": "positive"
+              },
+              {
+                "feature": "age",
+                "direction": "positive"
+              },
+              {
+                "feature": "prior_admissions",
+                "direction": "negative"
+              }
+            ],
+            "observed": [
+              {
+                "feature": "creatinine",
+                "direction": "negative"
+              },
+              {
+                "feature": "age",
+                "direction": "positive"
+              },
+              {
+                "feature": "prior_admissions",
+                "direction": "negative"
+              }
+            ],
+            "issues": [
+              {
+                "code": "direction",
+                "detail": "creatinine has a positive contribution."
+              }
+            ],
+            "passed": false,
+            "complete": true,
+            "missing": []
+          },
+          "narrative": {
+            "claims": [
+              {
+                "text": "The model estimates a 49.22% readmission probability",
+                "status": "non_attribution",
+                "code": "prediction",
+                "detail": "Supplied predicted probability: 49.22%.",
+                "feature": null,
+                "clause_index": 0
+              },
+              {
+                "text": "creatinine increases the model's predicted risk",
+                "status": "contradicted",
+                "code": "driver_conflict",
+                "detail": "Prose disagrees with the JSON direction for creatinine.",
+                "feature": "creatinine",
+                "clause_index": 1
+              },
+              {
+                "text": "age increases the model's predicted risk",
+                "status": "supported",
+                "code": "direction",
+                "detail": "age has a positive contribution.",
+                "feature": "age",
+                "clause_index": 2
+              },
+              {
+                "text": "prior_admissions decreases the model's predicted risk",
+                "status": "supported",
+                "code": "direction",
+                "detail": "prior_admissions has a negative contribution.",
+                "feature": "prior_admissions",
+                "clause_index": 3
+              }
+            ],
+            "passed": false
+          },
+          "correct": false,
+          "complete": false,
+          "status": "verification_failed",
+          "missing_prose_drivers": [
+            "creatinine"
+          ]
+        },
+        "revision_call": {
+          "raw": "{\"drivers\":[{\"direction\":\"positive\",\"feature\":\"creatinine\"},{\"direction\":\"positive\",\"feature\":\"age\"},{\"direction\":\"negative\",\"feature\":\"prior_admissions\"}],\"explanation\":\"creatinine increases the model's predicted risk, while age increases the model's predicted risk, while prior_admissions decreases the model's predicted risk.\"}",
+          "error": null,
+          "latency_seconds": 1.3040989870205522e-05,
+          "timeout_seconds": 90,
+          "prompt_sha256": "43795a90fd3a5a3b053ebd8f30fc82633e51c88d307241fd3ae0d2421c066c12"
+        },
+        "revision": {
+          "parse": {
+            "raw": "{\"drivers\":[{\"direction\":\"positive\",\"feature\":\"creatinine\"},{\"direction\":\"positive\",\"feature\":\"age\"},{\"direction\":\"negative\",\"feature\":\"prior_admissions\"}],\"explanation\":\"creatinine increases the model's predicted risk, while age increases the model's predicted risk, while prior_admissions decreases the model's predicted risk.\"}",
+            "answer": {
+              "explanation": "creatinine increases the model's predicted risk, while age increases the model's predicted risk, while prior_admissions decreases the model's predicted risk.",
+              "drivers": [
+                {
+                  "feature": "creatinine",
+                  "direction": "positive"
+                },
+                {
+                  "feature": "age",
+                  "direction": "positive"
+                },
+                {
+                  "feature": "prior_admissions",
+                  "direction": "negative"
+                }
+              ]
+            },
+            "error": null,
+            "warnings": [
+              {
+                "code": "sentence_count",
+                "detail": "Expected 2–3 sentences, found 1."
+              }
+            ]
+          },
+          "structured": {
+            "expected": [
+              {
+                "feature": "creatinine",
+                "direction": "positive"
+              },
+              {
+                "feature": "age",
+                "direction": "positive"
+              },
+              {
+                "feature": "prior_admissions",
+                "direction": "negative"
+              }
+            ],
+            "observed": [
+              {
+                "feature": "creatinine",
+                "direction": "positive"
+              },
+              {
+                "feature": "age",
+                "direction": "positive"
+              },
+              {
+                "feature": "prior_admissions",
+                "direction": "negative"
+              }
+            ],
+            "issues": [],
+            "passed": true,
+            "complete": true,
+            "missing": []
+          },
+          "narrative": {
+            "claims": [
+              {
+                "text": "creatinine increases the model's predicted risk",
+                "status": "supported",
+                "code": "direction",
+                "detail": "creatinine has a positive contribution.",
+                "feature": "creatinine",
+                "clause_index": 0
+              },
+              {
+                "text": "age increases the model's predicted risk",
+                "status": "supported",
+                "code": "direction",
+                "detail": "age has a positive contribution.",
+                "feature": "age",
+                "clause_index": 1
+              },
+              {
+                "text": "prior_admissions decreases the model's predicted risk",
+                "status": "supported",
+                "code": "direction",
+                "detail": "prior_admissions has a negative contribution.",
+                "feature": "prior_admissions",
+                "clause_index": 2
+              }
+            ],
+            "passed": true
+          },
+          "correct": true,
+          "complete": true,
+          "status": "verified_complete",
+          "missing_prose_drivers": []
+        },
+        "draft_accepted": false,
+        "revision_requested": true,
+        "revision_accepted": true,
+        "revision_rejected": false,
+        "fallback_used": false,
+        "fallback_reason": null,
+        "source": "model_revision",
+        "status": "verified_complete",
+        "answer": {
+          "explanation": "creatinine increases the model's predicted risk, while age increases the model's predicted risk, while prior_admissions decreases the model's predicted risk.",
+          "drivers": [
+            {
+              "feature": "creatinine",
+              "direction": "positive"
+            },
+            {
+              "feature": "age",
+              "direction": "positive"
+            },
+            {
+              "feature": "prior_admissions",
+              "direction": "negative"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "summary": {
+    "attempted": 11,
+    "requests": 10,
+    "valid_revisions": 8,
+    "original_accepted": 1,
+    "original_correctly_rejected": 9,
+    "original_falsely_rejected": 1,
+    "accepted_revisions": 3,
+    "failed_revisions": 7,
+    "fallback": 7,
+    "pending_gold": 0,
+    "genuinely_corrected": 3,
+    "accepted_genuine_corrections": 2,
+    "full_genuine_corrections": 1,
+    "false_rejection_repairs": 1,
+    "accepted_unfaithful": 0,
+    "rejected_faithful_revision": 1,
+    "new_errors": 1,
+    "final_faithful": 11,
+    "final_complete": 10,
+    "rates": {
+      "model_revision_success": {
+        "numerator": 1,
+        "denominator": 9,
+        "estimate": 0.1111111111111111
+      },
+      "false_rejection_repair": {
+        "numerator": 1,
+        "denominator": 1,
+        "estimate": 1.0
+      },
+      "final_system_correctness": {
+        "numerator": 11,
+        "denominator": 11,
+        "estimate": 1.0
+      },
+      "final_system_completeness": {
+        "numerator": 10,
+        "denominator": 11,
+        "estimate": 0.9090909090909091
+      },
+      "fallback_frequency": {
+        "numerator": 7,
+        "denominator": 11,
+        "estimate": 0.6363636363636364
+      }
+    },
+    "latency_seconds": 0.00015408301260322332,
+    "median_latency_seconds": 1.3916491298004985e-05
+  }
+}

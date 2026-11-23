@@ -1,0 +1,2403 @@
+{
+  "bootstrap": {
+    "seed": 3804,
+    "replicates": 10000,
+    "unit": "paired_profile"
+  },
+  "primary": {
+    "explicit": {
+      "n": 120,
+      "confusion": {
+        "TP": 52,
+        "FP": 0,
+        "TN": 60,
+        "FN": 8
+      },
+      "metrics": {
+        "precision": {
+          "numerator": 52,
+          "denominator": 52,
+          "estimate": 1.0,
+          "ci95_low": 1.0,
+          "ci95_high": 1.0,
+          "clusters": 6
+        },
+        "recall": {
+          "numerator": 52,
+          "denominator": 60,
+          "estimate": 0.8666666666666667,
+          "ci95_low": 0.8,
+          "ci95_high": 0.9333333333333333,
+          "clusters": 6
+        },
+        "specificity": {
+          "numerator": 60,
+          "denominator": 60,
+          "estimate": 1.0,
+          "ci95_low": 1.0,
+          "ci95_high": 1.0,
+          "clusters": 6
+        },
+        "false_positive_rate": {
+          "numerator": 0,
+          "denominator": 60,
+          "estimate": 0.0,
+          "ci95_low": 0.0,
+          "ci95_high": 0.0,
+          "clusters": 6
+        },
+        "false_negative_rate": {
+          "numerator": 8,
+          "denominator": 60,
+          "estimate": 0.13333333333333333,
+          "ci95_low": 0.06666666666666667,
+          "ci95_high": 0.2,
+          "clusters": 6
+        },
+        "f1": {
+          "numerator": 104,
+          "denominator": 112,
+          "estimate": 0.9285714285714286,
+          "ci95_low": 0.8888888888888888,
+          "ci95_high": 0.9655172413793104,
+          "clusters": 6
+        },
+        "balanced_accuracy": {
+          "numerator": 6720,
+          "denominator": 7200,
+          "estimate": 0.9333333333333333,
+          "ci95_low": 0.9,
+          "ci95_high": 0.9666666666666667,
+          "clusters": 6
+        }
+      }
+    },
+    "release": {
+      "n": 120,
+      "confusion": {
+        "TP": 60,
+        "FP": 36,
+        "TN": 24,
+        "FN": 0
+      },
+      "metrics": {
+        "precision": {
+          "numerator": 60,
+          "denominator": 96,
+          "estimate": 0.625,
+          "ci95_low": 0.625,
+          "ci95_high": 0.625,
+          "clusters": 6
+        },
+        "recall": {
+          "numerator": 60,
+          "denominator": 60,
+          "estimate": 1.0,
+          "ci95_low": 1.0,
+          "ci95_high": 1.0,
+          "clusters": 6
+        },
+        "specificity": {
+          "numerator": 24,
+          "denominator": 60,
+          "estimate": 0.4,
+          "ci95_low": 0.4,
+          "ci95_high": 0.4,
+          "clusters": 6
+        },
+        "false_positive_rate": {
+          "numerator": 36,
+          "denominator": 60,
+          "estimate": 0.6,
+          "ci95_low": 0.6,
+          "ci95_high": 0.6,
+          "clusters": 6
+        },
+        "false_negative_rate": {
+          "numerator": 0,
+          "denominator": 60,
+          "estimate": 0.0,
+          "ci95_low": 0.0,
+          "ci95_high": 0.0,
+          "clusters": 6
+        },
+        "f1": {
+          "numerator": 120,
+          "denominator": 156,
+          "estimate": 0.7692307692307693,
+          "ci95_low": 0.7692307692307693,
+          "ci95_high": 0.7692307692307693,
+          "clusters": 6
+        },
+        "balanced_accuracy": {
+          "numerator": 5040,
+          "denominator": 7200,
+          "estimate": 0.7,
+          "ci95_low": 0.7,
+          "ci95_high": 0.7,
+          "clusters": 6
+        }
+      }
+    }
+  },
+  "all_eligible_sensitivity": {
+    "explicit": {
+      "n": 148,
+      "confusion": {
+        "TP": 56,
+        "FP": 0,
+        "TN": 80,
+        "FN": 12
+      },
+      "metrics": {
+        "precision": {
+          "numerator": 56,
+          "denominator": 56,
+          "estimate": 1.0,
+          "ci95_low": 1.0,
+          "ci95_high": 1.0,
+          "clusters": 6
+        },
+        "recall": {
+          "numerator": 56,
+          "denominator": 68,
+          "estimate": 0.8235294117647058,
+          "ci95_low": 0.7352941176470589,
+          "ci95_high": 0.9117647058823529,
+          "clusters": 6
+        },
+        "specificity": {
+          "numerator": 80,
+          "denominator": 80,
+          "estimate": 1.0,
+          "ci95_low": 1.0,
+          "ci95_high": 1.0,
+          "clusters": 6
+        },
+        "false_positive_rate": {
+          "numerator": 0,
+          "denominator": 80,
+          "estimate": 0.0,
+          "ci95_low": 0.0,
+          "ci95_high": 0.0,
+          "clusters": 6
+        },
+        "false_negative_rate": {
+          "numerator": 12,
+          "denominator": 68,
+          "estimate": 0.17647058823529413,
+          "ci95_low": 0.08823529411764706,
+          "ci95_high": 0.2647058823529412,
+          "clusters": 6
+        },
+        "f1": {
+          "numerator": 112,
+          "denominator": 124,
+          "estimate": 0.9032258064516129,
+          "ci95_low": 0.847457627118644,
+          "ci95_high": 0.9538461538461539,
+          "clusters": 6
+        },
+        "balanced_accuracy": {
+          "numerator": 9920,
+          "denominator": 10880,
+          "estimate": 0.9117647058823529,
+          "ci95_low": 0.8676470588235294,
+          "ci95_high": 0.9558823529411765,
+          "clusters": 6
+        }
+      }
+    },
+    "release": {
+      "n": 148,
+      "confusion": {
+        "TP": 68,
+        "FP": 56,
+        "TN": 24,
+        "FN": 0
+      },
+      "metrics": {
+        "precision": {
+          "numerator": 68,
+          "denominator": 124,
+          "estimate": 0.5483870967741935,
+          "ci95_low": 0.5076923076923077,
+          "ci95_high": 0.5932203389830508,
+          "clusters": 6
+        },
+        "recall": {
+          "numerator": 68,
+          "denominator": 68,
+          "estimate": 1.0,
+          "ci95_low": 1.0,
+          "ci95_high": 1.0,
+          "clusters": 6
+        },
+        "specificity": {
+          "numerator": 24,
+          "denominator": 80,
+          "estimate": 0.3,
+          "ci95_low": 0.2727272727272727,
+          "ci95_high": 0.3333333333333333,
+          "clusters": 6
+        },
+        "false_positive_rate": {
+          "numerator": 56,
+          "denominator": 80,
+          "estimate": 0.7,
+          "ci95_low": 0.6666666666666666,
+          "ci95_high": 0.7272727272727273,
+          "clusters": 6
+        },
+        "false_negative_rate": {
+          "numerator": 0,
+          "denominator": 68,
+          "estimate": 0.0,
+          "ci95_low": 0.0,
+          "ci95_high": 0.0,
+          "clusters": 6
+        },
+        "f1": {
+          "numerator": 136,
+          "denominator": 192,
+          "estimate": 0.7083333333333334,
+          "ci95_low": 0.673469387755102,
+          "ci95_high": 0.7446808510638298,
+          "clusters": 6
+        },
+        "balanced_accuracy": {
+          "numerator": 7072,
+          "denominator": 10880,
+          "estimate": 0.65,
+          "ci95_low": 0.6363636363636364,
+          "ci95_high": 0.6666666666666666,
+          "clusters": 6
+        }
+      }
+    }
+  },
+  "false_rejection": [
+    {
+      "style": "all",
+      "n": 60,
+      "accepted": {
+        "numerator": 24,
+        "denominator": 60,
+        "estimate": 0.4,
+        "ci95_low": 0.4,
+        "ci95_high": 0.4,
+        "clusters": 6
+      },
+      "false_rejection": {
+        "numerator": 36,
+        "denominator": 60,
+        "estimate": 0.6,
+        "ci95_low": 0.6,
+        "ci95_high": 0.6,
+        "clusters": 6
+      },
+      "ambiguous_rejection": {
+        "numerator": 36,
+        "denominator": 60,
+        "estimate": 0.6,
+        "ci95_low": 0.6,
+        "ci95_high": 0.6,
+        "clusters": 6
+      },
+      "missing_parsed_directions": {
+        "numerator": 36,
+        "denominator": 60,
+        "estimate": 0.6,
+        "ci95_low": 0.6,
+        "ci95_high": 0.6,
+        "clusters": 6
+      },
+      "incorrect_explicit_classification": {
+        "numerator": 0,
+        "denominator": 60,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 6
+      }
+    },
+    {
+      "style": "alias",
+      "n": 6,
+      "accepted": {
+        "numerator": 6,
+        "denominator": 6,
+        "estimate": 1.0,
+        "ci95_low": 1.0,
+        "ci95_high": 1.0,
+        "clusters": 6
+      },
+      "false_rejection": {
+        "numerator": 0,
+        "denominator": 6,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 6
+      },
+      "ambiguous_rejection": {
+        "numerator": 0,
+        "denominator": 6,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 6
+      },
+      "missing_parsed_directions": {
+        "numerator": 0,
+        "denominator": 6,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 6
+      },
+      "incorrect_explicit_classification": {
+        "numerator": 0,
+        "denominator": 6,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 6
+      }
+    },
+    {
+      "style": "compound",
+      "n": 6,
+      "accepted": {
+        "numerator": 6,
+        "denominator": 6,
+        "estimate": 1.0,
+        "ci95_low": 1.0,
+        "ci95_high": 1.0,
+        "clusters": 6
+      },
+      "false_rejection": {
+        "numerator": 0,
+        "denominator": 6,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 6
+      },
+      "ambiguous_rejection": {
+        "numerator": 0,
+        "denominator": 6,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 6
+      },
+      "missing_parsed_directions": {
+        "numerator": 0,
+        "denominator": 6,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 6
+      },
+      "incorrect_explicit_classification": {
+        "numerator": 0,
+        "denominator": 6,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 6
+      }
+    },
+    {
+      "style": "direct",
+      "n": 12,
+      "accepted": {
+        "numerator": 12,
+        "denominator": 12,
+        "estimate": 1.0,
+        "ci95_low": 1.0,
+        "ci95_high": 1.0,
+        "clusters": 6
+      },
+      "false_rejection": {
+        "numerator": 0,
+        "denominator": 12,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 6
+      },
+      "ambiguous_rejection": {
+        "numerator": 0,
+        "denominator": 12,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 6
+      },
+      "missing_parsed_directions": {
+        "numerator": 0,
+        "denominator": 12,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 6
+      },
+      "incorrect_explicit_classification": {
+        "numerator": 0,
+        "denominator": 12,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 6
+      }
+    },
+    {
+      "style": "passive",
+      "n": 6,
+      "accepted": {
+        "numerator": 0,
+        "denominator": 6,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 6
+      },
+      "false_rejection": {
+        "numerator": 6,
+        "denominator": 6,
+        "estimate": 1.0,
+        "ci95_low": 1.0,
+        "ci95_high": 1.0,
+        "clusters": 6
+      },
+      "ambiguous_rejection": {
+        "numerator": 6,
+        "denominator": 6,
+        "estimate": 1.0,
+        "ci95_low": 1.0,
+        "ci95_high": 1.0,
+        "clusters": 6
+      },
+      "missing_parsed_directions": {
+        "numerator": 6,
+        "denominator": 6,
+        "estimate": 1.0,
+        "ci95_low": 1.0,
+        "ci95_high": 1.0,
+        "clusters": 6
+      },
+      "incorrect_explicit_classification": {
+        "numerator": 0,
+        "denominator": 6,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 6
+      }
+    },
+    {
+      "style": "pronoun",
+      "n": 6,
+      "accepted": {
+        "numerator": 0,
+        "denominator": 6,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 6
+      },
+      "false_rejection": {
+        "numerator": 6,
+        "denominator": 6,
+        "estimate": 1.0,
+        "ci95_low": 1.0,
+        "ci95_high": 1.0,
+        "clusters": 6
+      },
+      "ambiguous_rejection": {
+        "numerator": 6,
+        "denominator": 6,
+        "estimate": 1.0,
+        "ci95_low": 1.0,
+        "ci95_high": 1.0,
+        "clusters": 6
+      },
+      "missing_parsed_directions": {
+        "numerator": 6,
+        "denominator": 6,
+        "estimate": 1.0,
+        "ci95_low": 1.0,
+        "ci95_high": 1.0,
+        "clusters": 6
+      },
+      "incorrect_explicit_classification": {
+        "numerator": 0,
+        "denominator": 6,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 6
+      }
+    },
+    {
+      "style": "qualified",
+      "n": 6,
+      "accepted": {
+        "numerator": 0,
+        "denominator": 6,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 6
+      },
+      "false_rejection": {
+        "numerator": 6,
+        "denominator": 6,
+        "estimate": 1.0,
+        "ci95_low": 1.0,
+        "ci95_high": 1.0,
+        "clusters": 6
+      },
+      "ambiguous_rejection": {
+        "numerator": 6,
+        "denominator": 6,
+        "estimate": 1.0,
+        "ci95_low": 1.0,
+        "ci95_high": 1.0,
+        "clusters": 6
+      },
+      "missing_parsed_directions": {
+        "numerator": 6,
+        "denominator": 6,
+        "estimate": 1.0,
+        "ci95_low": 1.0,
+        "ci95_high": 1.0,
+        "clusters": 6
+      },
+      "incorrect_explicit_classification": {
+        "numerator": 0,
+        "denominator": 6,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 6
+      }
+    },
+    {
+      "style": "reference",
+      "n": 6,
+      "accepted": {
+        "numerator": 0,
+        "denominator": 6,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 6
+      },
+      "false_rejection": {
+        "numerator": 6,
+        "denominator": 6,
+        "estimate": 1.0,
+        "ci95_low": 1.0,
+        "ci95_high": 1.0,
+        "clusters": 6
+      },
+      "ambiguous_rejection": {
+        "numerator": 6,
+        "denominator": 6,
+        "estimate": 1.0,
+        "ci95_low": 1.0,
+        "ci95_high": 1.0,
+        "clusters": 6
+      },
+      "missing_parsed_directions": {
+        "numerator": 6,
+        "denominator": 6,
+        "estimate": 1.0,
+        "ci95_low": 1.0,
+        "ci95_high": 1.0,
+        "clusters": 6
+      },
+      "incorrect_explicit_classification": {
+        "numerator": 0,
+        "denominator": 6,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 6
+      }
+    },
+    {
+      "style": "relative",
+      "n": 6,
+      "accepted": {
+        "numerator": 0,
+        "denominator": 6,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 6
+      },
+      "false_rejection": {
+        "numerator": 6,
+        "denominator": 6,
+        "estimate": 1.0,
+        "ci95_low": 1.0,
+        "ci95_high": 1.0,
+        "clusters": 6
+      },
+      "ambiguous_rejection": {
+        "numerator": 6,
+        "denominator": 6,
+        "estimate": 1.0,
+        "ci95_low": 1.0,
+        "ci95_high": 1.0,
+        "clusters": 6
+      },
+      "missing_parsed_directions": {
+        "numerator": 6,
+        "denominator": 6,
+        "estimate": 1.0,
+        "ci95_low": 1.0,
+        "ci95_high": 1.0,
+        "clusters": 6
+      },
+      "incorrect_explicit_classification": {
+        "numerator": 0,
+        "denominator": 6,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 6
+      }
+    },
+    {
+      "style": "shared",
+      "n": 6,
+      "accepted": {
+        "numerator": 0,
+        "denominator": 6,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 6
+      },
+      "false_rejection": {
+        "numerator": 6,
+        "denominator": 6,
+        "estimate": 1.0,
+        "ci95_low": 1.0,
+        "ci95_high": 1.0,
+        "clusters": 6
+      },
+      "ambiguous_rejection": {
+        "numerator": 6,
+        "denominator": 6,
+        "estimate": 1.0,
+        "ci95_low": 1.0,
+        "ci95_high": 1.0,
+        "clusters": 6
+      },
+      "missing_parsed_directions": {
+        "numerator": 6,
+        "denominator": 6,
+        "estimate": 1.0,
+        "ci95_low": 1.0,
+        "ci95_high": 1.0,
+        "clusters": 6
+      },
+      "incorrect_explicit_classification": {
+        "numerator": 0,
+        "denominator": 6,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 6
+      }
+    },
+    {
+      "style": "category_coordinated_or_compound",
+      "n": 6,
+      "accepted": {
+        "numerator": 6,
+        "denominator": 6,
+        "estimate": 1.0,
+        "ci95_low": 1.0,
+        "ci95_high": 1.0,
+        "clusters": 6
+      },
+      "false_rejection": {
+        "numerator": 0,
+        "denominator": 6,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 6
+      },
+      "ambiguous_rejection": {
+        "numerator": 0,
+        "denominator": 6,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 6
+      },
+      "missing_parsed_directions": {
+        "numerator": 0,
+        "denominator": 6,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 6
+      },
+      "incorrect_explicit_classification": {
+        "numerator": 0,
+        "denominator": 6,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 6
+      }
+    },
+    {
+      "style": "category_direct",
+      "n": 18,
+      "accepted": {
+        "numerator": 18,
+        "denominator": 18,
+        "estimate": 1.0,
+        "ci95_low": 1.0,
+        "ci95_high": 1.0,
+        "clusters": 6
+      },
+      "false_rejection": {
+        "numerator": 0,
+        "denominator": 18,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 6
+      },
+      "ambiguous_rejection": {
+        "numerator": 0,
+        "denominator": 18,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 6
+      },
+      "missing_parsed_directions": {
+        "numerator": 0,
+        "denominator": 18,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 6
+      },
+      "incorrect_explicit_classification": {
+        "numerator": 0,
+        "denominator": 18,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 6
+      }
+    },
+    {
+      "style": "category_hedged_or_qualified",
+      "n": 6,
+      "accepted": {
+        "numerator": 0,
+        "denominator": 6,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 6
+      },
+      "false_rejection": {
+        "numerator": 6,
+        "denominator": 6,
+        "estimate": 1.0,
+        "ci95_low": 1.0,
+        "ci95_high": 1.0,
+        "clusters": 6
+      },
+      "ambiguous_rejection": {
+        "numerator": 6,
+        "denominator": 6,
+        "estimate": 1.0,
+        "ci95_low": 1.0,
+        "ci95_high": 1.0,
+        "clusters": 6
+      },
+      "missing_parsed_directions": {
+        "numerator": 6,
+        "denominator": 6,
+        "estimate": 1.0,
+        "ci95_low": 1.0,
+        "ci95_high": 1.0,
+        "clusters": 6
+      },
+      "incorrect_explicit_classification": {
+        "numerator": 0,
+        "denominator": 6,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 6
+      }
+    },
+    {
+      "style": "category_implicit_reference_or_pronoun",
+      "n": 6,
+      "accepted": {
+        "numerator": 0,
+        "denominator": 6,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 6
+      },
+      "false_rejection": {
+        "numerator": 6,
+        "denominator": 6,
+        "estimate": 1.0,
+        "ci95_low": 1.0,
+        "ci95_high": 1.0,
+        "clusters": 6
+      },
+      "ambiguous_rejection": {
+        "numerator": 6,
+        "denominator": 6,
+        "estimate": 1.0,
+        "ci95_low": 1.0,
+        "ci95_high": 1.0,
+        "clusters": 6
+      },
+      "missing_parsed_directions": {
+        "numerator": 6,
+        "denominator": 6,
+        "estimate": 1.0,
+        "ci95_low": 1.0,
+        "ci95_high": 1.0,
+        "clusters": 6
+      },
+      "incorrect_explicit_classification": {
+        "numerator": 0,
+        "denominator": 6,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 6
+      }
+    },
+    {
+      "style": "category_other",
+      "n": 6,
+      "accepted": {
+        "numerator": 0,
+        "denominator": 6,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 6
+      },
+      "false_rejection": {
+        "numerator": 6,
+        "denominator": 6,
+        "estimate": 1.0,
+        "ci95_low": 1.0,
+        "ci95_high": 1.0,
+        "clusters": 6
+      },
+      "ambiguous_rejection": {
+        "numerator": 6,
+        "denominator": 6,
+        "estimate": 1.0,
+        "ci95_low": 1.0,
+        "ci95_high": 1.0,
+        "clusters": 6
+      },
+      "missing_parsed_directions": {
+        "numerator": 6,
+        "denominator": 6,
+        "estimate": 1.0,
+        "ci95_low": 1.0,
+        "ci95_high": 1.0,
+        "clusters": 6
+      },
+      "incorrect_explicit_classification": {
+        "numerator": 0,
+        "denominator": 6,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 6
+      }
+    },
+    {
+      "style": "category_passive",
+      "n": 6,
+      "accepted": {
+        "numerator": 0,
+        "denominator": 6,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 6
+      },
+      "false_rejection": {
+        "numerator": 6,
+        "denominator": 6,
+        "estimate": 1.0,
+        "ci95_low": 1.0,
+        "ci95_high": 1.0,
+        "clusters": 6
+      },
+      "ambiguous_rejection": {
+        "numerator": 6,
+        "denominator": 6,
+        "estimate": 1.0,
+        "ci95_low": 1.0,
+        "ci95_high": 1.0,
+        "clusters": 6
+      },
+      "missing_parsed_directions": {
+        "numerator": 6,
+        "denominator": 6,
+        "estimate": 1.0,
+        "ci95_low": 1.0,
+        "ci95_high": 1.0,
+        "clusters": 6
+      },
+      "incorrect_explicit_classification": {
+        "numerator": 0,
+        "denominator": 6,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 6
+      }
+    },
+    {
+      "style": "category_relative_clause",
+      "n": 6,
+      "accepted": {
+        "numerator": 0,
+        "denominator": 6,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 6
+      },
+      "false_rejection": {
+        "numerator": 6,
+        "denominator": 6,
+        "estimate": 1.0,
+        "ci95_low": 1.0,
+        "ci95_high": 1.0,
+        "clusters": 6
+      },
+      "ambiguous_rejection": {
+        "numerator": 6,
+        "denominator": 6,
+        "estimate": 1.0,
+        "ci95_low": 1.0,
+        "ci95_high": 1.0,
+        "clusters": 6
+      },
+      "missing_parsed_directions": {
+        "numerator": 6,
+        "denominator": 6,
+        "estimate": 1.0,
+        "ci95_low": 1.0,
+        "ci95_high": 1.0,
+        "clusters": 6
+      },
+      "incorrect_explicit_classification": {
+        "numerator": 0,
+        "denominator": 6,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 6
+      }
+    },
+    {
+      "style": "category_shared_predicate",
+      "n": 6,
+      "accepted": {
+        "numerator": 0,
+        "denominator": 6,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 6
+      },
+      "false_rejection": {
+        "numerator": 6,
+        "denominator": 6,
+        "estimate": 1.0,
+        "ci95_low": 1.0,
+        "ci95_high": 1.0,
+        "clusters": 6
+      },
+      "ambiguous_rejection": {
+        "numerator": 6,
+        "denominator": 6,
+        "estimate": 1.0,
+        "ci95_low": 1.0,
+        "ci95_high": 1.0,
+        "clusters": 6
+      },
+      "missing_parsed_directions": {
+        "numerator": 6,
+        "denominator": 6,
+        "estimate": 1.0,
+        "ci95_low": 1.0,
+        "ci95_high": 1.0,
+        "clusters": 6
+      },
+      "incorrect_explicit_classification": {
+        "numerator": 0,
+        "denominator": 6,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 6
+      }
+    }
+  ],
+  "paraphrases": [
+    {
+      "style": "alias",
+      "pairs": [
+        {
+          "control_id": "exp4-A-02-01",
+          "paraphrase_id": "exp4-A-02-02",
+          "style": "alias",
+          "base_reference_id": "exp4-profile-01",
+          "direct_accepted": true,
+          "paraphrase_accepted": true
+        },
+        {
+          "control_id": "exp4-A-04-01",
+          "paraphrase_id": "exp4-A-04-02",
+          "style": "alias",
+          "base_reference_id": "exp4-profile-02",
+          "direct_accepted": true,
+          "paraphrase_accepted": true
+        },
+        {
+          "control_id": "exp4-A-06-01",
+          "paraphrase_id": "exp4-A-06-02",
+          "style": "alias",
+          "base_reference_id": "exp4-profile-03",
+          "direct_accepted": true,
+          "paraphrase_accepted": true
+        },
+        {
+          "control_id": "exp4-A-08-01",
+          "paraphrase_id": "exp4-A-08-02",
+          "style": "alias",
+          "base_reference_id": "exp4-profile-04",
+          "direct_accepted": true,
+          "paraphrase_accepted": true
+        },
+        {
+          "control_id": "exp4-A-10-01",
+          "paraphrase_id": "exp4-A-10-02",
+          "style": "alias",
+          "base_reference_id": "exp4-profile-05",
+          "direct_accepted": true,
+          "paraphrase_accepted": true
+        },
+        {
+          "control_id": "exp4-A-12-01",
+          "paraphrase_id": "exp4-A-12-02",
+          "style": "alias",
+          "base_reference_id": "exp4-profile-06",
+          "direct_accepted": true,
+          "paraphrase_accepted": true
+        }
+      ],
+      "discordant": 0,
+      "numerator": 0,
+      "denominator": 6,
+      "estimate": 0.0,
+      "ci95_low": 0.0,
+      "ci95_high": 0.0,
+      "clusters": 6
+    },
+    {
+      "style": "compound",
+      "pairs": [
+        {
+          "control_id": "exp4-A-02-01",
+          "paraphrase_id": "exp4-A-02-03",
+          "style": "compound",
+          "base_reference_id": "exp4-profile-01",
+          "direct_accepted": true,
+          "paraphrase_accepted": true
+        },
+        {
+          "control_id": "exp4-A-04-01",
+          "paraphrase_id": "exp4-A-04-03",
+          "style": "compound",
+          "base_reference_id": "exp4-profile-02",
+          "direct_accepted": true,
+          "paraphrase_accepted": true
+        },
+        {
+          "control_id": "exp4-A-06-01",
+          "paraphrase_id": "exp4-A-06-03",
+          "style": "compound",
+          "base_reference_id": "exp4-profile-03",
+          "direct_accepted": true,
+          "paraphrase_accepted": true
+        },
+        {
+          "control_id": "exp4-A-08-01",
+          "paraphrase_id": "exp4-A-08-03",
+          "style": "compound",
+          "base_reference_id": "exp4-profile-04",
+          "direct_accepted": true,
+          "paraphrase_accepted": true
+        },
+        {
+          "control_id": "exp4-A-10-01",
+          "paraphrase_id": "exp4-A-10-03",
+          "style": "compound",
+          "base_reference_id": "exp4-profile-05",
+          "direct_accepted": true,
+          "paraphrase_accepted": true
+        },
+        {
+          "control_id": "exp4-A-12-01",
+          "paraphrase_id": "exp4-A-12-03",
+          "style": "compound",
+          "base_reference_id": "exp4-profile-06",
+          "direct_accepted": true,
+          "paraphrase_accepted": true
+        }
+      ],
+      "discordant": 0,
+      "numerator": 0,
+      "denominator": 6,
+      "estimate": 0.0,
+      "ci95_low": 0.0,
+      "ci95_high": 0.0,
+      "clusters": 6
+    },
+    {
+      "style": "passive",
+      "pairs": [
+        {
+          "control_id": "exp4-A-01-01",
+          "paraphrase_id": "exp4-A-01-02",
+          "style": "passive",
+          "base_reference_id": "exp4-profile-01",
+          "direct_accepted": true,
+          "paraphrase_accepted": false
+        },
+        {
+          "control_id": "exp4-A-03-01",
+          "paraphrase_id": "exp4-A-03-02",
+          "style": "passive",
+          "base_reference_id": "exp4-profile-02",
+          "direct_accepted": true,
+          "paraphrase_accepted": false
+        },
+        {
+          "control_id": "exp4-A-05-01",
+          "paraphrase_id": "exp4-A-05-02",
+          "style": "passive",
+          "base_reference_id": "exp4-profile-03",
+          "direct_accepted": true,
+          "paraphrase_accepted": false
+        },
+        {
+          "control_id": "exp4-A-07-01",
+          "paraphrase_id": "exp4-A-07-02",
+          "style": "passive",
+          "base_reference_id": "exp4-profile-04",
+          "direct_accepted": true,
+          "paraphrase_accepted": false
+        },
+        {
+          "control_id": "exp4-A-09-01",
+          "paraphrase_id": "exp4-A-09-02",
+          "style": "passive",
+          "base_reference_id": "exp4-profile-05",
+          "direct_accepted": true,
+          "paraphrase_accepted": false
+        },
+        {
+          "control_id": "exp4-A-11-01",
+          "paraphrase_id": "exp4-A-11-02",
+          "style": "passive",
+          "base_reference_id": "exp4-profile-06",
+          "direct_accepted": true,
+          "paraphrase_accepted": false
+        }
+      ],
+      "discordant": 6,
+      "numerator": 6,
+      "denominator": 6,
+      "estimate": 1.0,
+      "ci95_low": 1.0,
+      "ci95_high": 1.0,
+      "clusters": 6
+    },
+    {
+      "style": "pronoun",
+      "pairs": [
+        {
+          "control_id": "exp4-A-01-01",
+          "paraphrase_id": "exp4-A-01-04",
+          "style": "pronoun",
+          "base_reference_id": "exp4-profile-01",
+          "direct_accepted": true,
+          "paraphrase_accepted": false
+        },
+        {
+          "control_id": "exp4-A-03-01",
+          "paraphrase_id": "exp4-A-03-04",
+          "style": "pronoun",
+          "base_reference_id": "exp4-profile-02",
+          "direct_accepted": true,
+          "paraphrase_accepted": false
+        },
+        {
+          "control_id": "exp4-A-05-01",
+          "paraphrase_id": "exp4-A-05-04",
+          "style": "pronoun",
+          "base_reference_id": "exp4-profile-03",
+          "direct_accepted": true,
+          "paraphrase_accepted": false
+        },
+        {
+          "control_id": "exp4-A-07-01",
+          "paraphrase_id": "exp4-A-07-04",
+          "style": "pronoun",
+          "base_reference_id": "exp4-profile-04",
+          "direct_accepted": true,
+          "paraphrase_accepted": false
+        },
+        {
+          "control_id": "exp4-A-09-01",
+          "paraphrase_id": "exp4-A-09-04",
+          "style": "pronoun",
+          "base_reference_id": "exp4-profile-05",
+          "direct_accepted": true,
+          "paraphrase_accepted": false
+        },
+        {
+          "control_id": "exp4-A-11-01",
+          "paraphrase_id": "exp4-A-11-04",
+          "style": "pronoun",
+          "base_reference_id": "exp4-profile-06",
+          "direct_accepted": true,
+          "paraphrase_accepted": false
+        }
+      ],
+      "discordant": 6,
+      "numerator": 6,
+      "denominator": 6,
+      "estimate": 1.0,
+      "ci95_low": 1.0,
+      "ci95_high": 1.0,
+      "clusters": 6
+    },
+    {
+      "style": "qualified",
+      "pairs": [
+        {
+          "control_id": "exp4-A-01-01",
+          "paraphrase_id": "exp4-A-01-03",
+          "style": "qualified",
+          "base_reference_id": "exp4-profile-01",
+          "direct_accepted": true,
+          "paraphrase_accepted": false
+        },
+        {
+          "control_id": "exp4-A-03-01",
+          "paraphrase_id": "exp4-A-03-03",
+          "style": "qualified",
+          "base_reference_id": "exp4-profile-02",
+          "direct_accepted": true,
+          "paraphrase_accepted": false
+        },
+        {
+          "control_id": "exp4-A-05-01",
+          "paraphrase_id": "exp4-A-05-03",
+          "style": "qualified",
+          "base_reference_id": "exp4-profile-03",
+          "direct_accepted": true,
+          "paraphrase_accepted": false
+        },
+        {
+          "control_id": "exp4-A-07-01",
+          "paraphrase_id": "exp4-A-07-03",
+          "style": "qualified",
+          "base_reference_id": "exp4-profile-04",
+          "direct_accepted": true,
+          "paraphrase_accepted": false
+        },
+        {
+          "control_id": "exp4-A-09-01",
+          "paraphrase_id": "exp4-A-09-03",
+          "style": "qualified",
+          "base_reference_id": "exp4-profile-05",
+          "direct_accepted": true,
+          "paraphrase_accepted": false
+        },
+        {
+          "control_id": "exp4-A-11-01",
+          "paraphrase_id": "exp4-A-11-03",
+          "style": "qualified",
+          "base_reference_id": "exp4-profile-06",
+          "direct_accepted": true,
+          "paraphrase_accepted": false
+        }
+      ],
+      "discordant": 6,
+      "numerator": 6,
+      "denominator": 6,
+      "estimate": 1.0,
+      "ci95_low": 1.0,
+      "ci95_high": 1.0,
+      "clusters": 6
+    },
+    {
+      "style": "reference",
+      "pairs": [
+        {
+          "control_id": "exp4-A-01-01",
+          "paraphrase_id": "exp4-A-01-05",
+          "style": "reference",
+          "base_reference_id": "exp4-profile-01",
+          "direct_accepted": true,
+          "paraphrase_accepted": false
+        },
+        {
+          "control_id": "exp4-A-03-01",
+          "paraphrase_id": "exp4-A-03-05",
+          "style": "reference",
+          "base_reference_id": "exp4-profile-02",
+          "direct_accepted": true,
+          "paraphrase_accepted": false
+        },
+        {
+          "control_id": "exp4-A-05-01",
+          "paraphrase_id": "exp4-A-05-05",
+          "style": "reference",
+          "base_reference_id": "exp4-profile-03",
+          "direct_accepted": true,
+          "paraphrase_accepted": false
+        },
+        {
+          "control_id": "exp4-A-07-01",
+          "paraphrase_id": "exp4-A-07-05",
+          "style": "reference",
+          "base_reference_id": "exp4-profile-04",
+          "direct_accepted": true,
+          "paraphrase_accepted": false
+        },
+        {
+          "control_id": "exp4-A-09-01",
+          "paraphrase_id": "exp4-A-09-05",
+          "style": "reference",
+          "base_reference_id": "exp4-profile-05",
+          "direct_accepted": true,
+          "paraphrase_accepted": false
+        },
+        {
+          "control_id": "exp4-A-11-01",
+          "paraphrase_id": "exp4-A-11-05",
+          "style": "reference",
+          "base_reference_id": "exp4-profile-06",
+          "direct_accepted": true,
+          "paraphrase_accepted": false
+        }
+      ],
+      "discordant": 6,
+      "numerator": 6,
+      "denominator": 6,
+      "estimate": 1.0,
+      "ci95_low": 1.0,
+      "ci95_high": 1.0,
+      "clusters": 6
+    },
+    {
+      "style": "relative",
+      "pairs": [
+        {
+          "control_id": "exp4-A-02-01",
+          "paraphrase_id": "exp4-A-02-04",
+          "style": "relative",
+          "base_reference_id": "exp4-profile-01",
+          "direct_accepted": true,
+          "paraphrase_accepted": false
+        },
+        {
+          "control_id": "exp4-A-04-01",
+          "paraphrase_id": "exp4-A-04-04",
+          "style": "relative",
+          "base_reference_id": "exp4-profile-02",
+          "direct_accepted": true,
+          "paraphrase_accepted": false
+        },
+        {
+          "control_id": "exp4-A-06-01",
+          "paraphrase_id": "exp4-A-06-04",
+          "style": "relative",
+          "base_reference_id": "exp4-profile-03",
+          "direct_accepted": true,
+          "paraphrase_accepted": false
+        },
+        {
+          "control_id": "exp4-A-08-01",
+          "paraphrase_id": "exp4-A-08-04",
+          "style": "relative",
+          "base_reference_id": "exp4-profile-04",
+          "direct_accepted": true,
+          "paraphrase_accepted": false
+        },
+        {
+          "control_id": "exp4-A-10-01",
+          "paraphrase_id": "exp4-A-10-04",
+          "style": "relative",
+          "base_reference_id": "exp4-profile-05",
+          "direct_accepted": true,
+          "paraphrase_accepted": false
+        },
+        {
+          "control_id": "exp4-A-12-01",
+          "paraphrase_id": "exp4-A-12-04",
+          "style": "relative",
+          "base_reference_id": "exp4-profile-06",
+          "direct_accepted": true,
+          "paraphrase_accepted": false
+        }
+      ],
+      "discordant": 6,
+      "numerator": 6,
+      "denominator": 6,
+      "estimate": 1.0,
+      "ci95_low": 1.0,
+      "ci95_high": 1.0,
+      "clusters": 6
+    },
+    {
+      "style": "shared",
+      "pairs": [
+        {
+          "control_id": "exp4-A-02-01",
+          "paraphrase_id": "exp4-A-02-05",
+          "style": "shared",
+          "base_reference_id": "exp4-profile-01",
+          "direct_accepted": true,
+          "paraphrase_accepted": false
+        },
+        {
+          "control_id": "exp4-A-04-01",
+          "paraphrase_id": "exp4-A-04-05",
+          "style": "shared",
+          "base_reference_id": "exp4-profile-02",
+          "direct_accepted": true,
+          "paraphrase_accepted": false
+        },
+        {
+          "control_id": "exp4-A-06-01",
+          "paraphrase_id": "exp4-A-06-05",
+          "style": "shared",
+          "base_reference_id": "exp4-profile-03",
+          "direct_accepted": true,
+          "paraphrase_accepted": false
+        },
+        {
+          "control_id": "exp4-A-08-01",
+          "paraphrase_id": "exp4-A-08-05",
+          "style": "shared",
+          "base_reference_id": "exp4-profile-04",
+          "direct_accepted": true,
+          "paraphrase_accepted": false
+        },
+        {
+          "control_id": "exp4-A-10-01",
+          "paraphrase_id": "exp4-A-10-05",
+          "style": "shared",
+          "base_reference_id": "exp4-profile-05",
+          "direct_accepted": true,
+          "paraphrase_accepted": false
+        },
+        {
+          "control_id": "exp4-A-12-01",
+          "paraphrase_id": "exp4-A-12-05",
+          "style": "shared",
+          "base_reference_id": "exp4-profile-06",
+          "direct_accepted": true,
+          "paraphrase_accepted": false
+        }
+      ],
+      "discordant": 6,
+      "numerator": 6,
+      "denominator": 6,
+      "estimate": 1.0,
+      "ci95_low": 1.0,
+      "ci95_high": 1.0,
+      "clusters": 6
+    }
+  ],
+  "error_matrix": [
+    {
+      "category": "incorrect_attribution_ranking",
+      "n": 8,
+      "explicitly_detected": {
+        "numerator": 8,
+        "denominator": 8,
+        "estimate": 1.0,
+        "ci95_low": 1.0,
+        "ci95_high": 1.0,
+        "clusters": 6
+      },
+      "ambiguous_rejection": {
+        "numerator": 0,
+        "denominator": 8,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 6
+      },
+      "incorrectly_accepted": {
+        "numerator": 0,
+        "denominator": 8,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 6
+      },
+      "missed_other_rejection": {
+        "numerator": 0,
+        "denominator": 8,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 6
+      }
+    },
+    {
+      "category": "incorrect_feature_direction",
+      "n": 20,
+      "explicitly_detected": {
+        "numerator": 12,
+        "denominator": 20,
+        "estimate": 0.6,
+        "ci95_low": 0.3333333333333333,
+        "ci95_high": 0.8181818181818182,
+        "clusters": 6
+      },
+      "ambiguous_rejection": {
+        "numerator": 8,
+        "denominator": 20,
+        "estimate": 0.4,
+        "ci95_low": 0.18181818181818182,
+        "ci95_high": 0.6666666666666666,
+        "clusters": 6
+      },
+      "incorrectly_accepted": {
+        "numerator": 0,
+        "denominator": 20,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 6
+      },
+      "missed_other_rejection": {
+        "numerator": 0,
+        "denominator": 20,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 6
+      }
+    },
+    {
+      "category": "incorrect_feature_importance",
+      "n": 8,
+      "explicitly_detected": {
+        "numerator": 8,
+        "denominator": 8,
+        "estimate": 1.0,
+        "ci95_low": 1.0,
+        "ci95_high": 1.0,
+        "clusters": 6
+      },
+      "ambiguous_rejection": {
+        "numerator": 0,
+        "denominator": 8,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 6
+      },
+      "incorrectly_accepted": {
+        "numerator": 0,
+        "denominator": 8,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 6
+      },
+      "missed_other_rejection": {
+        "numerator": 0,
+        "denominator": 8,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 6
+      }
+    },
+    {
+      "category": "incorrect_probability",
+      "n": 4,
+      "explicitly_detected": {
+        "numerator": 4,
+        "denominator": 4,
+        "estimate": 1.0,
+        "ci95_low": 1.0,
+        "ci95_high": 1.0,
+        "clusters": 4
+      },
+      "ambiguous_rejection": {
+        "numerator": 0,
+        "denominator": 4,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 4
+      },
+      "incorrectly_accepted": {
+        "numerator": 0,
+        "denominator": 4,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 4
+      },
+      "missed_other_rejection": {
+        "numerator": 0,
+        "denominator": 4,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 4
+      }
+    },
+    {
+      "category": "incorrect_shap_scale",
+      "n": 4,
+      "explicitly_detected": {
+        "numerator": 4,
+        "denominator": 4,
+        "estimate": 1.0,
+        "ci95_low": 1.0,
+        "ci95_high": 1.0,
+        "clusters": 4
+      },
+      "ambiguous_rejection": {
+        "numerator": 0,
+        "denominator": 4,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 4
+      },
+      "incorrectly_accepted": {
+        "numerator": 0,
+        "denominator": 4,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 4
+      },
+      "missed_other_rejection": {
+        "numerator": 0,
+        "denominator": 4,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 4
+      }
+    },
+    {
+      "category": "invented_measurement",
+      "n": 4,
+      "explicitly_detected": {
+        "numerator": 4,
+        "denominator": 4,
+        "estimate": 1.0,
+        "ci95_low": 1.0,
+        "ci95_high": 1.0,
+        "clusters": 4
+      },
+      "ambiguous_rejection": {
+        "numerator": 0,
+        "denominator": 4,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 4
+      },
+      "incorrectly_accepted": {
+        "numerator": 0,
+        "denominator": 4,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 4
+      },
+      "missed_other_rejection": {
+        "numerator": 0,
+        "denominator": 4,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 4
+      }
+    },
+    {
+      "category": "structured_prose_contradiction",
+      "n": 20,
+      "explicitly_detected": {
+        "numerator": 8,
+        "denominator": 20,
+        "estimate": 0.4,
+        "ci95_low": 0.2222222222222222,
+        "ci95_high": 0.5454545454545454,
+        "clusters": 6
+      },
+      "ambiguous_rejection": {
+        "numerator": 12,
+        "denominator": 20,
+        "estimate": 0.6,
+        "ci95_low": 0.45454545454545453,
+        "ci95_high": 0.7777777777777778,
+        "clusters": 6
+      },
+      "incorrectly_accepted": {
+        "numerator": 0,
+        "denominator": 20,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 6
+      },
+      "missed_other_rejection": {
+        "numerator": 0,
+        "denominator": 20,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 6
+      }
+    },
+    {
+      "category": "unsupported_causal_claim",
+      "n": 4,
+      "explicitly_detected": {
+        "numerator": 4,
+        "denominator": 4,
+        "estimate": 1.0,
+        "ci95_low": 1.0,
+        "ci95_high": 1.0,
+        "clusters": 4
+      },
+      "ambiguous_rejection": {
+        "numerator": 0,
+        "denominator": 4,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 4
+      },
+      "incorrectly_accepted": {
+        "numerator": 0,
+        "denominator": 4,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 4
+      },
+      "missed_other_rejection": {
+        "numerator": 0,
+        "denominator": 4,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 4
+      }
+    },
+    {
+      "category": "unsupported_clinical_diagnosis",
+      "n": 4,
+      "explicitly_detected": {
+        "numerator": 4,
+        "denominator": 4,
+        "estimate": 1.0,
+        "ci95_low": 1.0,
+        "ci95_high": 1.0,
+        "clusters": 4
+      },
+      "ambiguous_rejection": {
+        "numerator": 0,
+        "denominator": 4,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 4
+      },
+      "incorrectly_accepted": {
+        "numerator": 0,
+        "denominator": 4,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 4
+      },
+      "missed_other_rejection": {
+        "numerator": 0,
+        "denominator": 4,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 4
+      }
+    },
+    {
+      "category": "unsupported_model_feature",
+      "n": 4,
+      "explicitly_detected": {
+        "numerator": 4,
+        "denominator": 4,
+        "estimate": 1.0,
+        "ci95_low": 1.0,
+        "ci95_high": 1.0,
+        "clusters": 4
+      },
+      "ambiguous_rejection": {
+        "numerator": 0,
+        "denominator": 4,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 4
+      },
+      "incorrectly_accepted": {
+        "numerator": 0,
+        "denominator": 4,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 4
+      },
+      "missed_other_rejection": {
+        "numerator": 0,
+        "denominator": 4,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 4
+      }
+    },
+    {
+      "category": "compound_direction",
+      "n": 4,
+      "explicitly_detected": {
+        "numerator": 4,
+        "denominator": 4,
+        "estimate": 1.0,
+        "ci95_low": 1.0,
+        "ci95_high": 1.0,
+        "clusters": 4
+      },
+      "ambiguous_rejection": {
+        "numerator": 0,
+        "denominator": 4,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 4
+      },
+      "incorrectly_accepted": {
+        "numerator": 0,
+        "denominator": 4,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 4
+      },
+      "missed_other_rejection": {
+        "numerator": 0,
+        "denominator": 4,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 4
+      }
+    },
+    {
+      "category": "relative_direction",
+      "n": 4,
+      "explicitly_detected": {
+        "numerator": 0,
+        "denominator": 4,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 4
+      },
+      "ambiguous_rejection": {
+        "numerator": 4,
+        "denominator": 4,
+        "estimate": 1.0,
+        "ci95_low": 1.0,
+        "ci95_high": 1.0,
+        "clusters": 4
+      },
+      "incorrectly_accepted": {
+        "numerator": 0,
+        "denominator": 4,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 4
+      },
+      "missed_other_rejection": {
+        "numerator": 0,
+        "denominator": 4,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 4
+      }
+    },
+    {
+      "category": "passive_direction",
+      "n": 4,
+      "explicitly_detected": {
+        "numerator": 0,
+        "denominator": 4,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 4
+      },
+      "ambiguous_rejection": {
+        "numerator": 4,
+        "denominator": 4,
+        "estimate": 1.0,
+        "ci95_low": 1.0,
+        "ci95_high": 1.0,
+        "clusters": 4
+      },
+      "incorrectly_accepted": {
+        "numerator": 0,
+        "denominator": 4,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 4
+      },
+      "missed_other_rejection": {
+        "numerator": 0,
+        "denominator": 4,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 4
+      }
+    },
+    {
+      "category": "both_layers",
+      "n": 4,
+      "explicitly_detected": {
+        "numerator": 4,
+        "denominator": 4,
+        "estimate": 1.0,
+        "ci95_low": 1.0,
+        "ci95_high": 1.0,
+        "clusters": 4
+      },
+      "ambiguous_rejection": {
+        "numerator": 0,
+        "denominator": 4,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 4
+      },
+      "incorrectly_accepted": {
+        "numerator": 0,
+        "denominator": 4,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 4
+      },
+      "missed_other_rejection": {
+        "numerator": 0,
+        "denominator": 4,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 4
+      }
+    },
+    {
+      "category": "both_layers_prose_direction",
+      "n": 4,
+      "explicitly_detected": {
+        "numerator": 0,
+        "denominator": 4,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 4
+      },
+      "ambiguous_rejection": {
+        "numerator": 4,
+        "denominator": 4,
+        "estimate": 1.0,
+        "ci95_low": 1.0,
+        "ci95_high": 1.0,
+        "clusters": 4
+      },
+      "incorrectly_accepted": {
+        "numerator": 0,
+        "denominator": 4,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 4
+      },
+      "missed_other_rejection": {
+        "numerator": 0,
+        "denominator": 4,
+        "estimate": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "clusters": 4
+      }
+    }
+  ],
+  "layers": {
+    "structured": {
+      "n": 120,
+      "confusion": {
+        "TP": 16,
+        "FP": 0,
+        "TN": 104,
+        "FN": 0
+      },
+      "metrics": {
+        "precision": {
+          "numerator": 16,
+          "denominator": 16,
+          "estimate": 1.0,
+          "ci95_low": 1.0,
+          "ci95_high": 1.0,
+          "clusters": 6
+        },
+        "recall": {
+          "numerator": 16,
+          "denominator": 16,
+          "estimate": 1.0,
+          "ci95_low": 1.0,
+          "ci95_high": 1.0,
+          "clusters": 6
+        },
+        "specificity": {
+          "numerator": 104,
+          "denominator": 104,
+          "estimate": 1.0,
+          "ci95_low": 1.0,
+          "ci95_high": 1.0,
+          "clusters": 6
+        },
+        "false_positive_rate": {
+          "numerator": 0,
+          "denominator": 104,
+          "estimate": 0.0,
+          "ci95_low": 0.0,
+          "ci95_high": 0.0,
+          "clusters": 6
+        },
+        "false_negative_rate": {
+          "numerator": 0,
+          "denominator": 16,
+          "estimate": 0.0,
+          "ci95_low": 0.0,
+          "ci95_high": 0.0,
+          "clusters": 6
+        },
+        "f1": {
+          "numerator": 32,
+          "denominator": 32,
+          "estimate": 1.0,
+          "ci95_low": 1.0,
+          "ci95_high": 1.0,
+          "clusters": 6
+        },
+        "balanced_accuracy": {
+          "numerator": 3328,
+          "denominator": 3328,
+          "estimate": 1.0,
+          "ci95_low": 1.0,
+          "ci95_high": 1.0,
+          "clusters": 6
+        }
+      }
+    },
+    "narrative": {
+      "n": 120,
+      "confusion": {
+        "TP": 36,
+        "FP": 0,
+        "TN": 72,
+        "FN": 12
+      },
+      "metrics": {
+        "precision": {
+          "numerator": 36,
+          "denominator": 36,
+          "estimate": 1.0,
+          "ci95_low": 1.0,
+          "ci95_high": 1.0,
+          "clusters": 6
+        },
+        "recall": {
+          "numerator": 36,
+          "denominator": 48,
+          "estimate": 0.75,
+          "ci95_low": 0.6666666666666666,
+          "ci95_high": 0.8333333333333334,
+          "clusters": 6
+        },
+        "specificity": {
+          "numerator": 72,
+          "denominator": 72,
+          "estimate": 1.0,
+          "ci95_low": 1.0,
+          "ci95_high": 1.0,
+          "clusters": 6
+        },
+        "false_positive_rate": {
+          "numerator": 0,
+          "denominator": 72,
+          "estimate": 0.0,
+          "ci95_low": 0.0,
+          "ci95_high": 0.0,
+          "clusters": 6
+        },
+        "false_negative_rate": {
+          "numerator": 12,
+          "denominator": 48,
+          "estimate": 0.25,
+          "ci95_low": 0.16666666666666666,
+          "ci95_high": 0.3333333333333333,
+          "clusters": 6
+        },
+        "f1": {
+          "numerator": 72,
+          "denominator": 84,
+          "estimate": 0.8571428571428571,
+          "ci95_low": 0.8,
+          "ci95_high": 0.9090909090909091,
+          "clusters": 6
+        },
+        "balanced_accuracy": {
+          "numerator": 6048,
+          "denominator": 6912,
+          "estimate": 0.875,
+          "ci95_low": 0.8333333333333334,
+          "ci95_high": 0.9166666666666666,
+          "clusters": 6
+        }
+      }
+    },
+    "structured_checks": {
+      "membership_accuracy": {
+        "numerator": 120,
+        "denominator": 120,
+        "estimate": 1.0,
+        "ci95_low": 1.0,
+        "ci95_high": 1.0,
+        "clusters": 6
+      },
+      "completeness_accuracy": {
+        "numerator": 120,
+        "denominator": 120,
+        "estimate": 1.0,
+        "ci95_low": 1.0,
+        "ci95_high": 1.0,
+        "clusters": 6
+      },
+      "direction_error_recall": {
+        "numerator": 8,
+        "denominator": 8,
+        "estimate": 1.0,
+        "ci95_low": 1.0,
+        "ci95_high": 1.0,
+        "clusters": 4
+      },
+      "rank_error_recall": {
+        "numerator": 4,
+        "denominator": 4,
+        "estimate": 1.0,
+        "ci95_low": 1.0,
+        "ci95_high": 1.0,
+        "clusters": 4
+      },
+      "membership_error_recall": {
+        "numerator": 4,
+        "denominator": 4,
+        "estimate": 1.0,
+        "ci95_low": 1.0,
+        "ci95_high": 1.0,
+        "clusters": 4
+      }
+    },
+    "narrative_checks": {
+      "parser_coverage": {
+        "numerator": 272,
+        "denominator": 392,
+        "estimate": 0.6938775510204082,
+        "ci95_low": 0.6597938144329897,
+        "ci95_high": 0.7272727272727273,
+        "clusters": 6
+      },
+      "ambiguity_per_response": {
+        "numerator": 48,
+        "denominator": 120,
+        "estimate": 0.4,
+        "ci95_low": 0.36666666666666664,
+        "ci95_high": 0.43333333333333335,
+        "clusters": 6
+      },
+      "causal_recall": {
+        "numerator": 4,
+        "denominator": 4,
+        "estimate": 1.0,
+        "ci95_low": 1.0,
+        "ci95_high": 1.0,
+        "clusters": 4
+      },
+      "diagnosis_recall": {
+        "numerator": 4,
+        "denominator": 4,
+        "estimate": 1.0,
+        "ci95_low": 1.0,
+        "ci95_high": 1.0,
+        "clusters": 4
+      }
+    },
+    "layer_controls": {
+      "structured_correct__prose_correct": 60,
+      "structured_wrong__prose_wrong": 4,
+      "structured_wrong__prose_correct": 12,
+      "structured_correct__prose_wrong": 44
+    }
+  },
+  "boundary": [
+    {
+      "faithfulness": "faithful",
+      "completeness": "incomplete",
+      "schema": "valid",
+      "outcome": "ambiguous_or_unparsed",
+      "n": 4
+    },
+    {
+      "faithfulness": "faithful",
+      "completeness": "incomplete",
+      "schema": "valid",
+      "outcome": "incomplete_but_otherwise_correct",
+      "n": 16
+    },
+    {
+      "faithfulness": "faithful",
+      "completeness": "not_applicable",
+      "schema": "invalid",
+      "outcome": "schema_invalid",
+      "n": 24
+    },
+    {
+      "faithfulness": "indeterminate",
+      "completeness": "complete",
+      "schema": "valid",
+      "outcome": "ambiguous_or_unparsed",
+      "n": 8
+    },
+    {
+      "faithfulness": "unfaithful",
+      "completeness": "complete",
+      "schema": "valid",
+      "outcome": "ambiguous_or_unparsed",
+      "n": 4
+    },
+    {
+      "faithfulness": "unfaithful",
+      "completeness": "complete",
+      "schema": "valid",
+      "outcome": "explicit_error_detected",
+      "n": 4
+    }
+  ],
+  "outcomes": {
+    "A": {
+      "accepted_as_faithful": 24,
+      "ambiguous_or_unparsed": 36
+    },
+    "B": {
+      "explicit_error_detected": 52,
+      "ambiguous_or_unparsed": 8
+    },
+    "C": {
+      "incomplete_but_otherwise_correct": 16,
+      "ambiguous_or_unparsed": 16,
+      "schema_invalid": 24,
+      "explicit_error_detected": 4
+    }
+  },
+  "multi_error_cases": [
+    "exp4-B-01-01",
+    "exp4-B-04-01",
+    "exp4-B-07-01",
+    "exp4-B-10-01"
+  ],
+  "examples": [
+    {
+      "challenge_id": "exp4-A-01-02",
+      "gold": "faithful",
+      "explanation": "The model estimates a 29.42% readmission probability. The predicted risk is raised by age; The predicted risk is raised by prior_admissions; The predicted risk is lowered by creatinine.",
+      "outcome": "ambiguous_or_unparsed",
+      "issues": [
+        "missing_prose_drivers",
+        "unparsed"
+      ]
+    },
+    {
+      "challenge_id": "exp4-B-02-01",
+      "gold": "unfaithful",
+      "explanation": "The model estimates a 4.34% readmission probability. age, which increases the model's predicted risk, is among the three leading drivers; prior_admissions, which decreases the model's predicted risk, is among the three leading drivers; creatinine, which increases the model's predicted risk, is among the three leading drivers.",
+      "outcome": "ambiguous_or_unparsed",
+      "issues": [
+        "missing_prose_drivers",
+        "unparsed"
+      ]
+    }
+  ]
+}

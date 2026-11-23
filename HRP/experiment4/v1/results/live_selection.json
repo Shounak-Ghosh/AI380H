@@ -1,0 +1,122 @@
+[
+  {
+    "challenge_id": "exp4-B-09-03",
+    "stratum": "math_error"
+  },
+  {
+    "challenge_id": "exp4-A-11-04",
+    "stratum": "faithful_prose"
+  },
+  {
+    "challenge_id": "exp4-C-01-02",
+    "stratum": "incomplete"
+  },
+  {
+    "challenge_id": "exp4-B-12-01",
+    "stratum": "math_error"
+  },
+  {
+    "challenge_id": "exp4-A-02-05",
+    "stratum": "faithful_prose"
+  },
+  {
+    "challenge_id": "exp4-C-10-02",
+    "stratum": "incomplete"
+  },
+  {
+    "challenge_id": "exp4-B-04-02",
+    "stratum": "math_error"
+  },
+  {
+    "challenge_id": "exp4-A-03-05",
+    "stratum": "faithful_prose"
+  },
+  {
+    "challenge_id": "exp4-C-07-01",
+    "stratum": "incomplete"
+  },
+  {
+    "challenge_id": "exp4-B-07-01",
+    "stratum": "math_error"
+  },
+  {
+    "challenge_id": "exp4-A-10-05",
+    "stratum": "faithful_prose"
+  },
+  {
+    "challenge_id": "exp4-C-10-04",
+    "stratum": "incomplete"
+  },
+  {
+    "challenge_id": "exp4-B-08-04",
+    "stratum": "math_error"
+  },
+  {
+    "challenge_id": "exp4-A-07-04",
+    "stratum": "faithful_prose"
+  },
+  {
+    "challenge_id": "exp4-C-07-04",
+    "stratum": "incomplete"
+  },
+  {
+    "challenge_id": "exp4-B-08-03",
+    "stratum": "math_error"
+  },
+  {
+    "challenge_id": "exp4-A-12-05",
+    "stratum": "faithful_prose"
+  },
+  {
+    "challenge_id": "exp4-C-01-01",
+    "stratum": "incomplete"
+  },
+  {
+    "challenge_id": "exp4-B-01-02",
+    "stratum": "math_error"
+  },
+  {
+    "challenge_id": "exp4-A-05-02",
+    "stratum": "faithful_prose"
+  },
+  {
+    "challenge_id": "exp4-C-03-05",
+    "stratum": "incomplete"
+  },
+  {
+    "challenge_id": "exp4-B-02-04",
+    "stratum": "math_error"
+  },
+  {
+    "challenge_id": "exp4-A-05-04",
+    "stratum": "faithful_prose"
+  },
+  {
+    "challenge_id": "exp4-C-07-03",
+    "stratum": "incomplete"
+  },
+  {
+    "challenge_id": "exp4-B-10-02",
+    "stratum": "math_error"
+  },
+  {
+    "challenge_id": "exp4-A-08-05",
+    "stratum": "faithful_prose"
+  },
+  {
+    "challenge_id": "exp4-C-09-05",
+    "stratum": "incomplete"
+  },
+  {
+    "challenge_id": "exp4-B-04-04",
+    "stratum": "math_error"
+  },
+  {
+    "challenge_id": "exp4-A-01-04",
+    "stratum": "faithful_prose"
+  },
+  {
+    "challenge_id": "exp4-C-01-04",
+    "stratum": "incomplete"
+  }
+]
