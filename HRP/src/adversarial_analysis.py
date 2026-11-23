@@ -4,7 +4,7 @@ from collections import Counter, defaultdict
 from dataclasses import asdict, replace
 import json
 import re
-from statistics import mean
+from statistics import mean, stdev
 
 import numpy as np
 
@@ -358,6 +358,50 @@ def _prediction_changes(manifest):
                              for ref in initial["shap"]["contributions"]},
         })
     return changes
+
+
+def predicted_risk_sensitivity(result):
+    """Summarize complete-pair A/B contrasts by fixed absolute probability bands."""
+    scores = {(r["profile_id"], r["condition"], r["variant"]): r
+              for r in result["case_metrics"]}
+    bands = ("<15 pp", "15–<25 pp", "≥25 pp")
+    pairs = []
+    for shift in sorted(result["prediction_changes"], key=lambda r: r["profile_id"]):
+        profile = shift["profile_id"]
+        initial, switched = (shift[f"{variant}_probability"] for variant in VARIANTS)
+        change = switched - initial
+        absolute_change = abs(change)
+        attributes = {
+            attribute: {variant: scores[profile, "A", variant]["attributes"][attribute]
+                        for variant in VARIANTS}
+            for attribute in ATTRIBUTES
+        }
+        pair = {
+            "profile_id": profile, "family": shift["family"],
+            "intuitive_probability": initial, "counterintuitive_probability": switched,
+            "probability_change": change, "absolute_probability_change": absolute_change,
+            "band": bands[0] if absolute_change < .15 else bands[1] if absolute_change < .25 else bands[2],
+            **attributes,
+        }
+        for condition in ("A", "B"):
+            left, right = (scores[profile, condition, variant] for variant in VARIANTS)
+            pair[f"{condition}_difference"] = (
+                right["signed_top_three_agreement"] - left["signed_top_three_agreement"]
+                if left["status"] == right["status"] == "ok" else None)
+        pairs.append(pair)
+
+    strata = []
+    for band in bands:
+        selected = [pair for pair in pairs if pair["band"] == band]
+        for condition in ("A", "B"):
+            values = [pair[f"{condition}_difference"] for pair in selected
+                      if pair[f"{condition}_difference"] is not None]
+            strata.append({
+                "band": band, "condition": condition, "selected_pairs": len(selected),
+                "complete_pairs": len(values), "mean_difference": mean(values) if values else None,
+                "paired_difference_sd": stdev(values) if len(values) > 1 else None,
+            })
+    return {"pairs": pairs, "strata": strata}
 
 
 def _rates(rows, outcomes, *, field="outcome", **group):

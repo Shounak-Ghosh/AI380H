@@ -1,3 +1,4 @@
+from hashlib import sha256
 import json
 from pathlib import Path
 import sys
@@ -40,7 +41,16 @@ class AdversarialRunnerTests(unittest.TestCase):
             self.assertEqual(notebook_run(directory=directory)["mode"], "setup")
             done = notebook_run("fictional", directory=directory, replicates=20)
             self.assertEqual(done["state"]["calls"], 10)
-            self.assertEqual(notebook_run(directory=directory, replicates=20)["state"], done["state"])
+            paths = [Path(directory) / name for name in ("checkpoint.json", "scenario_manifest.json")]
+            before = [sha256(path.read_bytes()).hexdigest() for path in paths]
+            with patch("adversarial_runner.build_manifest") as build, patch("adversarial_runner.Ollama._request") as request:
+                reviewed = notebook_run(directory=directory, replicates=20)
+                build.assert_not_called()
+                request.assert_not_called()
+            self.assertEqual(reviewed["state"], done["state"])
+            self.assertEqual(reviewed["result"], done["result"])
+            self.assertEqual(reviewed["checkpoint_sha256"], before[0])
+            self.assertEqual([sha256(path.read_bytes()).hexdigest() for path in paths], before)
             self.assertEqual(notebook_run("fictional", directory=directory, replicates=20)["state"], done["state"])
             records = {(r["case_id"], r["condition"]): r for r in done["state"]["records"].values()}
             for case in self.cases:

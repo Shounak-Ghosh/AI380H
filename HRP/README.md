@@ -466,6 +466,44 @@ features, explicit abstentions, and unverifiable claims are reported.
 The narrative verifier's grammar can miss claims or leave them
 ambiguous. An independent fictional probe set illustrates those limits.
 
+### Reference-run findings
+
+The matched sample contains 48 synthetic profiles, 96 model–profile cases,
+and 288 A/B/C records. Maximum saved SHAP additivity error was
+3.55e-15 log-odds. Negative paired differences mean lower signed
+top-three agreement under counterintuitive model behavior.
+
+| Condition | Intuitive mean | Counterintuitive mean | Complete pairs | Paired difference (95% CI) |
+|---|---:|---:|---:|---:|
+| A · Baseline | 1.659 | 0.652 | 44 | −1.000 [−1.227, −0.762] |
+| B · SHAP-grounded | 2.958 | 2.729 | 48 | −0.229 [−0.479, −0.021] |
+| C · Verified system | 3.000 | 3.000 | 48 | 0.000 [0.000, 0.000] |
+
+The reference run supports H3 in A and shows a smaller adverse effect
+in B. The failure-inclusive A estimate was −0.896. B and C did not
+change. C required intervention on 48 of 48 cases in each variant.
+Qwen3 supplied seven accepted revisions (four intuitive, three
+counterintuitive). The other 89 outputs used deterministic fallback.
+All 96 C outputs were verified complete.
+
+Structured clinical-expectation substitution appeared in 71/96
+counterintuitive target opportunities in A, 10/96 in B, and 0/96 in C.
+These counts describe explicit JSON directions. The combined
+structured-and-prose rubric found 11/96, 0/96, and 0/96, respectively,
+and marked 57/96 grounded target opportunities unverifiable. An
+independent reading of the saved matched example identified misleading
+prose alongside correct JSON directions.
+
+The supplemental risk-band analysis uses saved pairs only. The
+baseline difference was more adverse in bands with larger absolute
+probability changes. Differences in B remained negative across bands
+without increasing monotonically. The switch holds features fixed
+and changes both attributions and predicted risk. The results cannot
+isolate a causal effect of the probability cue or of the sign reversals
+alone.
+
+### Offline review and provenance
+
 The notebook defaults to auto mode. It reviews a completed run offline
 or displays setup without requesting inference. Explicit fictional mode
 exercises scripted A/B/C responses. Explicit real mode starts or resumes
@@ -478,22 +516,37 @@ during an uncommitted Ollama response may require repeating that call.
 
 ```bash
 uv run --locked python -m unittest discover -s tests
-uv run --locked python src/adversarial_runner.py setup
-uv run --locked python src/adversarial_runner.py fictional
-uv run --locked python src/adversarial_runner.py real
 uv run --locked python src/adversarial_runner.py review
 ```
 
-CLI exports are owner-only, outside Git, and default to
+Review leaves the saved files untouched by default. The reference
+checkpoint SHA-256 is
+`52ecf7c17a9cfd9108c264af7e8f0886a1754be23edfb261597deb1cf6052a1b`.
+Its canonical scenario fingerprint is
+`68387030b1bd39b0bc243a81704624a0bc9c1f19bb2bac8edce09420693a7478`.
+The reference uses checkpoint format 2, runner `experiment3-runner-v1`,
+scenarios `experiment3-scenarios-v1`, prompt `experiment2-v3`, verifier
+`experiment2-verifier-v3`, scorer `experiment2-scorer-v1`, and saved
+analysis `experiment3-analysis-v2`. The notebook computes the new
+risk-band supplement in memory.
+
+Private run files are owner-only, outside Git, and default to
 `~/Library/Application Support/AI380H/MIMIC-IV/llm-runs/experiment3-adversarial/`
 in the respective `qwen3-v1` and `fictional-v1` directories. Set
 `--directory` to use a different dedicated private directory. The
 bundle includes a scenario manifest, resumable checkpoint, case and
-aggregate analyses, five figures and a checksummed run index. Set
-`SAVE_BUNDLE = True` in the notebook to export from it.
+aggregate analyses, five figures and a checksummed run index.
+Review exports require an explicit `--save` or notebook
+`SAVE_BUNDLE = True`.
 
 The optional aggregate-only screen reads the pinned XGBoost sample
 from existing private SHAP files. Its flags are exploratory and remain
 outside the matched synthetic H3 analysis. The synthetic coefficients
 encode experimental assumptions and support no clinical or causal
 conclusions. Neither pipeline requires changes to Experiment 2.
+
+Experiment 4 should use a separately labeled verifier challenge set
+to study false rejections of faithful prose, missed contradictions,
+correct structured-error rejections, and ambiguity. Evaluate model
+revision separately from fallback, and measure readability and
+informativeness under constrained explanation formats.

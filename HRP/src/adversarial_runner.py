@@ -241,7 +241,7 @@ def notebook_run(mode="auto", *, directory=None, config=ModelConfig(),
     if save:
         save_results(directory, manifest, result, checksum, execution_mode)
     return {"mode": mode, "execution_mode": execution_mode, "manifest": manifest, "state": state,
-            "result": result, "directory": directory}
+            "result": result, "directory": directory, "checkpoint_sha256": checksum}
 
 
 if __name__ == "__main__":
@@ -251,9 +251,12 @@ if __name__ == "__main__":
     parser.add_argument("--max-calls", type=int)
     parser.add_argument("--runtime-seconds", type=float, default=14_400)
     parser.add_argument("--digest", help="Optional expected Qwen3 digest.")
+    parser.add_argument("--save", action="store_true", help="Export derived files when reviewing a run.")
     args = parser.parse_args()
     run = notebook_run(args.mode, directory=args.directory, max_calls=args.max_calls,
-                       runtime_seconds=args.runtime_seconds, config=ModelConfig(digest=args.digest), save=True)
+                       runtime_seconds=args.runtime_seconds, config=ModelConfig(digest=args.digest),
+                       save=args.mode != "review" or args.save)
     print(json.dumps({"directory": str(run["directory"]), "model_profiles": len(run["manifest"]["records"]),
                       "operations": run["result"]["operations"] if run["result"] else None,
-                      "pause_reason": run.get("state", {}).get("pause_reason")}, indent=2))
+                      "pause_reason": run.get("state", {}).get("pause_reason"),
+                      "checkpoint_sha256": run.get("checkpoint_sha256")}, indent=2))
