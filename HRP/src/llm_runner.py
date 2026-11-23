@@ -3,7 +3,6 @@
 from contextlib import contextmanager
 from dataclasses import asdict, dataclass, replace
 import fcntl
-import hashlib
 import json
 import math
 import os
@@ -16,15 +15,16 @@ from urllib.parse import urlsplit
 
 import requests
 
+from experiment2_scoring import SCORER_VERSION
 from hrp_faithfulness import local_request
 from llm_verification import (
-    PROMPT_VERSION, Issue, build_prompt, correction_prompt, deterministic_answer, feature_keys,
-    parse_response, prompt_payload, verify_attribution,
+    PROMPT_VERSION, SHAP_ZERO_TOLERANCE, VERIFIER_VERSION, Issue, build_prompt, case_fingerprints,
+    correction_prompt, deterministic_answer, feature_keys, fingerprint, parse_response, verify_attribution,
 )
-from narrative_verifier import verify_narrative
+from narrative_verifier import missing_direction_claims, verify_narrative
 
 
-CHECKPOINT_VERSION = 1
+CHECKPOINT_VERSION = 2
 CONDITIONS = ("A", "B", "C")
 
 
@@ -126,25 +126,45 @@ def _call(infer, prompt, timeout):
     return {
         "raw": raw, "error": asdict(issue) if issue else None,
         "latency_seconds": time.monotonic() - started, "timeout_seconds": timeout,
-        "prompt_sha256": _fingerprint(prompt),
+        "prompt_sha256": fingerprint(prompt),
     }
 
 
+def _assess_answer(case, answer):
+    structured = verify_attribution(case, answer.drivers)
+    narrative = verify_narrative(case, answer)
+    missing_prose = missing_direction_claims(structured.expected, narrative)
+    correct = structured.passed and narrative.passed
+    complete = structured.complete and not missing_prose
+    if not correct:
+        status = "verification_failed"
+    else:
+        status = "verified_complete" if complete else "correct_incomplete"
+    trace = {
+        "structured": asdict(structured), "narrative": asdict(narrative),
+        "correct": correct, "complete": complete, "status": status,
+        "missing_prose_drivers": missing_prose,
+    }
+    issues = list(structured.issues)
+    issues.extend(Issue(claim.code, f"{claim.detail} Text: {claim.text}")
+                  for claim in narrative.claims if claim.status in ("contradicted", "ambiguous"))
+    if structured.missing:
+        issues.append(Issue("missing_drivers", f"Add missing ranked drivers: {', '.join(structured.missing)}."))
+    if missing_prose:
+        issues.append(Issue("missing_prose_drivers", f"State the direction in prose for: {', '.join(missing_prose)}."))
+    return trace, tuple(issues)
+
+
 def _audit(case, call):
+    trace = {"parse": None, "structured": None, "narrative": None, "correct": None, "complete": None}
     if call["error"]:
-        return {"parse": None, "structured": None, "narrative": None}, (Issue(**call["error"]),)
+        return dict(trace, status="inference_error"), (Issue(**call["error"]),)
     parsed = parse_response(call["raw"], feature_keys(case))
-    trace = {"parse": asdict(parsed), "structured": None, "narrative": None}
+    trace["parse"] = asdict(parsed)
     if parsed.error:
-        return trace, (parsed.error,)
-    structured = verify_attribution(case, parsed.answer.drivers)
-    narrative = verify_narrative(case, parsed.answer)
-    trace.update(structured=asdict(structured), narrative=asdict(narrative))
-    issues = structured.issues + tuple(
-        Issue(claim.code, f"{claim.detail} Text: {claim.text}")
-        for claim in narrative.claims if claim.status in ("contradicted", "ambiguous")
-    )
-    return trace, issues
+        return dict(trace, status="parse_error"), (parsed.error,)
+    assessment, issues = _assess_answer(case, parsed.answer)
+    return {**trace, **assessment}, issues
 
 
 def verify_and_revise(case, grounded_draft, infer, *, timeout=90):
@@ -163,31 +183,27 @@ def _verify_and_revise(case, draft_call, revise):
         "revision_rejected": False, "fallback_used": False, "fallback_reason": None,
     }
     if not issues:
-        return dict(result, source="grounded_draft", answer=original["parse"]["answer"])
+        return dict(result, source="grounded_draft", status=original["status"],
+                    answer=original["parse"]["answer"])
     if not draft_call["error"]:
         call = revise(correction_prompt(case, draft_call["raw"], issues))
         revision, issues = _audit(case, call)
         result.update(revision_call=call, revision=revision, revision_requested=True,
                       revision_accepted=not issues, revision_rejected=bool(issues))
         if not issues:
-            return dict(result, source="model_revision", answer=revision["parse"]["answer"])
+            return dict(result, source="model_revision", status=revision["status"],
+                        answer=revision["parse"]["answer"])
     answer = deterministic_answer(case)
-    structured = verify_attribution(case, answer.drivers)
-    narrative = verify_narrative(case, answer)
-    if not structured.passed or not narrative.passed:
+    assessment, fallback_issues = _assess_answer(case, answer)
+    if fallback_issues:
         raise RuntimeError("Deterministic fallback failed its verifier.")
-    return dict(result, source="deterministic_fallback", answer=asdict(answer),
+    return dict(result, source="deterministic_fallback", status=assessment["status"], answer=asdict(answer),
                 fallback_used=True, fallback_reason=[asdict(issue) for issue in issues],
-                fallback_validation={"structured": asdict(structured), "narrative": asdict(narrative)})
-
-
-def _fingerprint(value):
-    payload = json.dumps(value, sort_keys=True, separators=(",", ":"), allow_nan=False)
-    return hashlib.sha256(payload.encode()).hexdigest()
+                fallback_validation=assessment)
 
 
 def checkpoint_key(case_id, condition, prompt_version, model_configuration):
-    return _fingerprint([case_id, condition, prompt_version, model_configuration])
+    return fingerprint([case_id, condition, prompt_version, model_configuration])
 
 
 @contextmanager
@@ -230,7 +246,7 @@ class _BudgetReached(Exception):
 
 def run_experiment(cases, infer: Inference, directory, *, model_config=None,
                    prompt_version=PROMPT_VERSION, request_timeout=90,
-                   max_calls=30, runtime_seconds=900):
+                   max_calls=30, runtime_seconds=900, provenance=None):
     """Resume one checkpoint. The call cap is cumulative and the wall budget per invocation.
 
     Failed attempts are recorded as terminal observations. A budget pause keeps
@@ -255,9 +271,10 @@ def run_experiment(cases, infer: Inference, directory, *, model_config=None,
     }
     manifest = {
         "checkpoint_version": CHECKPOINT_VERSION,
-        "prompt_version": prompt_version, "configuration": configuration,
-        "cases": [{"id": case.case_id, "input_sha256": _fingerprint(prompt_payload(case, "B"))}
-                  for case in cases],
+        "prompt_version": prompt_version, "verifier_version": VERIFIER_VERSION,
+        "scorer_version": SCORER_VERSION, "shap_zero_tolerance": SHAP_ZERO_TOLERANCE,
+        "configuration": configuration, "cases": case_fingerprints(cases),
+        "provenance": json.loads(json.dumps(provenance, allow_nan=False)),
     }
     records = {
         checkpoint_key(case.case_id, condition, prompt_version, configuration): {
@@ -274,7 +291,7 @@ def run_experiment(cases, infer: Inference, directory, *, model_config=None,
                 raise ValueError("Checkpoint must be an owner-only regular file.")
             state = json.loads(checkpoint.read_text(encoding="utf-8"))
             if state["manifest"] != manifest or state["records"].keys() != records.keys():
-                raise ValueError("Incompatible checkpoint input, prompt, or model configuration.")
+                raise ValueError("Incompatible checkpoint input, version, provenance, or model configuration.")
         else:
             state = {"manifest": manifest, "records": records, "calls": 0, "pause_reason": None}
             _save(checkpoint, state)

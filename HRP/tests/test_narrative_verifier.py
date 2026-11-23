@@ -86,6 +86,18 @@ class NarrativeTests(unittest.TestCase):
         self.assertFalse(self.audit("The model estimates a 99% readmission probability.").passed)
         self.assertFalse(self.audit("Age increases predicted risk because treatment was delayed.").passed)
 
+    def test_live_style_probability_and_clear_risk_antecedent(self):
+        case = self.cases[2]
+        probability = f"The model predicts a {case.predicted_risk:.1%} risk of readmission."
+        result = self.audit(
+            probability + " Sodium missing decreases predicted risk, while age also increases it, "
+            "and creatinine decreases it.", case,
+        )
+        self.assertTrue(result.passed, result.claims)
+        self.assertEqual([claim.status for claim in result.claims], ["non_attribution", "supported", "supported", "supported"])
+        self.assertFalse(self.audit(probability + " Creatinine decreases it.", case).passed)
+        self.assertFalse(self.audit("Sodium missing decreases predicted risk, while age decreases it.", case).passed)
+
     def test_correct_scale_description_is_descriptive(self):
         result = self.audit("SHAP contributions describe changes in raw log-odds, not percentage-point changes.")
         self.assertTrue(result.passed)

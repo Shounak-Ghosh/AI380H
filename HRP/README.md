@@ -417,3 +417,35 @@ the runner writing its response can require replaying that request.
 
 The Experiment 2A notebook exercises only the fictional workflow. The
 72-case benchmark is a later run.
+
+## Experiment 2B preflight and real benchmark
+
+A and B continue to accept partial driver lists and abstentions. In C,
+`correct_incomplete` means that the checked claims and listed drivers are
+correct, with at least one reference top feature missing from the driver
+list or its explicit direction missing from the prose. C attempts a
+revision in this case and uses a deterministic answer if the revision
+also fails completeness or correctness. All stages retain their own
+verification status, and the original B response is preserved verbatim.
+
+`experiment2_scoring.score_experiment(cases, checkpoint)` uses identical
+non-negligible reference drivers for A, B and C. Rank-position and exact
+order metrics compare feature keys. Signed agreement also requires the
+reference direction. Narrative counts operate on clauses, so a sign error
+and JSON conflict in one clause count as one contradiction. The scorer
+reports unsupported claims, ambiguous clauses, parse and inference failures,
+interventions, and request latency. Paired differences are right condition
+minus left condition and use case pairs with scorable outputs on both
+sides. Failure and exclusion counts remain visible. Source strata
+distinguish independent A/B generations, accepted B drafts, model
+revisions, and deterministic fallbacks. C's call count includes only its
+revision requests.
+
+The notebook defaults to fictional data. For the later real benchmark,
+explicitly enable `RUN_REAL_BENCHMARK` and set `REAL_OUTPUT_DIRECTORY`.
+The notebook loads the pinned cases through `load_explanation_cases()`,
+uses local Ollama with a recorded model digest, and displays aggregate
+results. Use the same directory to resume a paused run. The checkpoint
+stores prompt, verifier and scorer versions, input fingerprints, the
+pinned provenance and model configuration. Start a fresh directory for
+checkpoints from Experiment 2A or any incompatible configuration.

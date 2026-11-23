@@ -5,7 +5,7 @@ and simple observations. It flags recognizable causal and scale language.
 Everything outside the grammar is recorded as ambiguous and requires review.
 """
 
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 import math
 import re
 
@@ -22,7 +22,7 @@ ALIASES = {
 RISK = r"(?:the )?(?:model(?:'s)? )?(?:predicted |readmission )*(?:risk|probability|prediction)"
 RELATIVE = r"(?: relative to (?:the )?(?:model(?:'s)? )?(?:reference(?: prediction)?|baseline))?"
 DIRECTION = re.compile(
-    rf"(?P<subject>.+?) (?:(?P<verb>increases?|decreases?|raises?|lowers?|reduces?) {RISK}"
+    rf"(?P<subject>.+?) (?:also )?(?:(?P<verb>increases?|decreases?|raises?|lowers?|reduces?) {RISK}"
     rf"|(?:is|are) associated with (?:a )?(?P<association>higher|lower) {RISK}){RELATIVE}", re.I,
 )
 RANK = re.compile(
@@ -36,7 +36,9 @@ INFLUENCE = re.compile(
 )
 PREDICTION = re.compile(
     r"(?:the )?model (?:estimates|predicts) (?:a |an )?(?P<percent>\d+(?:\.\d+)?)%"
-    r" (?:30[- ]day )?readmission (?:probability|risk)", re.I,
+    r" (?:"
+    r"(?:30[- ]day )?readmission (?:probability|risk)|"
+    r"(?:30[- ]day )?(?:probability|risk) of readmission)", re.I,
 )
 CAUSAL = re.compile(r"\b(?:causes?|caused|causing|leads? to|led to|results? in|"
                     r"prevents?|prevented|causal(?:ly)?|due to)\b", re.I)
@@ -69,6 +71,7 @@ class Claim:
     code: str
     detail: str
     feature: str | None = None
+    clause_index: int = 0
 
 
 @dataclass(frozen=True)
@@ -98,18 +101,29 @@ def verify_narrative(case, answer) -> NarrativeResult:
     top = tuple(driver.feature for driver in expected_drivers(case))
     observed = {driver.feature: driver.direction for driver in answer.drivers}
     claims = []
+    clause_index = 0
 
     for sentence in sentences(answer.explanation):
         clean = sentence.replace("’", "'").replace("`", "").strip().rstrip(".!?")
+        risk_antecedent = False
         for clause in clause_split.split(clean):
-            claims.extend(_check_clause(clause.strip(), case, features, aliases, mention,
-                                        values, top, observed))
+            findings = _check_clause(clause.strip(), case, features, aliases, mention,
+                                     values, top, observed, risk_antecedent)
+            risk_antecedent = any(claim.code == "direction" for claim in findings)
+            claims.extend(replace(claim, clause_index=clause_index) for claim in findings)
+            clause_index += 1
     return NarrativeResult(
         tuple(claims), all(claim.status in ("supported", "non_attribution") for claim in claims)
     )
 
 
-def _check_clause(text, case, features, aliases, mention, values, top, observed):
+def missing_direction_claims(expected, narrative):
+    described = {claim.feature for claim in narrative.claims
+                 if claim.code == "direction" and claim.status == "supported"}
+    return tuple(driver.feature for driver in expected if driver.feature not in described)
+
+
+def _check_clause(text, case, features, aliases, mention, values, top, observed, risk_antecedent):
     def claim(status, code, detail, feature=None):
         return Claim(text, status, code, detail, feature)
 
@@ -141,8 +155,11 @@ def _check_clause(text, case, features, aliases, mention, values, top, observed)
     if hazards:
         return hazards
 
+    directional_text = text
+    if risk_antecedent:
+        directional_text = re.sub(r" it$", " the model's predicted risk", text, flags=re.I)
     for pattern in (DIRECTION, RANK, INFLUENCE):
-        match = pattern.fullmatch(text)
+        match = pattern.fullmatch(directional_text if pattern is DIRECTION else text)
         if not match:
             continue
         subject = match["subject"]

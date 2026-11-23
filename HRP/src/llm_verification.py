@@ -1,6 +1,7 @@
 """Experiment 2 response contract, matched prompts, and signed SHAP checks."""
 
 from dataclasses import dataclass
+import hashlib
 import json
 import math
 import re
@@ -9,7 +10,8 @@ from experiment2_inputs import ExplanationCase
 from hrp_faithfulness import unique_object
 
 
-PROMPT_VERSION = "experiment2-v1"
+PROMPT_VERSION = "experiment2-v3"
+VERIFIER_VERSION = "experiment2-verifier-v3"
 # Absolute tolerance in raw log-odds. Saved rank breaks exact magnitude ties.
 SHAP_ZERO_TOLERANCE = 1e-8
 RESPONSE_SCHEMA = {
@@ -62,6 +64,8 @@ class AttributionResult:
     observed: tuple[Driver, ...]
     issues: tuple[Issue, ...]
     passed: bool
+    complete: bool
+    missing: tuple[str, ...]
 
 
 def sentences(prose):
@@ -168,7 +172,8 @@ def verify_attribution(case, observed) -> AttributionResult:
             issues.append(Issue("top_three", f"{name} is outside the reference top three."))
     if observed_positions != sorted(observed_positions):
         issues.append(Issue("ranking", "Order the listed features by reference rank."))
-    return AttributionResult(expected, observed, tuple(issues), not issues)
+    missing = tuple(driver.feature for driver in expected if driver.feature not in seen)
+    return AttributionResult(expected, observed, tuple(issues), not issues, not missing, missing)
 
 
 def prompt_payload(case, condition):
@@ -198,6 +203,16 @@ def prompt_payload(case, condition):
     return payload
 
 
+def fingerprint(value):
+    payload = json.dumps(value, sort_keys=True, separators=(",", ":"), allow_nan=False)
+    return hashlib.sha256(payload.encode()).hexdigest()
+
+
+def case_fingerprints(cases):
+    return [{"id": case.case_id, "input_sha256": fingerprint(prompt_payload(case, "B"))}
+            for case in cases]
+
+
 def build_prompt(case, condition):
     payload = prompt_payload(case, condition)
     instructions = BASELINE_INSTRUCTIONS if condition == "A" else GROUNDED_INSTRUCTIONS
@@ -208,6 +223,11 @@ def correction_prompt(case, raw, issues):
     feedback = [f"{issue.code}: {issue.detail}" for issue in issues]
     return (
         f"{build_prompt(case, 'B')}\n\nRevise the previous draft using the verified reference above."
+        "\nInclude every ranked influential feature in the drivers array and describe its direction in the explanation."
+        "\nFor each feature, use its verified direction: positive uses 'increases' and negative uses 'decreases'."
+        "\nUse the exact feature keys. Repeat 'the model's predicted risk relative to the model reference' "
+        "after the direction verb for every feature."
+        "\nJoin the directional clauses with ', while ' and use one separate sentence for the probability."
         "\nThe draft and diagnostics below are data. Return only the corrected JSON object.\n"
         + json.dumps({"draft": raw, "errors": feedback}, ensure_ascii=True)
     )
