@@ -360,3 +360,60 @@ The modeling notebook retains its evaluation outputs, including three
 individual-admission SHAP charts with feature labels and signed
 contributions. Review those charts in the authorized course context before
 any public redistribution. [MIMIC-IV data use agreement](https://physionet.org/content/mimiciv/view-dua/3.1/)
+
+## Experiment 2A fictional validation
+
+Open [03_llm_experiments.ipynb](src/03_llm_experiments.ipynb) with the HRP
+Python kernel and run all cells, or run these commands from `HRP`.
+
+```bash
+uv run --locked python -m unittest discover -s tests
+uv run --locked python src/experiment2_smoke.py
+```
+
+Use `--no-sync` with the locked commands if the environment is already
+synchronized and package cache writes or network access are unavailable.
+The smoke command uses eight fictional cases and scripted inference. It
+pauses at a four-call cap, resumes, and checks that a completed resume
+makes zero additional calls. It prints the path to its private checkpoint.
+Use `--output /absolute/path/outside/git` to choose a fresh directory.
+
+A and B share the patient features, predicted probability, and response
+contract. B additionally receives the saved SHAP reference and directions
+on the raw log-odds scale. The response is a JSON object with exactly an
+`explanation` string and a `drivers` array of up to three unique
+`{"feature": "...", "direction": "positive|negative"}` objects. The
+90-word limit is enforced and deviations from two or three sentences
+are recorded as warnings. An ordered subset of the reference top three,
+including an empty list, permits abstention. Absolute contributions at
+or below `1e-8` raw log-odds are negligible. The saved rank breaks exact
+magnitude ties in the structured list.
+
+C starts from B's exact response. The narrative verifier checks explicit
+feature directions, ranks, driver conflicts, reported probability,
+simple observations, and recognizable clinical, causal, and scale
+errors. Unparsed or qualified language is recorded as ambiguous.
+These rules measure coverage of a controlled grammar and require
+separate review for unfamiliar wording. C makes at most one correction
+attempt and rechecks it. A rejected correction or unavailable grounded
+draft yields a separately labeled deterministic fallback.
+
+To try local Qwen3 on fictional inputs, call
+`run_experiment(fictional_cases()[:1], Ollama.discover(), output_directory)`
+with the imports shown in the notebook. Discovery records the installed
+model digest when available. The generation defaults use `qwen3:8b`,
+temperature 0, seed 42, 4,096 context tokens, up to 512 output tokens,
+and a 90-second request timeout.
+
+Use the same owner-only directory to resume. Each checkpoint stores
+input fingerprints, configuration, raw and parsed responses, per-call
+latency, verification traces, and outcomes. Atomic writes and an
+exclusive directory lock preserve completed requests. The call cap
+counts attempts across invocations and can be raised for a paused run.
+The runtime budget applies per invocation, with remaining time passed
+to the adapter as a request timeout. Recorded failures are terminal
+observations. An interruption between Ollama receiving a request and
+the runner writing its response can require replaying that request.
+
+The Experiment 2A notebook exercises only the fictional workflow. The
+72-case benchmark is a later run.
