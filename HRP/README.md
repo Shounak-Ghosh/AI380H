@@ -609,8 +609,15 @@ faithful prose and faithful incomplete responses. Settings are temperature
 0, seed 42, the existing correction prompt and at most one generation
 request per example. The checkpoint records requests before generation and
 keeps returned traces private. Its cumulative cap supports pause and resume.
-Live results require independent revision annotation. The supplied reference
-bundle contains no live inference results.
+The completed 30-case live supplement used a single human reviewer blinded
+to gate decisions. The reviewer rated 28 revisions faithful and all 30
+complete and valid. Qwen3 corrected 10 of 10 original mathematical errors,
+and the gate accepted 8 of those corrections. Overall the gate accepted
+16 of 30 revisions and used fallback for 14. Twelve of 28 faithful,
+complete and valid revisions were falsely rejected (42.9%). Both revisions
+with incorrect driver order were rejected. Case-level live assets and the
+final analysis remain private. The notebook reports the aggregate results
+alongside the offline benchmark.
 
 ```bash
 uv run --locked python src/verifier_evaluation.py live_revision \
@@ -623,5 +630,4 @@ worksheets from the pinned Experiment 2 or 3 runs. The benchmark requires no
 MIMIC-IV data, and the saved-prose audit exports no patient-level text to
 Git. The earlier verifier, checkpoints and scores are preserved. Experiment
 5 can use the blinded worksheet to measure reviewer agreement and assess
-faithfulness, clarity and readability. Independent human review and the
-saved-prose analysis remain pending.
+faithfulness, clarity and readability. The separate saved-prose analysis remains pending.
