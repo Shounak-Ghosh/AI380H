@@ -609,21 +609,33 @@ faithful prose and faithful incomplete responses. Settings are temperature
 0, seed 42, the existing correction prompt and at most one generation
 request per example. The checkpoint records requests before generation and
 keeps returned traces private. Its cumulative cap supports pause and resume.
-The completed 30-case live supplement used a single human reviewer blinded
-to gate decisions. The reviewer rated 28 revisions faithful and all 30
-complete and valid. Qwen3 corrected 10 of 10 original mathematical errors,
-and the gate accepted 8 of those corrections. Overall the gate accepted
-16 of 30 revisions and used fallback for 14. Twelve of 28 faithful,
-complete and valid revisions were falsely rejected (42.9%). Both revisions
-with incorrect driver order were rejected. Case-level live assets and the
-final analysis remain private. The notebook reports the aggregate results
-alongside the offline benchmark.
+The completed live supplement used 30 selected fictional drafts, ten each
+with mathematical errors, faithful prose withheld by the gate, and faithful
+but incomplete responses. One human reviewer evaluated revisions against
+the frozen rubric and synthetic SHAP references while blinded to verifier
+decisions, as reported in the study procedure. The reviewer judged 28 of 30
+revisions faithful, complete and valid. The gate accepted 16 of those
+revisions and withheld 12 (42.9%). It withheld both unfaithful revisions,
+each with incorrect driver order. One reviewer, two unfaithful revisions,
+and a selected fictional sample limit generalization. Blinding reduces
+one potential source of bias, and inter-reviewer agreement was not measured.
+
+The notebook loads the [published live aggregate](experiment4/v1/results/live_annotation_summary.json)
+without accessing private files. To verify the aggregate against the saved
+sources, set the three paths to your existing private files and run:
 
 ```bash
-uv run --locked python src/verifier_evaluation.py live_revision \
-  --live-directory "$HOME/Library/Application Support/AI380H/experiment4-live-v1" \
-  --max-calls 30
+uv run --locked python src/verifier_live_annotation.py validate \
+  --checkpoint "$LIVE_CHECKPOINT" \
+  --annotations "$LIVE_ANNOTATIONS" \
+  --crosswalk "$LIVE_CROSSWALK"
 ```
+
+Validation is read-only and reports unavailable inputs separately. Use the
+explicit `export` action with the same paths to regenerate the aggregate
+after reviewing discrepancies. Both actions use saved records and make no
+model requests. Keep the checkpoint, annotation workbook and crosswalk
+outside Git.
 
 Optional saved-prose audit settings in the notebook create owner-only
 worksheets from the pinned Experiment 2 or 3 runs. The benchmark requires no

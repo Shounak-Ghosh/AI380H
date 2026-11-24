@@ -1,0 +1,183 @@
+{
+  "version": "experiment4-live-annotation-v1",
+  "study": {
+    "selected_drafts": 30,
+    "reviewers": 1,
+    "fictional_cases_only": true,
+    "review_blinded_to_verifier_decision": true,
+    "blinding_evidence": "Reported review procedure. Source files do not independently establish blinding."
+  },
+  "provenance": {
+    "challenge_sha256": "64840e4744bab0fe457767056cc474856144db5c4a27198f8ad0364508abfd36",
+    "live_checkpoint_sha256": "5bae9a0c7d379f47f68455016ffde806dd250f2aba3b2d655fe6775c82df6c94",
+    "annotation_sha256": "b06c70bfb0c94427f2cc829d8acc9fdea1b81c9f3ceaeaef3a096fef08acdde0",
+    "crosswalk_sha256": "3269635d3ab3bb1208c86e4455a8f9404e15ce5477a37de2fb04108eb4e390f3",
+    "live_selection_sha256": "ed3c209abe127eb206ca09d9751ec32596de50aeebc4b614246f244cc486797f",
+    "frozen_verifier_version": "experiment2-verifier-v3",
+    "frozen_verifier_code_sha256": "ddf413feffe3b14925cccff67f0fcd996a3dc28ae40c8a98b93b5a3265ea2d4d",
+    "analysis_version": "experiment4-live-annotation-v1"
+  },
+  "overall": {
+    "selected_drafts": 30,
+    "completed_revisions": 30,
+    "valid": 30,
+    "faithful": 28,
+    "unfaithful": 2,
+    "indeterminate": 0,
+    "complete": 30,
+    "faithful_complete_valid": 28,
+    "accepted": 16,
+    "rejected": 14,
+    "fallback": 14,
+    "reserved_requests": 30
+  },
+  "by_stratum": [
+    {
+      "stratum": "math_error",
+      "label": "Mathematical errors",
+      "selected_drafts": 10,
+      "completed_revisions": 10,
+      "valid": 10,
+      "faithful": 10,
+      "unfaithful": 0,
+      "indeterminate": 0,
+      "complete": 10,
+      "faithful_complete_valid": 10,
+      "accepted": 8,
+      "rejected": 2,
+      "fallback": 2,
+      "mathematical_correction": {
+        "numerator": 10,
+        "denominator": 10,
+        "rate": 1.0
+      },
+      "accepted_full_correction": {
+        "numerator": 8,
+        "denominator": 10,
+        "rate": 0.8
+      }
+    },
+    {
+      "stratum": "faithful_prose",
+      "label": "Faithful prose withheld",
+      "selected_drafts": 10,
+      "completed_revisions": 10,
+      "valid": 10,
+      "faithful": 8,
+      "unfaithful": 2,
+      "indeterminate": 0,
+      "complete": 10,
+      "faithful_complete_valid": 8,
+      "accepted": 2,
+      "rejected": 8,
+      "fallback": 8,
+      "accepted_faithful_rewrite": {
+        "numerator": 2,
+        "denominator": 10,
+        "rate": 0.2
+      }
+    },
+    {
+      "stratum": "incomplete",
+      "label": "Faithful but incomplete",
+      "selected_drafts": 10,
+      "completed_revisions": 10,
+      "valid": 10,
+      "faithful": 10,
+      "unfaithful": 0,
+      "indeterminate": 0,
+      "complete": 10,
+      "faithful_complete_valid": 10,
+      "accepted": 6,
+      "rejected": 4,
+      "fallback": 4,
+      "completeness_repair": {
+        "numerator": 10,
+        "denominator": 10,
+        "rate": 1.0
+      },
+      "accepted_faithful_completion": {
+        "numerator": 6,
+        "denominator": 10,
+        "rate": 0.6
+      }
+    }
+  ],
+  "confusion_matrix": {
+    "accepted": {
+      "faithful": 16,
+      "unfaithful": 0
+    },
+    "rejected": {
+      "faithful": 12,
+      "unfaithful": 2
+    }
+  },
+  "binary_exclusions": {
+    "invalid_response": 0,
+    "indeterminate": 0
+  },
+  "classification_counts": {
+    "correct_acceptance": 16,
+    "false_acceptance": 0,
+    "correct_rejection": 2,
+    "false_rejection": 12
+  },
+  "rates": {
+    "false_rejection_faithful_complete_valid": {
+      "numerator": 12,
+      "denominator": 28,
+      "rate": 0.42857142857142855
+    },
+    "false_acceptance_unfaithful_valid": {
+      "numerator": 0,
+      "denominator": 2,
+      "rate": 0.0
+    },
+    "fallback": {
+      "numerator": 14,
+      "denominator": 30,
+      "rate": 0.4666666666666667
+    }
+  },
+  "rejection_reasons": {
+    "faithful_rejected": 12,
+    "ambiguous_or_unparsed": 12,
+    "missing_parsed_prose_directions": 11,
+    "explicit_contradiction": 0,
+    "other_issue_codes": {},
+    "issue_code_counts": {
+      "missing_prose_drivers": 11,
+      "unparsed": 12
+    },
+    "combinations": [
+      {
+        "issue_codes": [
+          "missing_prose_drivers",
+          "unparsed"
+        ],
+        "count": 11
+      },
+      {
+        "issue_codes": [
+          "unparsed"
+        ],
+        "count": 1
+      }
+    ]
+  },
+  "unfaithful_revision_error_counts": {
+    "incorrect_attribution_ranking": 2
+  },
+  "final_delivery": {
+    "model_revision": 16,
+    "deterministic_fallback": 14
+  },
+  "limitations": [
+    "One human reviewer. Inter-reviewer agreement was not estimated.",
+    "The 30 fictional drafts were selected from previously rejected examples.",
+    "Few unfaithful revisions limit what the false-acceptance result can establish.",
+    "Fictional SHAP references and selected drafts limit generalization to real hospital data and natural LLM prose.",
+    "Reported blinding reduces one source of bias, and human judgments can still contain errors."
+  ]
+}
