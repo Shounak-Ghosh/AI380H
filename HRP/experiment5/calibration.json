@@ -1,0 +1,55 @@
+{
+  "reference": {
+    "predicted_probability": 0.3,
+    "shap_output_scale": "log-odds",
+    "contributions": [
+      {
+        "rank": 1,
+        "feature": "prior visits",
+        "value": 2,
+        "unit": "visits",
+        "shap": 0.4
+      },
+      {
+        "rank": 2,
+        "feature": "shorter stay",
+        "value": 2,
+        "unit": "days",
+        "shap": -0.3
+      },
+      {
+        "rank": 3,
+        "feature": "discharge support plan",
+        "value": "present",
+        "shap": -0.1
+      }
+    ],
+    "context": "The fictional reference contains no causal evidence."
+  },
+  "examples": [
+    {
+      "explanation_text": "The model estimates a 30% chance of readmission. Two prior visits increase its prediction, while shorter stay and the discharge support plan decrease it. Prior visits have the largest model contribution.",
+      "rubric_feedback": "Faithful and complete. The probability, directions and ranking agree with the fictional reference."
+    },
+    {
+      "explanation_text": "The model estimates a 30% chance of readmission. The patient's two prior visits decrease the model's prediction.",
+      "rubric_feedback": "Unfaithful. Prior visits have a positive contribution (+0.40). The explanation reverses that direction."
+    },
+    {
+      "explanation_text": "The model estimates a 30% chance of readmission. Prior visits increase the model prediction.",
+      "rubric_feedback": "Faithful and partial. The explicit claims agree with the reference. Two of the three drivers are omitted."
+    },
+    {
+      "explanation_text": "The model estimates a 30% chance of readmission. The support plan changed the prediction in the way expected given the case.",
+      "rubric_feedback": "Indeterminate. The phrase “in the way expected” leaves the direction of the support-plan contribution unclear."
+    },
+    {
+      "explanation_text": "The model estimates a 30% chance of readmission. The discharge support plan caused the lower risk of readmission.",
+      "rubric_feedback": "Unfaithful. A negative SHAP contribution describes model attribution and does not support the causal claim."
+    },
+    {
+      "explanation_text": "At 30%, the output is 30%. Prior visits increase the prediction. Shorter stay decreases the prediction. A discharge support plan decreases the prediction.",
+      "rubric_feedback": "Faithful and complete. The probability and directions agree with the reference. Consider the repetitive wording when scoring readability."
+    }
+  ]
+}

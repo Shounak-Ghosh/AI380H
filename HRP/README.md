@@ -643,3 +643,15 @@ MIMIC-IV data, and the saved-prose audit exports no patient-level text to
 Git. The earlier verifier, checkpoints and scores are preserved. Experiment
 5 can use the blinded worksheet to measure reviewer agreement and assess
 faithfulness, clarity and readability. The separate saved-prose analysis remains pending.
+
+## Experiment 5 — Human Evaluation of Explanation Faithfulness and Readability
+
+[Notebook](src/06_human_explanation_evaluation.ipynb) · [Reviewer guide](experiment5/README.md) · [Rubric](experiment5/rubric.md) · [Protocol](experiment5/protocol.md)
+
+The study tests whether SHAP grounding improves mathematical faithfulness, whether verified delivery affects readability, and how the two outcomes vary together. An optional secondary study examines whether counterintuitive synthetic attributions are harder to explain faithfully. Both studies use saved explanations and model references from the frozen Experiment 2 and 3 benchmarks. The primary sample uses a fixed seed to select eight complete matched admissions from each of three saved risk strata. Each admission contributes one A, B and C delivery. The optional synthetic sample keeps both variants of each fictional profile together and uses each variant's model reference.
+
+One project-familiar reviewer rates the 72 blinded explanations. The local review tool collects clarity and readability before revealing the model reference for faithfulness, completeness, uncertainty and unsupported-claim judgments. A separate 12-item repeat pass, balanced by condition, uses fresh blind IDs with prior answers hidden. The analysis reports paired condition contrasts, risk strata, C delivery source, frozen-verifier comparisons and intra-reviewer repeat consistency. Bootstrap intervals resample whole admissions or fictional profiles.
+
+Use `setup` to validate the frozen source and optionally create worksheets, `review` to open saved progress and aggregates read-only, `analyze` for locked annotations, and `fictional` for offline software validation. The private worksheets, reference files, annotations and crosswalk stay outside Git with owner-only permissions. The setup target is 72 primary annotations and 12 repeats. Ratings remain pending until the reviewer completes them.
+
+Prior project familiarity and recognizable fallback phrasing can influence judgments despite condition-label blinding. A single reviewer provides no inter-reviewer reliability estimate. Repeat ratings address stability within that reviewer. The study is exploratory and does not establish clinical usability or definitive clinical ground truth.
