@@ -1,0 +1,6 @@
+outcome,numerator,denominator,rate
+faithful,28,30,
+accepted,16,30,
+fallback,14,30,
+unfaithful,2,30,
+faithful_complete_valid_withheld,12,28,0.42857142857142855

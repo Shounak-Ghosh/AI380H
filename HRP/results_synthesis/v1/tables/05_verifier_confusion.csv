@@ -1,0 +1,5 @@
+cohort,decision,n,TP,FP,TN,FN
+primary,explicit,120,52,0,60,8
+primary,release,120,60,36,24,0
+all_eligible_sensitivity,explicit,148,56,0,80,12
+all_eligible_sensitivity,release,148,68,56,24,0

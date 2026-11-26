@@ -655,3 +655,68 @@ One project-familiar reviewer rates the 72 blinded explanations. The local revie
 Use `setup` to validate the frozen source and optionally create worksheets, `review` to open saved progress and aggregates read-only, `analyze` for locked annotations, and `fictional` for offline software validation. The private worksheets, reference files, annotations and crosswalk stay outside Git with owner-only permissions. The setup target is 72 primary annotations and 12 repeats. Ratings remain pending until the reviewer completes them.
 
 Prior project familiarity and recognizable fallback phrasing can influence judgments despite condition-label blinding. A single reviewer provides no inter-reviewer reliability estimate. Repeat ratings address stability within that reviewer. The study is exploratory and does not establish clinical usability or definitive clinical ground truth.
+
+## Final Results Analysis and Research Synthesis
+
+[Notebook 07](src/07_results_analysis.ipynb) integrates the five frozen experiments for the
+research report and presentation. It uses the original cohorts, configurations, scoring definitions,
+paired comparisons and bootstrap intervals. The synthesis is an analysis of completed studies.
+
+| Experiment | Validated source |
+|---|---|
+| 1 | Pinned model bundle and cohort readiness manifest, with frozen prediction and SHAP aggregates |
+| 2 | Original `checkpoint.json` and `llm-runs/experiment2-qwen3-primary/analysis-v1/` under the private MIMIC-IV root |
+| 3 | Private `llm-runs/experiment3-adversarial/qwen3-v1/` scenario, checkpoint, analysis and checksum index |
+| 4 | Committed `experiment4/v1/` challenge, benchmark analysis and public `results/live_annotation_summary.json` |
+| 5 | Owner-only `experiment5-private-v1/` locked primary review packet and checksummed `results-v1` snapshot |
+
+Use the existing HRP environment (`uv sync --locked --python 3.12`) and
+the HRP Python kernel. The private MIMIC-IV root defaults to
+`~/Library/Application Support/AI380H/MIMIC-IV`. `MIMIC_OUTPUT_DIR` sets the
+cohort and Experiment 2/3 root, and `HRP_MODEL_OUTPUT_DIR` can override the
+model-bundle root. Set `PRIVATE_HUMAN_DIRECTORY` in the notebook
+or `--human-directory` on the CLI to point to an alternate authorized copy
+of the Experiment 5 study directory.
+
+| Mode | Behavior |
+|---|---|
+| `review` | Default. Check and display validated sources and local aggregate findings. |
+| `validate` | Check each frozen source and verify the output index when the requested synthesis version exists. |
+| `export` | Require successful validation of all five experiments and create a new `results_synthesis/vN` directory. |
+| `fictional` | Exercise paired summaries and a figure on scripted fictional ratings. |
+
+```bash
+uv run --locked python src/results_synthesis.py review
+uv run --locked python src/results_synthesis.py validate
+uv run --locked python src/results_synthesis.py fictional
+uv run --locked python src/results_synthesis.py export --version v1
+uv run --locked python -m unittest discover -s tests
+```
+
+The default run leaves source, notebook and synthesis files untouched. Existing project
+validators check the pinned cohort, model, checkpoints, challenge, and human packet.
+Experiment 2's saved quantitative v1 tables are reconciled with the current read-only v2
+analysis. Experiment 4's live supplement is checked using its public schema,
+arithmetic, and links to the committed benchmark and selection.
+Experiment 5 verifies the index, study manifest, annotation checksum and primary lock.
+Matplotlib can initialize its normal user or temporary font cache.
+
+The Experiment 5 results directory must accompany the authorized study packet.
+Primary ratings can be reviewed while repeats are pending. After 12 repeats are recorded
+and locked, make a new private results snapshot with the existing Experiment 5 CLI
+and select it via `HUMAN_VERSION` or `--human-version`. Notebook 07 checks that the
+new snapshot preserves the primary results. Use a new synthesis version for each export.
+
+The [v1 bundle](results_synthesis/v1/README.md) contains the report figures, CSV tables,
+the master hypothesis-results table, `master_results.json`, a source manifest, and a
+checksum index. The public Experiment 5 table and chart use broad whole-condition
+faithfulness bands and rounded text ratings. Exact small cells, matched contrasts,
+delivery-source breakdowns and verifier cross-tabulations are for authorized local review.
+Clear executed notebook outputs before sharing the notebook.
+[PhysioNet MIMIC-IV data use agreement](https://physionet.org/content/mimiciv/view-dua/3.1/)
+
+Report uncertainty at the original unit of analysis. The selected admissions, fictional
+challenge designs, single Qwen3 configuration, grammar-based verifier and one human
+reviewer limit generalization. SHAP explains the frozen model's output relative to its
+reference. Predictive performance and explanation faithfulness address different outcomes,
+and the study supplies no causal or clinical efficacy estimates.

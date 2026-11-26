@@ -1,0 +1,6 @@
+experiment,dataset,design,unit,observations,records
+1,MIMIC-IV v3.1,prediction model and SHAP reference,admission (patient-clustered test uncertainty),358194,
+2,MIMIC-IV v3.1 risk-stratified sample,"baseline, grounded draft and verified delivery",matched admission,72,216
+3,Fictional attribution reversals,intuitive and counterintuitive model variants,matched fictional profile,48,288
+4,Fictional verifier challenge,"detection, release and correction",challenge response (profile-clustered),180,180
+5,MIMIC-IV v3.1 selected triplets,single-reviewer faithfulness and text quality,matched admission,24,72

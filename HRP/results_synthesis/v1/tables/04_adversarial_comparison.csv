@@ -1,0 +1,7 @@
+condition,variant,total,valid,signed_top_three_agreement,exact_top_three_ordering,structured_correct,structured_complete,missing_prose_drivers,structured_prose_conflicts,unsupported_clinical_or_causal,ambiguous_clauses,incorrect_direction_rate,incorrect_prose_direction_rate,unsupported_model_claim_rate,prose_completeness,parser_coverage
+A,intuitive,48,44,1.6590909090909092,0.045454545454545456,0,0.13636363636363635,3,0,0,4.340909090909091,0.4772727272727273,0,0,0,0.0
+A,counterintuitive,48,46,0.6521739130434783,0.043478260869565216,0,0.17391304347826086,3,0,0.043478260869565216,4.043478260869565,1,0,0.06521739130434782,0,0.015873015873015872
+B,intuitive,48,48,2.9583333333333335,0.7708333333333334,0.7708333333333334,0.9583333333333334,3,0,0,3.3541666666666665,0,0,0,0,0.0
+B,counterintuitive,48,48,2.7291666666666665,1,0.875,1,3,0,0,2.9791666666666665,0.125,0,0,0,0.0
+C,intuitive,48,48,3,1,1,1,0,0,0,0,0,0,0,1,1.0
+C,counterintuitive,48,48,3,1,1,1,0,0,0,0,0,0,0,1,1.0
